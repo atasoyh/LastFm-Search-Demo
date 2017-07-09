@@ -1,5 +1,6 @@
 package com.atasoyh.lastfmartistfinder.presenter.search;
 
+import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
 import com.atasoyh.lastfmartistfinder.presenter.BaseView;
 
@@ -11,13 +12,14 @@ import java.util.List;
 
 public class SearchContract {
 
-    interface View extends BaseView {
-        void setItems(List<Object> items);
+    public interface View<T extends BasePresenter> extends BaseView<T> {
+        void addItems(List<Artist> items);
+        void refreshItems();
         void enableLoadMore();
         void disableLoadMore();
     }
 
-    interface SearchPresenter extends BasePresenter {
+    public interface SearchPresenter extends BasePresenter {
         void search(String keyword);
         void loadMore();
     }

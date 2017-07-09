@@ -1,30 +1,28 @@
 package com.atasoyh.lastfmartistfinder.presenter.search;
 
 import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
+import com.atasoyh.lastfmartistfinder.interactor.SearchArtistInteractor;
+import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.matchers.Any;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+
 /**
  * Created by atasoyh on 09/07/2017.
  */
 public class SearchPresenterTest {
 
     @Mock
-    SearchContract.View view;
+    SearchContract.View<BasePresenter> view;
 
     @Mock
-    LastFmApi api;
+    SearchArtistInteractor api;
 
     private SearchPresenter presenter;
 
