@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.model.Artist;
-import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
 import com.atasoyh.lastfmartistfinder.presenter.search.SearchContract;
 import com.atasoyh.lastfmartistfinder.view.BaseFragment;
 
@@ -28,7 +27,7 @@ import butterknife.ButterKnife;
  * Created by atasoyh on 09/07/2017.
  */
 
-public class SearchFragment extends BaseFragment implements SearchContract.View<SearchContract.SearchPresenter>, SearchListAdapter.OnItemClickListener, SearchListAdapter.OnNeededLoadMoreListener {
+public class SearchFragment extends BaseFragment implements SearchContract.View<SearchContract.Presenter>, SearchListAdapter.OnItemClickListener, SearchListAdapter.OnNeededLoadMoreListener {
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
@@ -37,7 +36,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
     ProgressBar progressBar;
 
     @Inject
-    SearchContract.SearchPresenter presenter;
+    SearchContract.Presenter presenter;
 
     private SearchComponent searchComponent;
     private SearchListAdapter adapter;
@@ -59,7 +58,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
     }
 
     @Override
-    public void setPresenter(SearchContract.SearchPresenter presenter) {
+    public void setPresenter(SearchContract.Presenter presenter) {
         this.presenter = presenter;
     }
 

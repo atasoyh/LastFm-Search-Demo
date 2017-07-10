@@ -37,12 +37,12 @@ public class SearchPresenterTest {
     @Mock
     SearchArtistInteractor api;
 
-    private SearchPresenter presenter;
+    private SearchPresenter searchPresenter;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        presenter = new SearchPresenter(view, api);
+        searchPresenter = new SearchPresenter(view, api);
 
         when(api.search(eq("lessData"), anyInt(), anyInt())).thenReturn(new io.reactivex.Observable<SearchResponse>() {
             @Override
@@ -69,7 +69,7 @@ public class SearchPresenterTest {
     @Test
     public void testInputIsNull() throws Exception {
         String input = null;
-        presenter.search(input);
+        searchPresenter.search(input);
         verify(view).refreshItems();
         verify(view).disableLoadMore();
         verifyNoMoreInteractions(api);
@@ -77,7 +77,7 @@ public class SearchPresenterTest {
 
     @Test
     public void searchWithLessReult() throws Exception {
-        presenter.search("lessData");
+        searchPresenter.search("lessData");
         verify(api).search(any(), anyInt(), anyInt());
         verify(view, times(1)).showLoading(true);
         verify(view, never()).enableLoadMore();
@@ -91,7 +91,7 @@ public class SearchPresenterTest {
 
     @Test
     public void searchWithMoreResult() throws Exception {
-        presenter.search("moreData");
+        searchPresenter.search("moreData");
         verify(api).search(any(), anyInt(), anyInt());
         verify(view, times(1)).showLoading(true);
         verify(view, never()).disableLoadMore();

@@ -19,7 +19,7 @@ public class SearchContract {
         void disableLoadMore();
     }
 
-    public interface SearchPresenter extends BasePresenter {
+    public interface Presenter extends BasePresenter {
         void search(String keyword);
         void loadMore();
     }

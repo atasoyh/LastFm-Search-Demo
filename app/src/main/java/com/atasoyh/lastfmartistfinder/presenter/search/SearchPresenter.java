@@ -16,7 +16,7 @@ import io.reactivex.disposables.Disposable;
  * Created by atasoyh on 09/07/2017.
  */
 
-public class SearchPresenter implements SearchContract.SearchPresenter {
+public class SearchPresenter implements SearchContract.Presenter {
 
     SearchContract.View<BasePresenter> view;
     SearchArtistInteractor interactor;

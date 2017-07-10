@@ -35,7 +35,7 @@ public class SearchModule {
     }
 
     @Provides
-    SearchContract.SearchPresenter provideSearchArtistPresenter(SearchContract.View view, SearchArtistInteractor interactor) {
+    SearchContract.Presenter provideSearchArtistPresenter(SearchContract.View view, SearchArtistInteractor interactor) {
         return new SearchPresenter(view, interactor);
     }
 
