@@ -57,7 +57,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
                     onItemClickListener.onItemClick(item);
                 }
             });
-        if (position > artistList.size() - 4 && onNeededLoadMoreListener != null) {
+        if (position > artistList.size()-10 && onNeededLoadMoreListener != null) {
             onNeededLoadMoreListener.onNeededLoadMore();
         }
 
