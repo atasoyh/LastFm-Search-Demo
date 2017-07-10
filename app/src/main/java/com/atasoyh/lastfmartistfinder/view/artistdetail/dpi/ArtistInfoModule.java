@@ -5,7 +5,6 @@ import com.atasoyh.lastfmartistfinder.interactor.ArtistInfoInteractorImpl;
 import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
 import com.atasoyh.lastfmartistfinder.presenter.artistinfo.ArtistInfoContract;
 import com.atasoyh.lastfmartistfinder.presenter.artistinfo.ArtistInfoPresenter;
-import com.atasoyh.lastfmartistfinder.presenter.search.SearchContract;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,9 +18,8 @@ import dagger.Provides;
 @Module
 public class ArtistInfoModule {
 
-
-    String artistName;
-    String mbid;
+    private final String artistName;
+    private final String mbid;
 
     private final ArtistInfoContract.View view;
 
@@ -37,12 +35,14 @@ public class ArtistInfoModule {
         return view;
     }
 
+    @ArtistInfoScope
     @Named("artistName")
     @Provides
     String getArtistName() {
         return artistName;
     }
 
+    @ArtistInfoScope
     @Named("mbid")
     @Provides
     String getMbid() {
@@ -54,8 +54,9 @@ public class ArtistInfoModule {
         return new ArtistInfoInteractorImpl(api);
     }
 
+    @ArtistInfoScope
     @Provides
-    ArtistInfoContract.Presenter provideSearchArtistPresenter(ArtistInfoContract.View view, ArtistInfoInteractor interactor, @Named("artistNane") String artistName, @Named("mbid") String mbid) {
+    ArtistInfoContract.Presenter provideArtistInfoPresenter(ArtistInfoContract.View view, ArtistInfoInteractor interactor, @Named("artistName") String artistName, @Named("mbid") String mbid) {
         return new ArtistInfoPresenter(view, interactor, artistName, mbid);
     }
 

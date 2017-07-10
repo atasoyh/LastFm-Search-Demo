@@ -1,8 +1,7 @@
 package com.atasoyh.lastfmartistfinder.presenter.artistinfo;
 
 import com.atasoyh.lastfmartistfinder.interactor.ArtistInfoInteractor;
-import com.atasoyh.lastfmartistfinder.model.response.GetArtistInfoResponse;
-import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
+import com.atasoyh.lastfmartistfinder.model.Artist;
 
 import javax.inject.Inject;
 
@@ -35,21 +34,24 @@ public class ArtistInfoPresenter implements ArtistInfoContract.Presenter {
 
 
     @Override
-    public void loadArtistInfo(String name, String mbid) {
-        artistInfoInteractor.search(name, mbid).subscribe(getObserver());
+    public void loadArtistInfo() {
+        view.showLoading(true);
+        artistInfoInteractor.getInfo(artistName, mbid).subscribe(getObserver());
     }
 
-    private Observer<GetArtistInfoResponse> getObserver() {
-        return new Observer<GetArtistInfoResponse>() {
+    private Observer<Artist> getObserver() {
+        return new Observer<Artist>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(GetArtistInfoResponse response) {
-
+            public void onNext(Artist response) {
                 view.showLoading(false);
+                view.showBio(response.getBio());
+                view.showTags(response.getTags());
+                view.showImage(response.getLargeImageUrl());
 
             }
 

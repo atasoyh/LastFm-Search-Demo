@@ -1,7 +1,7 @@
 package com.atasoyh.lastfmartistfinder.interactor;
 
+import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.model.response.GetArtistInfoResponse;
-import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 
 import io.reactivex.Observable;
 
@@ -10,6 +10,6 @@ import io.reactivex.Observable;
  */
 
 public interface ArtistInfoInteractor {
-    Observable<GetArtistInfoResponse> search(String keyword, String mbid);
+    Observable<Artist> getInfo(String keyword, String mbid);
 
 }

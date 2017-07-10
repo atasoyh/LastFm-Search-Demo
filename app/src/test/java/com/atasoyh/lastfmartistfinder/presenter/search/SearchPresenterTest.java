@@ -67,6 +67,13 @@ public class SearchPresenterTest {
     }
 
     @Test
+    public void setupListener() throws Exception {
+        searchPresenter.setupListener();
+        verify(view).setPresenter(searchPresenter);
+
+    }
+
+    @Test
     public void testInputIsNull() throws Exception {
         String input = null;
         searchPresenter.search(input);
@@ -84,8 +91,6 @@ public class SearchPresenterTest {
         verify(view, times(1)).disableLoadMore();
         verify(view, times(1)).showLoading(false);
         verify(view, times(1)).addItems(any());
-
-
     }
 
 

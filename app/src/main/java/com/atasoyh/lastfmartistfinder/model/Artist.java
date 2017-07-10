@@ -107,4 +107,43 @@ public class Artist {
         return null;
     }
 
+    public String getOntour() {
+        return ontour;
+    }
+
+    public void setOntour(String ontour) {
+        this.ontour = ontour;
+    }
+
+    public Stats getStats() {
+        return stats;
+    }
+
+    public void setStats(Stats stats) {
+        this.stats = stats;
+    }
+
+    public Similar getSimilar() {
+        return similar;
+    }
+
+    public void setSimilar(Similar similar) {
+        this.similar = similar;
+    }
+
+    public Tags getTags() {
+        return tags;
+    }
+
+    public void setTags(Tags tags) {
+        this.tags = tags;
+    }
+
+    public Bio getBio() {
+        return bio;
+    }
+
+    public void setBio(Bio bio) {
+        this.bio = bio;
+    }
 }

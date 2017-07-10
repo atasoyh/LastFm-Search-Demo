@@ -1,5 +1,6 @@
 package com.atasoyh.lastfmartistfinder.view.artistdetail.dpi;
 
+import com.atasoyh.lastfmartistfinder.view.artistdetail.ArtistInfoFragment;
 import com.atasoyh.lastfmartistfinder.view.search.SearchFragment;
 
 import dagger.Subcomponent;
@@ -10,5 +11,5 @@ import dagger.Subcomponent;
 @ArtistInfoScope
 @Subcomponent(modules = {ArtistInfoModule.class})
 public interface ArtistInfoComponent {
-    void inject(SearchFragment searchFragment);
+    void inject(ArtistInfoFragment artistInfoFragment);
 }

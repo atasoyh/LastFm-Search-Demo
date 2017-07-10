@@ -1,5 +1,7 @@
 package com.atasoyh.lastfmartistfinder.presenter.artistinfo;
 
+import com.atasoyh.lastfmartistfinder.model.Bio;
+import com.atasoyh.lastfmartistfinder.model.Tags;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
 import com.atasoyh.lastfmartistfinder.presenter.BaseView;
 
@@ -10,10 +12,16 @@ import com.atasoyh.lastfmartistfinder.presenter.BaseView;
 public class ArtistInfoContract {
 
     public interface View<T extends BasePresenter> extends BaseView<T> {
-        void showLoading(boolean visible);
+        void showName(String name);
+
+        void showImage(String url);
+
+        void showTags(Tags tags);
+
+        void showBio(Bio bio);
     }
 
     public interface Presenter extends BasePresenter {
-        public void loadArtistInfo(String name, String mbid);
+        void loadArtistInfo();
     }
 }

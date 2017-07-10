@@ -1,5 +1,6 @@
 package com.atasoyh.lastfmartistfinder.view.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,6 +15,7 @@ import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.presenter.search.SearchContract;
 import com.atasoyh.lastfmartistfinder.view.BaseFragment;
+import com.atasoyh.lastfmartistfinder.view.artistdetail.ArtistInfoActivity;
 import com.atasoyh.lastfmartistfinder.view.search.dpi.SearchComponent;
 import com.atasoyh.lastfmartistfinder.view.search.dpi.SearchModule;
 
@@ -116,6 +118,10 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
 
     @Override
     public void onItemClick(Artist item) {
+        Intent intent = new Intent(getContext(), ArtistInfoActivity.class);
+        intent.putExtra(ArtistInfoActivity.TAG_ARTIST, item.getName());
+        intent.putExtra(ArtistInfoActivity.TAG_MBID, item.getMbid());
+        startActivity(intent);
 
     }
 
