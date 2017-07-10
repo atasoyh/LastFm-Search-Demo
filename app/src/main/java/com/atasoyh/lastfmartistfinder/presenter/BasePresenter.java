@@ -5,5 +5,5 @@ package com.atasoyh.lastfmartistfinder.presenter;
  */
 
 public interface BasePresenter {
-
+    void setupListener();
 }

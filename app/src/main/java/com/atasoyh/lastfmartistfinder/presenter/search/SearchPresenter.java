@@ -18,8 +18,8 @@ import io.reactivex.disposables.Disposable;
 
 public class SearchPresenter implements SearchContract.Presenter {
 
-    SearchContract.View<BasePresenter> view;
-    SearchArtistInteractor interactor;
+    private final SearchContract.View<BasePresenter> view;
+    private final SearchArtistInteractor interactor;
 
     boolean onloading = false;
 
@@ -32,10 +32,12 @@ public class SearchPresenter implements SearchContract.Presenter {
     public SearchPresenter(SearchContract.View view, SearchArtistInteractor interactor) {
         this.view = view;
         this.interactor = interactor;
+
     }
 
     @Inject
-    void setupListeners() {
+    @Override
+    public void setupListener() {
         view.setPresenter(this);
     }
 
@@ -102,4 +104,6 @@ public class SearchPresenter implements SearchContract.Presenter {
         searchKeyword(keyword);
 
     }
+
+
 }

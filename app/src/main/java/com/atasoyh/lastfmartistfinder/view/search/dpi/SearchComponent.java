@@ -1,4 +1,6 @@
-package com.atasoyh.lastfmartistfinder.view.search;
+package com.atasoyh.lastfmartistfinder.view.search.dpi;
+
+import com.atasoyh.lastfmartistfinder.view.search.SearchFragment;
 
 import dagger.Subcomponent;
 

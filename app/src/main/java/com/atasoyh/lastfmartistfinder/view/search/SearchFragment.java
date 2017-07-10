@@ -14,6 +14,8 @@ import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.presenter.search.SearchContract;
 import com.atasoyh.lastfmartistfinder.view.BaseFragment;
+import com.atasoyh.lastfmartistfinder.view.search.dpi.SearchComponent;
+import com.atasoyh.lastfmartistfinder.view.search.dpi.SearchModule;
 
 import java.util.ArrayList;
 import java.util.List;

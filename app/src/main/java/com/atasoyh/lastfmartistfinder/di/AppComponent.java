@@ -2,8 +2,8 @@ package com.atasoyh.lastfmartistfinder.di;
 
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.view.BaseActivity;
-import com.atasoyh.lastfmartistfinder.view.search.SearchComponent;
-import com.atasoyh.lastfmartistfinder.view.search.SearchModule;
+import com.atasoyh.lastfmartistfinder.view.search.dpi.SearchComponent;
+import com.atasoyh.lastfmartistfinder.view.search.dpi.SearchModule;
 
 import javax.inject.Singleton;
 

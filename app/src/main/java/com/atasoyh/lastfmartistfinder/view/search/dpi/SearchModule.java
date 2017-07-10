@@ -1,4 +1,4 @@
-package com.atasoyh.lastfmartistfinder.view.search;
+package com.atasoyh.lastfmartistfinder.view.search.dpi;
 
 import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
 import com.atasoyh.lastfmartistfinder.interactor.SearchArtistInteractor;

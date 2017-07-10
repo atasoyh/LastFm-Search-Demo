@@ -1,4 +1,4 @@
-package com.atasoyh.lastfmartistfinder.view.search;
+package com.atasoyh.lastfmartistfinder.view.search.dpi;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

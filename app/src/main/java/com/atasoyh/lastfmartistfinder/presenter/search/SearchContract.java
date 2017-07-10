@@ -6,6 +6,8 @@ import com.atasoyh.lastfmartistfinder.presenter.BaseView;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by atasoyh on 09/07/2017.
  */
@@ -23,4 +25,6 @@ public class SearchContract {
         void search(String keyword);
         void loadMore();
     }
+
+
 }
