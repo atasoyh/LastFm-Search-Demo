@@ -1,5 +1,6 @@
 package com.atasoyh.lastfmartistfinder.interactor;
 
+import com.atasoyh.lastfmartistfinder.model.Response;
 import com.atasoyh.lastfmartistfinder.model.Results;
 
 import io.reactivex.Observable;
@@ -14,17 +15,16 @@ import retrofit2.http.Query;
  */
 
 public interface LastFmApi {
-    String ENDPOINT = "http://ws.audioscrobbler.com/2.0";
+    String ENDPOINT = "http://ws.audioscrobbler.com/2.0/";
 
     /**
-     *
      * @param keyword The artist name
-     * @param limit Optional. The number of results to fetch per page. Defaults to 30.
-     * @param page The page number to fetch. Defaults to first page.
+     * @param limit   Optional. The number of results to fetch per page. Defaults to 30.
+     * @param page    The page number to fetch. Defaults to first page.
      * @return {@link Results}
      */
-    @GET("/?method=artist.search&format=json")
-    Call<Results> search(@Query("artist") String keyword, @Query("limit") String limit, @Query("page") String page );
+    @GET("?method=artist.search")
+    Observable<Response> search(@Query("artist") String keyword, @Query("limit") String limit, @Query("page") String page);
 
 
 }

@@ -24,7 +24,7 @@ public class Artist {
     private String streamable;
     @SerializedName("image")
     @Expose
-    private List<Image> image = null;
+    private List<Image> images = null;
 
     public String getName() {
         return name;
@@ -66,12 +66,28 @@ public class Artist {
         this.streamable = streamable;
     }
 
-    public List<Image> getImage() {
-        return image;
+    public List<Image> getImages() {
+        return images;
     }
 
-    public void setImage(List<Image> image) {
-        this.image = image;
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+    public String getLargeImageUrl(){
+        return getImageURLForSize("large");
+    }
+
+    public String getMegaImageUrl(){
+       return getImageURLForSize("mega");
+    }
+    private String getImageURLForSize(String sizeType){
+        if (images==null) return null;
+        for(Image image:images){
+            if(sizeType.equals(image.getSize()))
+                return image.getText();
+        }
+        return null;
     }
 
 }

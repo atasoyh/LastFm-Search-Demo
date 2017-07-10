@@ -2,10 +2,10 @@ package com.atasoyh.lastfmartistfinder.view.search;
 
 import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
 import com.atasoyh.lastfmartistfinder.interactor.SearchArtistInteractor;
-import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
 import com.atasoyh.lastfmartistfinder.presenter.search.SearchContract;
 import com.atasoyh.lastfmartistfinder.presenter.search.SearchPresenter;
-import com.atasoyh.lastfmartistfinder.presenter.search.SearchScope;
+
+import javax.inject.Inject;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,13 +13,12 @@ import dagger.Provides;
 /**
  * Created by atasoyh on 09/07/2017.
  */
-@SearchScope
 @Module
 public class SearchModule {
 
     private final SearchContract.View view;
 
-
+    @Inject
     public SearchModule(SearchContract.View view) {
         this.view = view;
     }

@@ -28,7 +28,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by atasoyh on 09/07/2017.
  */
-
 @Module
 public class ServiceModule {
 
@@ -44,7 +43,8 @@ public class ServiceModule {
                 Request original = chain.request();
                 HttpUrl originalHttpUrl = original.url();
                 HttpUrl url = originalHttpUrl.newBuilder()
-                        .addQueryParameter("apikey", apiKey)
+                        .addQueryParameter("api_key", apiKey)
+                        .addQueryParameter("format","json")
                         .build();
                 // Request customization: add request headers
                 Request.Builder requestBuilder = original.newBuilder()
@@ -91,7 +91,7 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    public LastFmApi provideMarvelAPI(Retrofit retrofit) {
+    public LastFmApi provideAPI(Retrofit retrofit) {
         return retrofit.create(LastFmApi.class);
     }
 }

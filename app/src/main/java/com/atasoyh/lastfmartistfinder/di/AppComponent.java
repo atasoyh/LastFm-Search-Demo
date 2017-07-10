@@ -13,7 +13,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {AppModule.class})
+@Component(modules = {AppModule.class,ServiceModule.class})
 public interface AppComponent {
 
     void inject(DefaultApplication defaultApplication);

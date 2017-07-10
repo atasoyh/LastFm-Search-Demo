@@ -37,6 +37,8 @@ ext{
     loggingInterceptorVersion='3.6.0'
     guavaVersion='22.0-android'
     butterknifeVersion='8.6.0'
+    searchviewVersion='1.4.0'
+    frescoVersion='1.3.0'
 }
 
 dependencies {
@@ -79,5 +81,11 @@ dependencies {
     //butterknife
     implementation "com.jakewharton:butterknife:$butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+
+    //MaterialSearchView
+    implementation "com.miguelcatalan:materialsearchview:$searchviewVersion"
+
+    //fresco-imageloader
+    implementation "com.facebook.fresco:fresco:$frescoVersion"
 
 }

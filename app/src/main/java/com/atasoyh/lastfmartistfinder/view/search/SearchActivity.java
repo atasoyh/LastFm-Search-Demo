@@ -1,38 +1,69 @@
 package com.atasoyh.lastfmartistfinder.view.search;
 
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
+import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
+import com.atasoyh.lastfmartistfinder.view.BaseActivity;
 import com.atasoyh.lastfmartistfinder.view.util.ActivityUtils;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
-public class SearchActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private DrawerLayout mDrawerLayout;
+public class SearchActivity extends BaseActivity {
+
+
+    @BindView(R.id.search_view)
+    MaterialSearchView searchView;
+    private SearchFragment searchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
-
+        super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
         // Set up the toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
 
-        // Set up the navigation drawer.
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
+        searchView.setVoiceSearch(false);
+        searchView.setCursorDrawable(R.drawable.color_cursor_white);
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Snackbar.make(findViewById(R.id.container), "Query: " + query, Snackbar.LENGTH_LONG)
+                        .show();
+                return false;
+            }
 
-        SearchFragment searchFragment =
-                (SearchFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (searchFragment != null)
+                    searchFragment.onQueryTextChange(newText);
+                return false;
+            }
+        });
+
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        });
+
+
+        searchFragment = (SearchFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
         if (searchFragment == null) {
             // Create the fragment
             searchFragment = SearchFragment.newInstance();
@@ -40,18 +71,26 @@ public class SearchActivity extends AppCompatActivity {
                     getSupportFragmentManager(), searchFragment, R.id.contentFrame);
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+
+        return true;
+    }
+
+    @Override
+    protected void injectDependencies(DefaultApplication application) {
 
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // Open the navigation drawer when the home icon is selected from the toolbar.
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+    protected void releaseSubComponents(DefaultApplication application) {
+
     }
 
 }

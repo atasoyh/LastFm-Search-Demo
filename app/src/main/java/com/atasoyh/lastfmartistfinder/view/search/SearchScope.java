@@ -1,4 +1,4 @@
-package com.atasoyh.lastfmartistfinder.presenter.search;
+package com.atasoyh.lastfmartistfinder.view.search;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

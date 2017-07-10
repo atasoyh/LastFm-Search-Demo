@@ -1,9 +1,5 @@
 package com.atasoyh.lastfmartistfinder.view.search;
 
-import com.atasoyh.lastfmartistfinder.di.AppComponent;
-import com.atasoyh.lastfmartistfinder.presenter.search.SearchScope;
-
-import dagger.Component;
 import dagger.Subcomponent;
 
 /**

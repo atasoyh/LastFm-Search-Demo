@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">LastFm ArtistFinder</string>
-    <string name="lastfm_apikey" />
+    <string name="lastfm_apikey">ce0468d4bd7486d5f49904d927506963</string>
 </resources>
