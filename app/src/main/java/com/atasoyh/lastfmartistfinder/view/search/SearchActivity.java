@@ -39,8 +39,8 @@ public class SearchActivity extends BaseActivity {
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Snackbar.make(findViewById(R.id.container), "Query: " + query, Snackbar.LENGTH_LONG)
-                        .show();
+                if (searchFragment != null)
+                    searchFragment.onQueryTextChange(query);
                 return false;
             }
 
@@ -49,18 +49,6 @@ public class SearchActivity extends BaseActivity {
                 if (searchFragment != null)
                     searchFragment.onQueryTextChange(newText);
                 return false;
-            }
-        });
-
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-                //Do some magic
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                //Do some magic
             }
         });
 

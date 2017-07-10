@@ -1,10 +1,11 @@
 
-package com.atasoyh.lastfmartistfinder.model;
+package com.atasoyh.lastfmartistfinder.model.response;
 
+import com.atasoyh.lastfmartistfinder.model.Results;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Response {
+public class SearchResponse {
 
     @SerializedName("results")
     @Expose

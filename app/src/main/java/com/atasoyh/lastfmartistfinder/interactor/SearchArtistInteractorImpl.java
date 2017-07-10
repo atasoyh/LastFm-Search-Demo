@@ -1,11 +1,10 @@
 package com.atasoyh.lastfmartistfinder.interactor;
 
-import com.atasoyh.lastfmartistfinder.model.Response;
+import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -23,7 +22,7 @@ public class SearchArtistInteractorImpl implements SearchArtistInteractor {
     }
 
     @Override
-    public Observable<Response> search(String keyword, int limit, int page) {
+    public Observable<SearchResponse> search(String keyword, int limit, int page) {
         String _limit = String.valueOf(limit);
         String _page = String.valueOf(page);
         if (limit == -1 && page == -1) {

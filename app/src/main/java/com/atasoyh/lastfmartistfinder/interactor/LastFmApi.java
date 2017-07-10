@@ -1,12 +1,11 @@
 package com.atasoyh.lastfmartistfinder.interactor;
 
-import com.atasoyh.lastfmartistfinder.model.Response;
+import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.model.Results;
+import com.atasoyh.lastfmartistfinder.model.response.GetArtistInfoResponse;
+import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 
 import io.reactivex.Observable;
-import io.reactivex.Single;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -24,7 +23,15 @@ public interface LastFmApi {
      * @return {@link Results}
      */
     @GET("?method=artist.search")
-    Observable<Response> search(@Query("artist") String keyword, @Query("limit") String limit, @Query("page") String page);
+    Observable<SearchResponse> search(@Query("artist") String keyword, @Query("limit") String limit, @Query("page") String page);
+
+    /**
+     * @param artist The artist name
+     * @param mbid   (Optional) : The musicbrainz id for the artist
+     * @return
+     */
+    @GET("?method=artist.getinfo")
+    Observable<GetArtistInfoResponse> getArtistInfo(@Query("artist") String artist, @Query("mbid") String mbid);
 
 
 }

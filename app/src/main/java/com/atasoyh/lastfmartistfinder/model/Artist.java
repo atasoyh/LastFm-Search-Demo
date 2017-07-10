@@ -2,6 +2,7 @@
 package com.atasoyh.lastfmartistfinder.model;
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -25,6 +26,21 @@ public class Artist {
     @SerializedName("image")
     @Expose
     private List<Image> images = null;
+    @SerializedName("ontour")
+    @Expose
+    private String ontour;
+    @SerializedName("stats")
+    @Expose
+    private Stats stats;
+    @SerializedName("similar")
+    @Expose
+    private Similar similar;
+    @SerializedName("tags")
+    @Expose
+    private Tags tags;
+    @SerializedName("bio")
+    @Expose
+    private Bio bio;
 
     public String getName() {
         return name;
@@ -74,17 +90,18 @@ public class Artist {
         this.images = images;
     }
 
-    public String getLargeImageUrl(){
+    public String getLargeImageUrl() {
         return getImageURLForSize("large");
     }
 
-    public String getMegaImageUrl(){
-       return getImageURLForSize("mega");
+    public String getMegaImageUrl() {
+        return getImageURLForSize("mega");
     }
-    private String getImageURLForSize(String sizeType){
-        if (images==null) return null;
-        for(Image image:images){
-            if(sizeType.equals(image.getSize()))
+
+    private String getImageURLForSize(String sizeType) {
+        if (images == null) return null;
+        for (Image image : images) {
+            if (sizeType.equals(image.getSize()))
                 return image.getText();
         }
         return null;

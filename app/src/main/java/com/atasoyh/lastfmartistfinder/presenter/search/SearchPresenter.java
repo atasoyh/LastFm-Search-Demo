@@ -1,8 +1,8 @@
 package com.atasoyh.lastfmartistfinder.presenter.search;
 
 import com.atasoyh.lastfmartistfinder.interactor.SearchArtistInteractor;
-import com.atasoyh.lastfmartistfinder.model.Response;
 import com.atasoyh.lastfmartistfinder.model.Results;
+import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
 import com.atasoyh.lastfmartistfinder.util.TextUtils;
 
@@ -56,15 +56,15 @@ public class SearchPresenter implements SearchContract.SearchPresenter {
         interactor.search(keyword, itemCountPerSearch, page).subscribe(getObserver());
     }
 
-    private Observer<Response> getObserver() {
-        return new Observer<Response>() {
+    private Observer<SearchResponse> getObserver() {
+        return new Observer<SearchResponse>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(Response response) {
+            public void onNext(SearchResponse response) {
                 onloading = false;
                 view.showLoading(false);
                 view.addItems(response.getResults().getArtistmatches().getArtist());
