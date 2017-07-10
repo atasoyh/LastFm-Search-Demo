@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.atasoyh.lastfmartistfinder.view.util;
+package com.atasoyh.lastfmartistfinder.util;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -33,7 +33,7 @@ public class ActivityUtils {
      * performed by the {@code fragmentManager}.
      *
      */
-    public static void addFragmentToActivity (@NonNull FragmentManager fragmentManager,
+    public void addFragmentToActivity (@NonNull FragmentManager fragmentManager,
                                               @NonNull Fragment fragment, int frameId) {
         checkNotNull(fragmentManager);
         checkNotNull(fragment);

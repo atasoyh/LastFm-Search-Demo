@@ -2,7 +2,6 @@ package com.atasoyh.lastfmartistfinder.view.search;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,8 +9,10 @@ import android.view.MenuItem;
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.view.BaseActivity;
-import com.atasoyh.lastfmartistfinder.view.util.ActivityUtils;
+import com.atasoyh.lastfmartistfinder.util.ActivityUtils;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +23,7 @@ public class SearchActivity extends BaseActivity {
     @BindView(R.id.search_view)
     MaterialSearchView searchView;
     private SearchFragment searchFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +69,7 @@ public class SearchActivity extends BaseActivity {
         if (searchFragment == null) {
             // Create the fragment
             searchFragment = SearchFragment.newInstance();
-            ActivityUtils.addFragmentToActivity(
+            activityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), searchFragment, R.id.contentFrame);
         }
 
@@ -85,7 +87,7 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void injectDependencies(DefaultApplication application) {
-
+        application.getAppComponent().inject(this);
     }
 
     @Override

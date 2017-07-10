@@ -3,6 +3,8 @@ package com.atasoyh.lastfmartistfinder.di;
 import android.content.Context;
 
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
+import com.atasoyh.lastfmartistfinder.util.ActivityUtils;
+import com.atasoyh.lastfmartistfinder.util.TextUtils;
 
 import dagger.Module;
 import dagger.Provides;
@@ -20,5 +22,7 @@ public class AppModule {
     public Context getContext() {
         return mApplication;
     }
+
+
 
 }

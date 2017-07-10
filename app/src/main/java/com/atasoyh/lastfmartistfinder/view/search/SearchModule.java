@@ -2,6 +2,7 @@ package com.atasoyh.lastfmartistfinder.view.search;
 
 import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
 import com.atasoyh.lastfmartistfinder.interactor.SearchArtistInteractor;
+import com.atasoyh.lastfmartistfinder.interactor.SearchArtistInteractorImpl;
 import com.atasoyh.lastfmartistfinder.presenter.search.SearchContract;
 import com.atasoyh.lastfmartistfinder.presenter.search.SearchPresenter;
 
@@ -30,7 +31,7 @@ public class SearchModule {
 
     @Provides
     SearchArtistInteractor provideSearchArtistInteractor(LastFmApi api) {
-        return new SearchArtistInteractor(api);
+        return new SearchArtistInteractorImpl(api);
     }
 
     @Provides
