@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
@@ -19,11 +20,9 @@ import com.atasoyh.lastfmartistfinder.presenter.artistinfo.ArtistInfoContract;
 import com.atasoyh.lastfmartistfinder.view.BaseFragment;
 import com.atasoyh.lastfmartistfinder.view.artistdetail.dpi.ArtistInfoComponent;
 import com.atasoyh.lastfmartistfinder.view.artistdetail.dpi.ArtistInfoModule;
-import com.atasoyh.lastfmartistfinder.view.custom.ArtistView;
-import com.atasoyh.lastfmartistfinder.view.custom.BioView;
+import com.atasoyh.lastfmartistfinder.view.customview.ArtistView;
+import com.atasoyh.lastfmartistfinder.view.customview.BioView;
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -37,6 +36,9 @@ import butterknife.ButterKnife;
  */
 
 public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContract.View<ArtistInfoContract.Presenter> {
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     @BindView(R.id.sdv)
     SimpleDraweeView sdvArtistImage;
@@ -100,6 +102,10 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
 
     @Override
     public void showLoading(boolean visible) {
+        if (visible)
+            progressBar.setVisibility(View.VISIBLE);
+        else progressBar.setVisibility(View.GONE);
+
 
     }
 

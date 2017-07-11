@@ -19,6 +19,8 @@ public class SearchContract {
         void refreshItems();
         void enableLoadMore();
         void disableLoadMore();
+        void showEmptyView();
+        void hideEmptyView();
     }
 
     public interface Presenter extends BasePresenter {

@@ -1,18 +1,12 @@
 package com.atasoyh.lastfmartistfinder.view.artistdetail;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
-import android.view.View;
 
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.view.BaseActivity;
-import com.atasoyh.lastfmartistfinder.view.search.SearchFragment;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 /**
  * Created by atasoyh on 10/07/2017.

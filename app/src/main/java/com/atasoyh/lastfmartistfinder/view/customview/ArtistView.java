@@ -1,4 +1,4 @@
-package com.atasoyh.lastfmartistfinder.view.custom;
+package com.atasoyh.lastfmartistfinder.view.customview;
 
 import android.content.Context;
 import android.os.Build;

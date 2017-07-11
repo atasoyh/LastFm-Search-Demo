@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
@@ -38,6 +39,9 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+
+    @BindView(R.id.tvEmpty)
+    TextView tvEmpty;
 
     @Inject
     SearchContract.Presenter presenter;
@@ -85,7 +89,9 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
     @Override
     public void showLoading(boolean visible) {
         if (visible) {
+            progressBar.setVisibility(View.VISIBLE);
         } else {
+            progressBar.setVisibility(View.GONE);
         }
 
     }
@@ -110,6 +116,16 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
     @Override
     public void disableLoadMore() {
         adapter.setOnNeededLoadMoreListener(null);
+    }
+
+    @Override
+    public void showEmptyView() {
+        tvEmpty.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideEmptyView() {
+        tvEmpty.setVisibility(View.GONE);
     }
 
     public void onQueryTextChange(String newText) {

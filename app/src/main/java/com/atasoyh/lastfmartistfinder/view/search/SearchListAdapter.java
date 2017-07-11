@@ -1,21 +1,14 @@
 package com.atasoyh.lastfmartistfinder.view.search;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.model.Artist;
-import com.atasoyh.lastfmartistfinder.view.custom.ArtistView;
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.atasoyh.lastfmartistfinder.view.customview.ArtistView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by atasoyh on 30/06/2017.

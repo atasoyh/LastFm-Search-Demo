@@ -6,7 +6,7 @@
     android:animateLayoutChanges="true"
     android:clipToPadding="true"
     android:orientation="vertical"
-    android:padding="@dimen/activity_margin">
+    android:paddingTop="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,16 +19,20 @@
             layout="@layout/layout_progress_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <FrameLayout
+            android:id="@+id/flArtist"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_margin"
+            android:layout_marginRight="@dimen/activity_margin"
+            android:layout_marginTop="@dimen/activity_margin">
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/sdv"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="250dp"
                 android:scaleType="centerInside"
                 app:failureImage="@color/colorImageBackground"
                 app:placeholderImage="@color/colorImageBackground" />
@@ -52,6 +56,9 @@
             android:id="@+id/llBio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_margin"
+            android:layout_marginLeft="@dimen/activity_margin"
+            android:layout_marginRight="@dimen/activity_margin"
             android:orientation="vertical">
 
             <TextView
@@ -59,18 +66,21 @@
                 android:layout_height="wrap_content"
                 android:text="@string/bio" />
 
-            <com.atasoyh.lastfmartistfinder.view.custom.BioView
+            <com.atasoyh.lastfmartistfinder.view.customview.BioView
                 android:id="@+id/bv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin" />
         </LinearLayout>
-        android:layout_height="350dp" />
 
 
         <LinearLayout
             android:id="@+id/llSimilar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_margin"
+            android:layout_marginLeft="@dimen/activity_margin"
+            android:layout_marginRight="@dimen/activity_margin"
             android:orientation="vertical">
 
             <TextView
@@ -80,7 +90,8 @@
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin">
 
                 <LinearLayout
                     android:id="@+id/llSimilars"

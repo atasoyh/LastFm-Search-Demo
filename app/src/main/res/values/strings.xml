@@ -4,4 +4,6 @@
 
     <string name="bio">Bio</string>
     <string name="similar">Similar</string>
+    <string name="artist_detail">Artist Detail</string>
+    <string name="let_s_search_someone">Let\'s search someone...:)</string>
 </resources>

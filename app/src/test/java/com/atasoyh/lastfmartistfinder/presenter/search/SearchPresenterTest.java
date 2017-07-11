@@ -73,6 +73,7 @@ public class SearchPresenterTest {
 
     }
 
+
     @Test
     public void testInputIsNull() throws Exception {
         String input = null;
@@ -83,7 +84,7 @@ public class SearchPresenterTest {
     }
 
     @Test
-    public void searchWithLessReult() throws Exception {
+    public void testSearchWithLessReult() throws Exception {
         searchPresenter.search("lessData");
         verify(api).search(any(), anyInt(), anyInt());
         verify(view, times(1)).showLoading(true);

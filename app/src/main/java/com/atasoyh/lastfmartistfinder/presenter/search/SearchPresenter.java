@@ -44,6 +44,7 @@ public class SearchPresenter implements SearchContract.Presenter {
     @Override
     public void search(String keyword) {
         view.refreshItems();
+        view.showEmptyView();
         this.keyword = keyword;
         if (TextUtils.isEmpty(keyword)) {
             view.disableLoadMore();
@@ -55,6 +56,7 @@ public class SearchPresenter implements SearchContract.Presenter {
     private void searchKeyword(String keyword) {
         onloading = true;
         view.showLoading(true);
+        view.hideEmptyView();
         interactor.search(keyword, itemCountPerSearch, page).subscribe(getObserver());
     }
 
@@ -76,6 +78,7 @@ public class SearchPresenter implements SearchContract.Presenter {
             @Override
             public void onError(Throwable e) {
                 view.refreshItems();
+                view.showEmptyView();
                 onloading = false;
             }
 
