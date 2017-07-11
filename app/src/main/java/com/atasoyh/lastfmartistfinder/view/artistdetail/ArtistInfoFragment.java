@@ -43,7 +43,7 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
     @BindView(R.id.sdv)
     SimpleDraweeView sdvArtistImage;
 
-    @BindView(R.id.tv)
+    @BindView(R.id.tvName)
     TextView tvArtistName;
 
     @BindView(R.id.bv)
@@ -133,14 +133,20 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
 
     @Override
     public void showSimilars(@NonNull Similar similar) {
-        List<Artist> artists = similar.getArtist();
-        if (artists.size() == 0) return;
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                List<Artist> artists = similar.getArtist();
+                if (artists.size() == 0) return;
 
-        llSimilars.setVisibility(View.VISIBLE);
-        for (Artist artist : artists) {
-            ArtistView artistView = new ArtistView(getContext());
-            artistView.setArtist(artist);
-            llSimilars.addView(artistView);
-        }
+                llSimilars.setVisibility(View.VISIBLE);
+                for (Artist artist : artists) {
+                    ArtistView artistView = new ArtistView(getContext());
+                    artistView.setArtist(artist);
+                    llSimilars.addView(artistView);
+                }
+            }
+        });
+
     }
 }

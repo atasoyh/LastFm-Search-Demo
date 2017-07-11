@@ -3,6 +3,7 @@ package com.atasoyh.lastfmartistfinder.view.search;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.IdlingPolicies;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -14,9 +15,6 @@ import android.view.ViewParent;
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.TestAppComponent;
-import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
-import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
-import com.google.gson.Gson;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -27,12 +25,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 
-import javax.inject.Inject;
+import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
 import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.schedulers.Schedulers;
 
@@ -41,13 +36,15 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
+import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 @LargeTest
@@ -153,7 +150,41 @@ public class SearchActivityTest {
                         isDisplayed()));
         textView.check(matches(withText("Tarkan")));
 
+    }
 
+
+    @Test
+    public void testClickAnArtist(){
+        ViewInteraction actionMenuItemView = onView(
+                allOf(withId(R.id.action_search), withContentDescription("Search…"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.toolbar),
+                                        1),
+                                0),
+                        isDisplayed()));
+        actionMenuItemView.perform(click());
+
+        ViewInteraction editText = onView(
+                allOf(withId(R.id.searchTextView),
+                        childAtPosition(
+                                allOf(withId(R.id.search_top_bar),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.LinearLayout")),
+                                                0)),
+                                0),
+                        isDisplayed()));
+        editText.perform(replaceText("tarkan"), closeSoftKeyboard());
+        IdlingPolicies.setIdlingResourceTimeout(5, TimeUnit.SECONDS);
+        ViewInteraction recyclerView = onView(
+                allOf(withId(R.id.rv),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.contentFrame),
+                                        0),
+                                2),
+                        isDisplayed()));
+        recyclerView.perform(actionOnItemAtPosition(0, click()));
 
     }
 

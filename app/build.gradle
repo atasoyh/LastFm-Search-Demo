@@ -33,6 +33,7 @@ android {
     }
 }
 ext{
+    espressoVersion='2.2.2'
     androidSupport='26.0.0-beta2'
     daggerVersion='2.9'
     mockitoVersion='2.8.47'
@@ -49,9 +50,24 @@ ext{
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:$espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    androidTestCompile ("com.android.support.test.espresso:espresso-intents:$espressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    })
+
+    androidTestCompile ("com.android.support.test.espresso:espresso-contrib:$espressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    })
+
     androidTestImplementation 'com.android.support.test:runner:0.5'
     androidTestImplementation 'com.android.support.test:rules:0.5'
     androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
@@ -98,5 +114,9 @@ dependencies {
 
     //fresco-imageloader
     implementation "com.facebook.fresco:fresco:$frescoVersion"
+
+
+
+
 
 }

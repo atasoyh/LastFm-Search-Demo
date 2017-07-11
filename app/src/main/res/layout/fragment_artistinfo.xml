@@ -38,7 +38,7 @@
                 app:placeholderImage="@color/colorImageBackground" />
 
             <TextView
-                android:id="@+id/tv"
+                android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
@@ -61,7 +61,7 @@
             android:layout_marginRight="@dimen/activity_margin"
             android:orientation="vertical">
 
-            <TextView
+            <TextView android:id="@+id/tvBio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bio" />
@@ -83,7 +83,7 @@
             android:layout_marginRight="@dimen/activity_margin"
             android:orientation="vertical">
 
-            <TextView
+            <TextView android:id="@+id/tvSimilar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/similar" />
