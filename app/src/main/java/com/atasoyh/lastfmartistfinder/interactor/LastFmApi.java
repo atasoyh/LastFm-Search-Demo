@@ -22,7 +22,7 @@ public interface LastFmApi {
      * @return {@link Results}
      */
     @GET("?method=artist.search")
-    Observable<SearchResponse> search(@Query("artist") String keyword, @Query("limit") String limit, @Query("page") String page);
+    public Observable<SearchResponse> search(@Query("artist") String keyword, @Query("limit") String limit, @Query("page") String page);
 
     /**
      * @param artist The artist name
@@ -30,7 +30,7 @@ public interface LastFmApi {
      * @return
      */
     @GET("?method=artist.getinfo")
-    Observable<GetArtistInfoResponse> getArtistInfo(@Query("artist") String artist, @Query("mbid") String mbid);
+    public Observable<GetArtistInfoResponse> getArtistInfo(@Query("artist") String artist, @Query("mbid") String mbid);
 
 
 }

@@ -29,6 +29,8 @@ public class SearchArtistInteractorImpl implements SearchArtistInteractor {
             _limit = null;
             _page = null;
         }
+        Observable.just(new SearchResponse()).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
         return this.api.search(keyword, _limit, _page)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
