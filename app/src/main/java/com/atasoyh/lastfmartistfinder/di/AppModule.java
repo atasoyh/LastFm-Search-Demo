@@ -3,8 +3,10 @@ package com.atasoyh.lastfmartistfinder.di;
 import android.content.Context;
 
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
-import com.atasoyh.lastfmartistfinder.util.ActivityUtils;
-import com.atasoyh.lastfmartistfinder.util.TextUtils;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -23,6 +25,11 @@ public class AppModule {
         return mApplication;
     }
 
+    @Provides
+    Gson provideGson() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        return gsonBuilder.create();
+    }
 
 
 }

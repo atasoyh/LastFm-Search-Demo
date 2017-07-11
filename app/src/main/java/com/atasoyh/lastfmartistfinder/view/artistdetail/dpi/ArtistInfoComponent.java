@@ -1,7 +1,6 @@
 package com.atasoyh.lastfmartistfinder.view.artistdetail.dpi;
 
 import com.atasoyh.lastfmartistfinder.view.artistdetail.ArtistInfoFragment;
-import com.atasoyh.lastfmartistfinder.view.search.SearchFragment;
 
 import dagger.Subcomponent;
 

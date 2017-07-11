@@ -4,8 +4,10 @@ import android.app.Application;
 import android.content.Context;
 
 import com.atasoyh.lastfmartistfinder.di.AppModule;
+import com.atasoyh.lastfmartistfinder.di.BaseAppComponent;
 import com.atasoyh.lastfmartistfinder.di.DaggerAppComponent;
 import com.atasoyh.lastfmartistfinder.di.ServiceModule;
+import com.atasoyh.lastfmartistfinder.di.UtilityModule;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 /**
@@ -14,7 +16,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 
 public class DefaultApplication extends Application {
 
-    private DaggerAppComponent appComponent;
+    public BaseAppComponent appComponent;
 
     @Override
     public void onCreate() {
@@ -22,15 +24,15 @@ public class DefaultApplication extends Application {
         //facebook's imageloader library
         Fresco.initialize(this);
         //create appComponent
-        createAppComponent();
-    }
-
-    private void createAppComponent() {
-        appComponent = (DaggerAppComponent) DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+        appComponent = createAppComponent();
         appComponent.inject(this);
     }
 
-    public DaggerAppComponent getAppComponent() {
+    public BaseAppComponent createAppComponent() {
+        return DaggerAppComponent.builder().appModule(new AppModule(this)).serviceModule(new ServiceModule()).utilityModule(new UtilityModule()).build();
+    }
+
+    public BaseAppComponent getAppComponent() {
         return appComponent;
     }
 

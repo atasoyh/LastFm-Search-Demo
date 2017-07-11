@@ -57,6 +57,7 @@ public class SearchPresenter implements SearchContract.Presenter {
         onloading = true;
         view.showLoading(true);
         view.hideEmptyView();
+        //Increment the counter before making a network request
         interactor.search(keyword, itemCountPerSearch, page).subscribe(getObserver());
     }
 

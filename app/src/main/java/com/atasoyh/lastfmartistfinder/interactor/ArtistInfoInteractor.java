@@ -1,7 +1,6 @@
 package com.atasoyh.lastfmartistfinder.interactor;
 
 import com.atasoyh.lastfmartistfinder.model.Artist;
-import com.atasoyh.lastfmartistfinder.model.response.GetArtistInfoResponse;
 
 import io.reactivex.Observable;
 

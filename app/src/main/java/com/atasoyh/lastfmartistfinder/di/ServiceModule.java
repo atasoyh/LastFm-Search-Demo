@@ -71,12 +71,6 @@ public class ServiceModule {
         return LastFmApi.ENDPOINT;
     }
 
-    @Provides
-    @Singleton
-    Gson provideGson() {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        return gsonBuilder.create();
-    }
 
     @Provides
     @Singleton

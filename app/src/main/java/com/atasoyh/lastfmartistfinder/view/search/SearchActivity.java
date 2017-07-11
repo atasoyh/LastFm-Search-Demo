@@ -1,7 +1,6 @@
 package com.atasoyh.lastfmartistfinder.view.search;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,10 +8,7 @@ import android.view.MenuItem;
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.view.BaseActivity;
-import com.atasoyh.lastfmartistfinder.util.ActivityUtils;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
