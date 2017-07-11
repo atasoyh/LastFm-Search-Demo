@@ -1,6 +1,7 @@
 package com.atasoyh.lastfmartistfinder.presenter.artistinfo;
 
 import com.atasoyh.lastfmartistfinder.model.Bio;
+import com.atasoyh.lastfmartistfinder.model.Similar;
 import com.atasoyh.lastfmartistfinder.model.Tags;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
 import com.atasoyh.lastfmartistfinder.presenter.BaseView;
@@ -19,6 +20,8 @@ public class ArtistInfoContract {
         void showTags(Tags tags);
 
         void showBio(Bio bio);
+
+        void showSimilars(Similar similar);
     }
 
     public interface Presenter extends BasePresenter {

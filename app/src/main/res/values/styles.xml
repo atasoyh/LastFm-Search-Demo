@@ -12,7 +12,7 @@
     </style>
 
     <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="titleTextColor">@color/colorAccent</item>
+        <item name="titleTextColor">@color/colorWhite</item>
     </style>
 
     <style name="MaterialSearchViewStyle">

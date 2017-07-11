@@ -28,7 +28,7 @@
             android:layout_gravity="bottom|center"
             android:background="#aaffffff"
             android:gravity="center|bottom"
-            android:maxLines="3"
+            android:maxLines="1" android:maxLength="40"
             android:padding="8dp"
             android:text=""
             android:textColor="@android:color/black" />

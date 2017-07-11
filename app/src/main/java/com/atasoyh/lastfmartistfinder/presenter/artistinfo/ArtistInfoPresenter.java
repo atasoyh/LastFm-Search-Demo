@@ -2,6 +2,9 @@ package com.atasoyh.lastfmartistfinder.presenter.artistinfo;
 
 import com.atasoyh.lastfmartistfinder.interactor.ArtistInfoInteractor;
 import com.atasoyh.lastfmartistfinder.model.Artist;
+import com.atasoyh.lastfmartistfinder.model.Bio;
+import com.atasoyh.lastfmartistfinder.model.Similar;
+import com.atasoyh.lastfmartistfinder.model.Tags;
 
 import javax.inject.Inject;
 
@@ -49,9 +52,21 @@ public class ArtistInfoPresenter implements ArtistInfoContract.Presenter {
             @Override
             public void onNext(Artist response) {
                 view.showLoading(false);
-                view.showBio(response.getBio());
-                view.showTags(response.getTags());
-                view.showImage(response.getLargeImageUrl());
+
+                Bio bio = response.getBio();
+                if (bio != null)
+                    view.showBio(bio);
+
+                Tags tags = response.getTags();
+                if (tags != null)
+                    view.showTags(tags);
+
+                Similar similar = response.getSimilar();
+                if (similar != null)
+                    view.showSimilars(response.getSimilar());
+
+                view.showImage(response.getMegaImageUrl());
+                view.showName(response.getName());
 
             }
 

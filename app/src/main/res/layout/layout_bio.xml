@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="a;skjdalksdalksdja sldaksjd;alksd alsdn a;lskdma;
+ a;sldkna ;lsdn a'sd a;slkd a;lsdn; asms;dlkna ;ljsdn akjlsnd lakjsdn alkjsdn alsdn asldn a;ldk xmlns:app=" />
+    <TextView
+        android:id="@+id/tvContent" android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="a;skjdalksdalksdja sldaksjd;alksd alsdn a;lskdma;
+ a;sldkna ;lsdn a'sd a;slkd a;lsdn; asms;dlkna ;ljsdn akjlsnd lakjsdn alkjsdn alsdn asldn a;ldk xmlns:app= a;skjdalksdalksdja sldaksjd;alksd alsdn a;lskdma;
+ a;sldkna ;lsdn a'sd a;slkd a;lsdn; asms;dlkna ;ljsdn akjlsnd lakjsdn alkjsdn alsdn asldn a;ldk xmlns:app= a;skjdalksdalksdja sldaksjd;alksd alsdn a;lskdma;
+ a;sldkna ;lsdn a'sd a;slkd a;lsdn; asms;dlkna ;ljsdn akjlsnd lakjsdn alkjsdn alsdn asldn a;ldk xmlns:app=" />
+
+
+</FrameLayout>

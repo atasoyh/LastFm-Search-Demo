@@ -1,27 +1,57 @@
 package com.atasoyh.lastfmartistfinder.view.artistdetail;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
+import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.model.Bio;
+import com.atasoyh.lastfmartistfinder.model.Similar;
 import com.atasoyh.lastfmartistfinder.model.Tags;
 import com.atasoyh.lastfmartistfinder.presenter.artistinfo.ArtistInfoContract;
 import com.atasoyh.lastfmartistfinder.view.BaseFragment;
 import com.atasoyh.lastfmartistfinder.view.artistdetail.dpi.ArtistInfoComponent;
 import com.atasoyh.lastfmartistfinder.view.artistdetail.dpi.ArtistInfoModule;
+import com.atasoyh.lastfmartistfinder.view.custom.ArtistView;
+import com.atasoyh.lastfmartistfinder.view.custom.BioView;
+import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.w3c.dom.Text;
+
+import java.util.List;
 
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by atasoyh on 10/07/2017.
  */
 
 public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContract.View<ArtistInfoContract.Presenter> {
+
+    @BindView(R.id.sdv)
+    SimpleDraweeView sdvArtistImage;
+
+    @BindView(R.id.tv)
+    TextView tvArtistName;
+
+    @BindView(R.id.bv)
+    BioView bioView;
+
+    @BindView(R.id.llBio)
+    LinearLayout llBio;
+
+    @BindView(R.id.llSimilars)
+    LinearLayout llSimilars;
 
     @Inject
     ArtistInfoContract.Presenter presenter;
@@ -46,6 +76,7 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
         presenter.loadArtistInfo();
     }
 
@@ -74,21 +105,36 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
 
     @Override
     public void showName(String name) {
+        tvArtistName.setText(name);
 
     }
 
     @Override
     public void showImage(String url) {
+        sdvArtistImage.setImageURI(url);
+    }
+
+    @Override
+    public void showTags(@NonNull Tags tags) {
 
     }
 
     @Override
-    public void showTags(Tags tags) {
-
+    public void showBio(@NonNull Bio bio) {
+        llBio.setVisibility(View.VISIBLE);
+        bioView.setBio(bio);
     }
 
     @Override
-    public void showBio(Bio bio) {
+    public void showSimilars(@NonNull Similar similar) {
+        List<Artist> artists = similar.getArtist();
+        if (artists.size() == 0) return;
 
+        llSimilars.setVisibility(View.VISIBLE);
+        for (Artist artist : artists) {
+            ArtistView artistView = new ArtistView(getContext());
+            artistView.setArtist(artist);
+            llSimilars.addView(artistView);
+        }
     }
 }

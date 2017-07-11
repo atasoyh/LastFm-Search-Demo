@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.model.Artist;
+import com.atasoyh.lastfmartistfinder.view.custom.ArtistView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -40,16 +41,15 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_artist, parent, false);
+        View view = new ArtistView(parent.getContext());// LayoutInflater.from(parent.getContext())
+        //.inflate(R.layout.item_artist, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Artist item = getItem(position);
-        holder.tv.setText(item.getName());
-        holder.simpleDraweeView.setImageURI(item.getLargeImageUrl());
+        holder.artistView.setArtist(item);
         if (onItemClickListener != null)
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -57,7 +57,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
                     onItemClickListener.onItemClick(item);
                 }
             });
-        if (position > artistList.size()-10 && onNeededLoadMoreListener != null) {
+        if (position > artistList.size() - 10 && onNeededLoadMoreListener != null) {
             onNeededLoadMoreListener.onNeededLoadMore();
         }
 
@@ -85,14 +85,11 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv)
-        TextView tv;
-        @BindView(R.id.sdv)
-        SimpleDraweeView simpleDraweeView;
+        ArtistView artistView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            artistView = (ArtistView) itemView;
         }
     }
 
