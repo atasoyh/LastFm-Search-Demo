@@ -153,45 +153,6 @@ public class SearchActivityTest {
     }
 
 
-    @Test
-    public void testClickAnArtist(){
-        ViewInteraction actionMenuItemView = onView(
-                allOf(withId(R.id.action_search), withContentDescription("Search…"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.toolbar),
-                                        1),
-                                0),
-                        isDisplayed()));
-        actionMenuItemView.perform(click());
-
-        ViewInteraction editText = onView(
-                allOf(withId(R.id.searchTextView),
-                        childAtPosition(
-                                allOf(withId(R.id.search_top_bar),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                0)),
-                                0),
-                        isDisplayed()));
-        editText.perform(replaceText("tarkan"), closeSoftKeyboard());
-        IdlingPolicies.setIdlingResourceTimeout(5, TimeUnit.SECONDS);
-        ViewInteraction recyclerView = onView(
-                allOf(withId(R.id.rv),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.contentFrame),
-                                        0),
-                                2),
-                        isDisplayed()));
-        recyclerView.perform(actionOnItemAtPosition(0, click()));
-
-    }
-
-
-
-
-
 
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
