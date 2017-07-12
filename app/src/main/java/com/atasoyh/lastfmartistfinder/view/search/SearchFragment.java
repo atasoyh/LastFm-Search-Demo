@@ -130,6 +130,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
 
     public void onQueryTextChange(String newText) {
         presenter.search(newText);
+
     }
 
     @Override

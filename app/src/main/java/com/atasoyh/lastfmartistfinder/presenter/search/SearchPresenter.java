@@ -1,15 +1,23 @@
 package com.atasoyh.lastfmartistfinder.presenter.search;
 
 import com.atasoyh.lastfmartistfinder.interactor.SearchArtistInteractor;
+import com.atasoyh.lastfmartistfinder.model.Error;
 import com.atasoyh.lastfmartistfinder.model.Results;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
+import com.atasoyh.lastfmartistfinder.util.RetrofitException;
 import com.atasoyh.lastfmartistfinder.util.TextUtils;
+import com.google.gson.Gson;
+
+import java.io.IOException;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
+import retrofit2.HttpException;
 
 /**
  * SearchPresenter implementation
@@ -57,7 +65,6 @@ public class SearchPresenter implements SearchContract.Presenter {
         onloading = true;
         view.showLoading(true);
         view.hideEmptyView();
-        //Increment the counter before making a network request
         interactor.search(keyword, itemCountPerSearch, page).subscribe(getObserver());
     }
 
@@ -78,9 +85,20 @@ public class SearchPresenter implements SearchContract.Presenter {
 
             @Override
             public void onError(Throwable e) {
+
+                RetrofitException error = (RetrofitException) e;
+
+                try {
+                    Error response = error.getErrorBodyAs(Error.class);
+                    view.showError(response.getMessage());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
                 view.refreshItems();
                 view.showEmptyView();
+                view.showLoading(false);
                 onloading = false;
+
             }
 
             @Override

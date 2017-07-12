@@ -5,10 +5,12 @@ import android.content.Context;
 import com.atasoyh.lastfmartistfinder.BuildConfig;
 import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
+import com.atasoyh.lastfmartistfinder.util.RxErrorHandlingCallAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -21,6 +23,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -78,7 +81,7 @@ public class ServiceModule {
         return new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
     }

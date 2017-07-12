@@ -102,6 +102,7 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
+
     //Guava
     implementation "com.google.guava:guava:$guavaVersion"
 

@@ -7,11 +7,18 @@ import android.view.MenuItem;
 
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
+import com.atasoyh.lastfmartistfinder.util.RxSearch;
 import com.atasoyh.lastfmartistfinder.view.BaseActivity;
+import com.google.common.eventbus.Subscribe;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.plugins.RxAndroidPlugins;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class SearchActivity extends BaseActivity {
 
@@ -32,21 +39,13 @@ public class SearchActivity extends BaseActivity {
 
         searchView.setVoiceSearch(false);
         searchView.setCursorDrawable(R.drawable.color_cursor_white);
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                if (searchFragment != null)
+        RxSearch.fromSearchView(searchView)
+                .debounce(300, TimeUnit.MILLISECONDS)
+                .filter(item -> item.length() > 1)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(query -> {
                     searchFragment.onQueryTextChange(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (searchFragment != null)
-                    searchFragment.onQueryTextChange(newText);
-                return false;
-            }
-        });
+                });
 
 
         searchFragment = (SearchFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
