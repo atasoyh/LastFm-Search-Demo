@@ -1,6 +1,7 @@
 package com.atasoyh.lastfmartistfinder.presenter.search;
 
 import com.atasoyh.lastfmartistfinder.interactor.SearchArtistInteractor;
+import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
 import com.atasoyh.lastfmartistfinder.model.Error;
 import com.atasoyh.lastfmartistfinder.model.Results;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
@@ -75,7 +76,7 @@ public class ArtistSearchPresenter implements ArtistSearchContract.Presenter {
             public void onNext(SearchResponse response) {
                 onloading = false;
                 view.showLoading(false);
-                view.addItems(response.getResults().getArtistmatches().getArtist());
+                view.addItems(((ArtistMatches)response.getResults().getMatches()).getArtist());
                 calculatePage(response.getResults());
             }
 

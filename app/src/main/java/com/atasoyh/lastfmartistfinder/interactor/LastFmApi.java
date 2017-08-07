@@ -1,5 +1,6 @@
 package com.atasoyh.lastfmartistfinder.interactor;
 
+import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
 import com.atasoyh.lastfmartistfinder.model.Results;
 import com.atasoyh.lastfmartistfinder.model.response.GetArtistInfoResponse;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
@@ -22,7 +23,7 @@ public interface LastFmApi {
      * @return {@link Results}
      */
     @GET("?method=artist.search")
-    public Observable<SearchResponse> search(@Query("artist") String keyword, @Query("limit") String limit, @Query("page") String page);
+    public Observable<SearchResponse<ArtistMatches>> search(@Query("artist") String keyword, @Query("limit") String limit, @Query("page") String page);
 
     /**
      * @param artist The artist name

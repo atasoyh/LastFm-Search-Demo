@@ -1,5 +1,6 @@
 package com.atasoyh.lastfmartistfinder.interactor;
 
+import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 
 import javax.inject.Inject;
@@ -22,14 +23,14 @@ public class SearchArtistInteractorImpl implements SearchArtistInteractor {
     }
 
     @Override
-    public Observable<SearchResponse> search(String keyword, int limit, int page) {
+    public Observable<SearchResponse<ArtistMatches>> search(String keyword, int limit, int page) {
         String _limit = String.valueOf(limit);
         String _page = String.valueOf(page);
         if (limit == -1 && page == -1) {
             _limit = null;
             _page = null;
         }
-        Observable.just(new SearchResponse()).subscribeOn(Schedulers.io())
+        Observable.just(new SearchResponse<ArtistMatches>()).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
         return this.api.search(keyword, _limit, _page)
                         .subscribeOn(Schedulers.io())

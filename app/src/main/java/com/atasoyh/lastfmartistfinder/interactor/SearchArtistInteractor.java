@@ -1,5 +1,6 @@
 package com.atasoyh.lastfmartistfinder.interactor;
 
+import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 
 import io.reactivex.Observable;
@@ -10,7 +11,7 @@ import io.reactivex.Observable;
 
 public interface SearchArtistInteractor {
 
-    Observable<SearchResponse> search(String keyword, int limit, int page);
+    Observable<SearchResponse<ArtistMatches>> search(String keyword, int limit, int page);
 
 
 
