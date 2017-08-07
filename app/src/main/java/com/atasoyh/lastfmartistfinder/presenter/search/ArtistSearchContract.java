@@ -10,7 +10,7 @@ import java.util.List;
  * Created by atasoyh on 09/07/2017.
  */
 
-public class SearchContract {
+public class ArtistSearchContract {
 
     public interface View<T extends BasePresenter> extends BaseView<T> {
         void addItems(List<Artist> items);

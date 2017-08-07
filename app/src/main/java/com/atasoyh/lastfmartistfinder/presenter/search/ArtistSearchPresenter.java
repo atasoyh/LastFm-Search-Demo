@@ -7,7 +7,6 @@ import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
 import com.atasoyh.lastfmartistfinder.util.RetrofitException;
 import com.atasoyh.lastfmartistfinder.util.TextUtils;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -15,18 +14,15 @@ import javax.inject.Inject;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import okhttp3.ResponseBody;
-import retrofit2.Converter;
-import retrofit2.HttpException;
 
 /**
- * SearchPresenter implementation
+ * ArtistSearchPresenter implementation
  * Created by atasoyh on 09/07/2017.
  */
 
-public class SearchPresenter implements SearchContract.Presenter {
+public class ArtistSearchPresenter implements ArtistSearchContract.Presenter {
 
-    private final SearchContract.View<BasePresenter> view;
+    private final ArtistSearchContract.View<BasePresenter> view;
     private final SearchArtistInteractor interactor;
 
     boolean onloading = false;
@@ -37,7 +33,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
 
     @Inject
-    public SearchPresenter(SearchContract.View view, SearchArtistInteractor interactor) {
+    public ArtistSearchPresenter(ArtistSearchContract.View view, SearchArtistInteractor interactor) {
         this.view = view;
         this.interactor = interactor;
 

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.model.Artist;
-import com.atasoyh.lastfmartistfinder.presenter.search.SearchContract;
+import com.atasoyh.lastfmartistfinder.presenter.search.ArtistSearchContract;
 import com.atasoyh.lastfmartistfinder.view.BaseFragment;
 import com.atasoyh.lastfmartistfinder.view.artistdetail.ArtistInfoActivity;
 import com.atasoyh.lastfmartistfinder.view.search.dpi.SearchComponent;
@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
  * Created by atasoyh on 09/07/2017.
  */
 
-public class SearchFragment extends BaseFragment implements SearchContract.View<SearchContract.Presenter>, SearchListAdapter.OnItemClickListener, SearchListAdapter.OnNeededLoadMoreListener {
+public class ArtistSearchFragment extends BaseFragment implements ArtistSearchContract.View<ArtistSearchContract.Presenter>, SearchListAdapter.OnItemClickListener, SearchListAdapter.OnNeededLoadMoreListener {
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
@@ -44,13 +44,13 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
     TextView tvEmpty;
 
     @Inject
-    SearchContract.Presenter presenter;
+    ArtistSearchContract.Presenter presenter;
 
     private SearchComponent searchComponent;
     private SearchListAdapter adapter;
 
-    public static SearchFragment newInstance() {
-        SearchFragment fragment = new SearchFragment();
+    public static ArtistSearchFragment newInstance() {
+        ArtistSearchFragment fragment = new ArtistSearchFragment();
         return fragment;
     }
 
@@ -66,7 +66,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
     }
 
     @Override
-    public void setPresenter(SearchContract.Presenter presenter) {
+    public void setPresenter(ArtistSearchContract.Presenter presenter) {
         this.presenter = presenter;
     }
 

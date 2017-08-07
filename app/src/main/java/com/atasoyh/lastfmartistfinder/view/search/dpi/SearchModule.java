@@ -3,8 +3,8 @@ package com.atasoyh.lastfmartistfinder.view.search.dpi;
 import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
 import com.atasoyh.lastfmartistfinder.interactor.SearchArtistInteractor;
 import com.atasoyh.lastfmartistfinder.interactor.SearchArtistInteractorImpl;
-import com.atasoyh.lastfmartistfinder.presenter.search.SearchContract;
-import com.atasoyh.lastfmartistfinder.presenter.search.SearchPresenter;
+import com.atasoyh.lastfmartistfinder.presenter.search.ArtistSearchContract;
+import com.atasoyh.lastfmartistfinder.presenter.search.ArtistSearchPresenter;
 
 import javax.inject.Inject;
 
@@ -17,15 +17,15 @@ import dagger.Provides;
 @Module
 public class SearchModule {
 
-    private final SearchContract.View view;
+    private final ArtistSearchContract.View view;
 
     @Inject
-    public SearchModule(SearchContract.View view) {
+    public SearchModule(ArtistSearchContract.View view) {
         this.view = view;
     }
 
     @Provides
-    SearchContract.View provideTasksContractView() {
+    ArtistSearchContract.View provideTasksContractView() {
         return view;
     }
 
@@ -35,8 +35,8 @@ public class SearchModule {
     }
 
     @Provides
-    SearchContract.Presenter provideSearchArtistPresenter(SearchContract.View view, SearchArtistInteractor interactor) {
-        return new SearchPresenter(view, interactor);
+    ArtistSearchContract.Presenter provideSearchArtistPresenter(ArtistSearchContract.View view, SearchArtistInteractor interactor) {
+        return new ArtistSearchPresenter(view, interactor);
     }
 
 }

@@ -9,23 +9,20 @@ import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.util.RxSearch;
 import com.atasoyh.lastfmartistfinder.view.BaseActivity;
-import com.google.common.eventbus.Subscribe;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class SearchActivity extends BaseActivity {
 
 
     @BindView(R.id.search_view)
     MaterialSearchView searchView;
-    private SearchFragment searchFragment;
+    private ArtistSearchFragment artistSearchFragment;
 
 
     @Override
@@ -44,16 +41,16 @@ public class SearchActivity extends BaseActivity {
                 .filter(item -> item.length() > 1)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(query -> {
-                    searchFragment.onQueryTextChange(query);
+                    artistSearchFragment.onQueryTextChange(query);
                 });
 
 
-        searchFragment = (SearchFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if (searchFragment == null) {
+        artistSearchFragment = (ArtistSearchFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        if (artistSearchFragment == null) {
             // Create the fragment
-            searchFragment = SearchFragment.newInstance();
+            artistSearchFragment = ArtistSearchFragment.newInstance();
             activityUtils.addFragmentToActivity(
-                    getSupportFragmentManager(), searchFragment, R.id.contentFrame);
+                    getSupportFragmentManager(), artistSearchFragment, R.id.contentFrame);
         }
 
     }

@@ -1,12 +1,9 @@
 package com.atasoyh.lastfmartistfinder.presenter.artistinfo;
 
 import com.atasoyh.lastfmartistfinder.interactor.ArtistInfoInteractor;
-import com.atasoyh.lastfmartistfinder.interactor.SearchArtistInteractor;
 import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.model.response.GetArtistInfoResponse;
-import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
-import com.atasoyh.lastfmartistfinder.presenter.search.SearchContract;
 import com.google.gson.Gson;
 
 import org.junit.Before;
@@ -18,15 +15,10 @@ import org.mockito.MockitoAnnotations;
 import io.reactivex.Observer;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyDouble;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-import static org.junit.Assert.*;
 
 /**
  * Created by atasoyh on 10/07/2017.
