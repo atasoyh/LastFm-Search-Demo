@@ -1,9 +1,11 @@
 package com.atasoyh.lastfmartistfinder.presenter.search;
 
-import com.atasoyh.lastfmartistfinder.interactor.artist.SearchArtistInteractor;
+import com.atasoyh.lastfmartistfinder.interactor.SearchInteractor;
+import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.lang.reflect.Type;
 
 import io.reactivex.Observer;
 
@@ -36,7 +40,7 @@ public class ArtistSearchPresenterTest {
     ArtistSearchContract.View<BasePresenter> view;
 
     @Mock
-    SearchArtistInteractor api;
+    SearchInteractor api;
 
     private ArtistSearchPresenter artistSearchPresenter;
 
@@ -49,7 +53,9 @@ public class ArtistSearchPresenterTest {
             @Override
             protected void subscribeActual(Observer<? super SearchResponse> observer) {
                 Gson gson = new Gson();
-                SearchResponse response = gson.fromJson(mockDataLess, SearchResponse.class);
+                Type type = new TypeToken<SearchResponse<ArtistMatches>>() {
+                }.getType();
+                SearchResponse response = gson.fromJson(mockDataLess, type);
                 observer.onNext(response);
                 observer.onComplete();
             }
@@ -59,7 +65,9 @@ public class ArtistSearchPresenterTest {
             @Override
             protected void subscribeActual(Observer<? super SearchResponse> observer) {
                 Gson gson = new Gson();
-                SearchResponse response = gson.fromJson(mockDataMore, SearchResponse.class);
+                Type type = new TypeToken<SearchResponse<ArtistMatches>>() {
+                }.getType();
+                SearchResponse response = gson.fromJson(mockDataMore, type);
                 observer.onNext(response);
                 observer.onComplete();
             }

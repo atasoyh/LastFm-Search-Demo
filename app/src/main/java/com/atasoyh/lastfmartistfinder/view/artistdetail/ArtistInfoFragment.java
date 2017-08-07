@@ -117,7 +117,12 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
 
     @Override
     public void showImage(String url) {
-        sdvArtistImage.setImageURI(url);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                sdvArtistImage.setImageURI(url);
+            }
+        });
     }
 
     @Override
