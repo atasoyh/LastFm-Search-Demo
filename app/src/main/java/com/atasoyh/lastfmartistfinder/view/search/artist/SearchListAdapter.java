@@ -1,4 +1,4 @@
-package com.atasoyh.lastfmartistfinder.view.search;
+package com.atasoyh.lastfmartistfinder.view.search.artist;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

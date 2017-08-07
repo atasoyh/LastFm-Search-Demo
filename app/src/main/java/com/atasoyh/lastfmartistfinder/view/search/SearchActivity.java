@@ -9,6 +9,7 @@ import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.util.RxSearch;
 import com.atasoyh.lastfmartistfinder.view.BaseActivity;
+import com.atasoyh.lastfmartistfinder.view.search.artist.ArtistSearchFragment;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.concurrent.TimeUnit;

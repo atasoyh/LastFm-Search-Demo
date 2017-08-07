@@ -1,6 +1,7 @@
 package com.atasoyh.lastfmartistfinder.view.search.dpi;
 
-import com.atasoyh.lastfmartistfinder.view.search.ArtistSearchFragment;
+import com.atasoyh.lastfmartistfinder.view.search.SearchFragment;
+import com.atasoyh.lastfmartistfinder.view.search.artist.ArtistSearchFragment;
 
 import dagger.Subcomponent;
 
@@ -10,5 +11,5 @@ import dagger.Subcomponent;
 @SearchScope
 @Subcomponent(modules = {SearchModule.class})
 public interface SearchComponent {
-    void inject(ArtistSearchFragment artistSearchFragment);
+    void inject(SearchFragment searchFragment);
 }
