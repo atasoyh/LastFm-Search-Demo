@@ -6,4 +6,8 @@
     <string name="similar">Similar</string>
     <string name="artist_detail">Artist Detail</string>
     <string name="let_s_search_someone">Let\'s search someone...:)</string>
+    <string name="more">more</string>
+    <string name="artist">Artist</string>
+    <string name="album">Album</string>
+    <string name="track">Track</string>
 </resources>

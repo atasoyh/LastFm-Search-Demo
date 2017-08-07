@@ -14,13 +14,13 @@ import java.util.List;
  * Created by atasoyh on 30/06/2017.
  */
 
-public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.ArtistViewHolder> {
+public class SearchMoreListAdapter extends RecyclerView.Adapter<SearchMoreListAdapter.ArtistViewHolder> {
 
     List<Artist> itemList;
     OnItemClickListener onItemClickListener;
     OnNeededLoadMoreListener onNeededLoadMoreListener;
 
-    public SearchListAdapter(List<Artist> itemList) {
+    public SearchMoreListAdapter(List<Artist> itemList) {
         this.itemList = itemList;
     }
 

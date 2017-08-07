@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
  * Created by atasoyh on 09/07/2017.
  */
 
-public class ArtistSearchFragment extends BaseFragment implements ArtistSearchContract.View<ArtistSearchContract.Presenter>, SearchListAdapter.OnItemClickListener, SearchListAdapter.OnNeededLoadMoreListener {
+public class ArtistSearchFragment extends BaseFragment implements ArtistSearchContract.View<ArtistSearchContract.Presenter>, SearchMoreListAdapter.OnItemClickListener, SearchMoreListAdapter.OnNeededLoadMoreListener {
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
@@ -47,7 +47,7 @@ public class ArtistSearchFragment extends BaseFragment implements ArtistSearchCo
     ArtistSearchContract.Presenter presenter;
 
     private ArtistSearchComponent artistSearchComponent;
-    private SearchListAdapter adapter;
+    private SearchMoreListAdapter adapter;
 
     public static ArtistSearchFragment newInstance() {
         ArtistSearchFragment fragment = new ArtistSearchFragment();
@@ -79,7 +79,7 @@ public class ArtistSearchFragment extends BaseFragment implements ArtistSearchCo
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this, view);
-        adapter = new SearchListAdapter(new ArrayList<>());
+        adapter = new SearchMoreListAdapter(new ArrayList<>());
         adapter.setOnItemClickListener(this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));

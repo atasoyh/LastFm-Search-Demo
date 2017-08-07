@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,8 +19,7 @@ import com.atasoyh.lastfmartistfinder.model.SearchItems;
 import com.atasoyh.lastfmartistfinder.presenter.search.SearchContract;
 import com.atasoyh.lastfmartistfinder.view.BaseFragment;
 import com.atasoyh.lastfmartistfinder.view.artistdetail.ArtistInfoActivity;
-import com.atasoyh.lastfmartistfinder.view.search.artist.SearchListAdapter;
-import com.atasoyh.lastfmartistfinder.view.search.artist.dpi.ArtistSearchComponent;
+import com.atasoyh.lastfmartistfinder.view.search.artist.SearchMoreListAdapter;
 import com.atasoyh.lastfmartistfinder.view.search.dpi.SearchComponent;
 import com.atasoyh.lastfmartistfinder.view.search.dpi.SearchModule;
 
@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
  * Created by atasoyh on 09/07/2017.
  */
 
-public class SearchFragment extends BaseFragment implements SearchContract.View<SearchContract.Presenter>, SearchListAdapter.OnItemClickListener, SearchListAdapter.OnNeededLoadMoreListener {
+public class SearchFragment extends BaseFragment implements SearchContract.View<SearchContract.Presenter>, SearchMoreListAdapter.OnItemClickListener, SearchMoreListAdapter.OnNeededLoadMoreListener {
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
@@ -49,6 +49,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
     SearchContract.Presenter presenter;
 
     private SearchComponent searchComponent;
+
     private SearchListAdapter adapter;
 
     public static SearchFragment newInstance() {
@@ -81,11 +82,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this, view);
-        adapter = new SearchListAdapter(new ArrayList<>());
-        adapter.setOnItemClickListener(this);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -101,12 +98,24 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
 
     @Override
     public void setItems(SearchItems items) {
+        adapter = new SearchListAdapter(items);
+        GridLayoutManager glm = new GridLayoutManager(getContext(), 2);
+        glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (adapter.isItemHeader(position))
+                    return 2;
+                return 1;
 
+            }
+        });
+        recyclerView.setLayoutManager(glm);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void refreshItems() {
-        adapter.setItems(new ArrayList<>());
+        // adapter.setItems(new ArrayList<>());
 
     }
 

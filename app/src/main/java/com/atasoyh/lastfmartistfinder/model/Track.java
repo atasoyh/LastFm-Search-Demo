@@ -24,7 +24,7 @@ public class Track {
     private String listeners;
     @SerializedName("image")
     @Expose
-    private List<Image> image = null;
+    private List<Image> images = null;
     @SerializedName("mbid")
     @Expose
     private String mbid;
@@ -70,11 +70,11 @@ public class Track {
     }
 
     public List<Image> getImage() {
-        return image;
+        return images;
     }
 
     public void setImage(List<Image> image) {
-        this.image = image;
+        this.images = image;
     }
 
     public String getMbid() {
@@ -85,4 +85,20 @@ public class Track {
         this.mbid = mbid;
     }
 
+    public String getLargeImageUrl() {
+        return getImageURLForSize("large");
+    }
+
+    public String getMegaImageUrl() {
+        return getImageURLForSize("mega");
+    }
+
+    private String getImageURLForSize(String sizeType) {
+        if (images == null) return null;
+        for (Image image : images) {
+            if (sizeType.equals(image.getSize()))
+                return image.getText();
+        }
+        return null;
+    }
 }
