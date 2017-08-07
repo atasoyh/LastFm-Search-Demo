@@ -76,7 +76,7 @@ public class ArtistSearchPresenter implements ArtistSearchContract.Presenter {
             public void onNext(SearchResponse response) {
                 onloading = false;
                 view.showLoading(false);
-                view.addItems(((ArtistMatches)response.getResults().getMatches()).getArtist());
+                view.addItems((response.getResults().getArtistMatches()).getArtist());
                 calculatePage(response.getResults());
             }
 

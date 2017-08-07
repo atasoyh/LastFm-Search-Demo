@@ -35,13 +35,13 @@ public class ArtistSearchModule {
     }
 
     @Provides
-    SearchInteractor<ArtistMatches> provideSearchArtistInteractor(LastFmApi api) {
+    SearchInteractor provideSearchArtistInteractor(LastFmApi api) {
         return new ArtistSearchInteractorImpl(api);
     }
 
 
     @Provides
-    ArtistSearchContract.Presenter provideSearchArtistPresenter(ArtistSearchContract.View view, SearchInteractor<ArtistMatches> artistSearchInteractor) {
+    ArtistSearchContract.Presenter provideSearchArtistPresenter(ArtistSearchContract.View view, SearchInteractor artistSearchInteractor) {
         return  new ArtistSearchPresenter(view, artistSearchInteractor);
     }
 

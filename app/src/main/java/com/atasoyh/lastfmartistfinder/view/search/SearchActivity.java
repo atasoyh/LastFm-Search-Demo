@@ -23,7 +23,7 @@ public class SearchActivity extends BaseActivity {
 
     @BindView(R.id.search_view)
     MaterialSearchView searchView;
-    private ArtistSearchFragment artistSearchFragment;
+    private SearchFragment searchFragment;
 
 
     @Override
@@ -42,16 +42,16 @@ public class SearchActivity extends BaseActivity {
                 .filter(item -> item.length() > 1)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(query -> {
-                    artistSearchFragment.onQueryTextChange(query);
+                    searchFragment.onQueryTextChange(query);
                 });
 
 
-        artistSearchFragment = (ArtistSearchFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if (artistSearchFragment == null) {
+        searchFragment = (SearchFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        if (searchFragment == null) {
             // Create the fragment
-            artistSearchFragment = ArtistSearchFragment.newInstance();
+            searchFragment = SearchFragment.newInstance();
             activityUtils.addFragmentToActivity(
-                    getSupportFragmentManager(), artistSearchFragment, R.id.contentFrame);
+                    getSupportFragmentManager(), searchFragment, R.id.contentFrame);
         }
 
     }

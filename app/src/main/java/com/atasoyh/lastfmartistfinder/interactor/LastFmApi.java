@@ -25,7 +25,7 @@ public interface LastFmApi {
      * @return {@link Results<ArtistMatches>}
      */
     @GET("?method=artist.search")
-    public Observable<SearchResponse<ArtistMatches>> searchArtist(@Query("artist") String keyword, @Query("limit") String limit, @Query("page") String page);
+    public Observable<SearchResponse> searchArtist(@Query("artist") String keyword, @Query("limit") String limit, @Query("page") String page);
 
     /**
      * @param artist The artist name
@@ -43,7 +43,7 @@ public interface LastFmApi {
      * @return {@link Results<AlbumMatches>}
      */
     @GET("?method=album.search")
-    public Observable<SearchResponse<AlbumMatches>> searchAlbum(@Query("album") String keyword, @Query("limit") String limit, @Query("page") String page);
+    public Observable<SearchResponse> searchAlbum(@Query("album") String keyword, @Query("limit") String limit, @Query("page") String page);
 
     /**
      *
@@ -53,7 +53,7 @@ public interface LastFmApi {
      * @return {@link Results<TrackMatches>}
      */
     @GET("?method=track.search")
-    public Observable<SearchResponse<TrackMatches>> searchTrack(@Query("track") String keyword, @Query("limit") String limit, @Query("page") String page);
+    public Observable<SearchResponse> searchTrack(@Query("track") String keyword, @Query("limit") String limit, @Query("page") String page);
 
 
 

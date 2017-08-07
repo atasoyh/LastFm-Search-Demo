@@ -4,7 +4,6 @@ import com.atasoyh.lastfmartistfinder.interactor.SearchInteractor;
 import com.atasoyh.lastfmartistfinder.model.AlbumMatches;
 import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
 import com.atasoyh.lastfmartistfinder.model.Error;
-import com.atasoyh.lastfmartistfinder.model.Results;
 import com.atasoyh.lastfmartistfinder.model.SearchItems;
 import com.atasoyh.lastfmartistfinder.model.TrackMatches;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
@@ -28,9 +27,9 @@ import io.reactivex.functions.Function3;
 public class SearchPresenter implements SearchContract.Presenter {
 
     private final SearchContract.View<BasePresenter> view;
-    private final SearchInteractor<AlbumMatches> albumSearchInteractor;
-    private final SearchInteractor<ArtistMatches> artistSearchInteractor;
-    private final SearchInteractor<TrackMatches> trackSearchInteractor;
+    private final SearchInteractor albumSearchInteractor;
+    private final SearchInteractor artistSearchInteractor;
+    private final SearchInteractor trackSearchInteractor;
 
     boolean onloading = false;
 
@@ -40,7 +39,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
 
     @Inject
-    public SearchPresenter(SearchContract.View view, SearchInteractor<AlbumMatches> albumSearchInteractor, SearchInteractor<ArtistMatches> artistSearchInteractor, SearchInteractor<TrackMatches> trackSearchInteractor) {
+    public SearchPresenter(SearchContract.View view, SearchInteractor albumSearchInteractor, SearchInteractor artistSearchInteractor, SearchInteractor trackSearchInteractor) {
         this.view = view;
         this.albumSearchInteractor = albumSearchInteractor;
         this.artistSearchInteractor = artistSearchInteractor;
@@ -70,17 +69,23 @@ public class SearchPresenter implements SearchContract.Presenter {
         view.showLoading(true);
         view.hideEmptyView();
 
-        Observable<SearchResponse<ArtistMatches>> artistSearchObservable = artistSearchInteractor.search(keyword, itemCountPerSearch, page);
-        Observable<SearchResponse<AlbumMatches>> albumSearchObservable = albumSearchInteractor.search(keyword, itemCountPerSearch, page);
-        Observable<SearchResponse<TrackMatches>> trackSearchObservable = trackSearchInteractor.search(keyword, itemCountPerSearch, page);
+        Observable<SearchResponse> artistSearchObservable = artistSearchInteractor.search(keyword, itemCountPerSearch, page);
+        Observable<SearchResponse> albumSearchObservable = albumSearchInteractor.search(keyword, itemCountPerSearch, page);
+        Observable<SearchResponse> trackSearchObservable = trackSearchInteractor.search(keyword, itemCountPerSearch, page);
 
-        Observable.zip(artistSearchObservable, albumSearchObservable, trackSearchObservable, new Function3<SearchResponse<ArtistMatches>, SearchResponse<AlbumMatches>, SearchResponse<TrackMatches>, SearchItems>() {
+        Observable.zip(artistSearchObservable, albumSearchObservable, trackSearchObservable, new Function3<SearchResponse, SearchResponse, SearchResponse, SearchItems>() {
             @Override
-            public SearchItems apply(SearchResponse<ArtistMatches> artistSearchResponse, SearchResponse<AlbumMatches> albumSearchResponse, SearchResponse<TrackMatches> trackSearchResponse) throws Exception {
+            public SearchItems apply(SearchResponse artistSearchResponse, SearchResponse albumSearchResponse, SearchResponse trackSearchResponse) throws Exception {
                 SearchItems searchItems = new SearchItems();
-                searchItems.setArtistList(((ArtistMatches) artistSearchResponse.getResults().getMatches()).getArtist());
-                searchItems.setAlbumList(((AlbumMatches) albumSearchResponse.getResults().getMatches()).getAlbum());
-                searchItems.setTrackList(((TrackMatches) trackSearchResponse.getResults().getMatches()).getTrack());
+                Object artistMatches = artistSearchResponse.getResults().getArtistMatches();
+                if (artistMatches != null)
+                    searchItems.setArtistList(((ArtistMatches) artistMatches).getArtist());
+                Object albumMatches = albumSearchResponse.getResults().getAlbumMatches();
+                if (albumMatches != null)
+                    searchItems.setAlbumList(((AlbumMatches) albumMatches).getAlbum());
+                Object trackMatches = trackSearchResponse.getResults().getTrackMatches();
+                if (trackMatches != null)
+                    searchItems.setTrackList(((TrackMatches) trackMatches).getTrack());
                 return searchItems;
             }
         }).subscribe(getObserver());
@@ -136,7 +141,6 @@ public class SearchPresenter implements SearchContract.Presenter {
 //            else view.disableLoadMore();
 //        }
     }
-
 
 
 }

@@ -4,7 +4,7 @@ package com.atasoyh.lastfmartistfinder.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Results<T> {
+public class Results {
 
     @SerializedName("opensearch:Query")
     @Expose
@@ -20,7 +20,13 @@ public class Results<T> {
     private String opensearchItemsPerPage;
     @SerializedName("artistmatches")
     @Expose
-    private T matches;
+    private ArtistMatches artistMatches;
+    @SerializedName("trackmatches")
+    @Expose
+    private TrackMatches trackMatches;
+    @SerializedName("albummatches")
+    @Expose
+    private AlbumMatches albumMatches;
     @SerializedName("@attr")
     @Expose
     private Attr attr;
@@ -57,12 +63,28 @@ public class Results<T> {
         this.opensearchItemsPerPage = opensearchItemsPerPage;
     }
 
-    public T getMatches() {
-        return matches;
+    public ArtistMatches getArtistMatches() {
+        return artistMatches;
     }
 
-    public void setMatches(T matches) {
-        this.matches = matches;
+    public void setArtistMatches(ArtistMatches artistMatches) {
+        this.artistMatches = artistMatches;
+    }
+
+    public TrackMatches getTrackMatches() {
+        return trackMatches;
+    }
+
+    public void setTrackMatches(TrackMatches trackMatches) {
+        this.trackMatches = trackMatches;
+    }
+
+    public AlbumMatches getAlbumMatches() {
+        return albumMatches;
+    }
+
+    public void setAlbumMatches(AlbumMatches albumMatches) {
+        this.albumMatches = albumMatches;
     }
 
     public Attr getAttr() {

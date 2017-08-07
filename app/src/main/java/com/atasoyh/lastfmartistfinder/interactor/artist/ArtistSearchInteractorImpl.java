@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by atasoyh on 10/07/2017.
  */
 
-public class ArtistSearchInteractorImpl implements SearchInteractor<ArtistMatches> {
+public class ArtistSearchInteractorImpl implements SearchInteractor {
 
     LastFmApi api;
 
@@ -25,7 +25,7 @@ public class ArtistSearchInteractorImpl implements SearchInteractor<ArtistMatche
     }
 
     @Override
-    public Observable<SearchResponse<ArtistMatches>> search(String keyword, int limit, int page) {
+    public Observable<SearchResponse> search(String keyword, int limit, int page) {
         String _limit = String.valueOf(limit);
         String _page = String.valueOf(page);
         if (limit == -1 && page == -1) {

@@ -13,6 +13,7 @@ import com.atasoyh.lastfmartistfinder.presenter.search.SearchContract;
 import com.atasoyh.lastfmartistfinder.presenter.search.SearchPresenter;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -35,25 +36,28 @@ public class SearchModule {
         return view;
     }
 
+    @Named("ArtistInteractor")
     @Provides
-    SearchInteractor<ArtistMatches> provideSearchArtistInteractor(LastFmApi api) {
+    SearchInteractor provideSearchArtistInteractor(LastFmApi api) {
         return new ArtistSearchInteractorImpl(api);
     }
 
+    @Named("AlbumInteractor")
     @Provides
-    SearchInteractor<AlbumMatches> provideAlbumSearchInteractor(LastFmApi api) {
+    SearchInteractor provideAlbumSearchInteractor(LastFmApi api) {
         return new AlbumSearchInteractorImpl(api);
     }
 
+    @Named("TrackInteractor")
     @Provides
-    SearchInteractor<TrackMatches> provideTrackSearchInteractor(LastFmApi api) {
+    SearchInteractor provideTrackSearchInteractor(LastFmApi api) {
         return new TrackSearchInteractorImpl(api);
     }
 
 
     @Provides
-    SearchContract.Presenter provideSearchPresenter(SearchContract.View view, SearchInteractor<ArtistMatches> artistSearchInteractor, SearchInteractor<AlbumMatches> albumSearchInteractor, SearchInteractor<TrackMatches> trackSearchInteractor) {
-        return new SearchPresenter(view,albumSearchInteractor,artistSearchInteractor,trackSearchInteractor);
+    SearchContract.Presenter provideSearchPresenter(SearchContract.View view, @Named("ArtistInteractor") SearchInteractor artistSearchInteractor, @Named("AlbumInteractor") SearchInteractor albumSearchInteractor, @Named("TrackInteractor") SearchInteractor trackSearchInteractor) {
+        return new SearchPresenter(view, albumSearchInteractor, artistSearchInteractor, trackSearchInteractor);
     }
 
 }

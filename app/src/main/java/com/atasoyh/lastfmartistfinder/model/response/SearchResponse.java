@@ -5,11 +5,11 @@ import com.atasoyh.lastfmartistfinder.model.Results;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SearchResponse<T> {
+public class SearchResponse {
 
     @SerializedName("results")
     @Expose
-    private Results<T> results;
+    private Results results;
 
     public Results getResults() {
         return results;

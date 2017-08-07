@@ -9,7 +9,7 @@ import io.reactivex.Observable;
  * Created by atasoyh on 07/08/2017.
  */
 
-public interface SearchInteractor<T> {
-    Observable<SearchResponse<T>> search(String keyword, int limit, int page);
+public interface SearchInteractor {
+    Observable<SearchResponse> search(String keyword, int limit, int page);
 
 }
