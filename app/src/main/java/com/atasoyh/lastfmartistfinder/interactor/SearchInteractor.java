@@ -6,13 +6,10 @@ import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 import io.reactivex.Observable;
 
 /**
- * Created by atasoyh on 09/07/2017.
+ * Created by atasoyh on 07/08/2017.
  */
 
-public interface SearchArtistInteractor {
-
-    Observable<SearchResponse<ArtistMatches>> search(String keyword, int limit, int page);
-
-
+public interface SearchInteractor<T> {
+    Observable<SearchResponse<T>> search(String keyword, int limit, int page);
 
 }

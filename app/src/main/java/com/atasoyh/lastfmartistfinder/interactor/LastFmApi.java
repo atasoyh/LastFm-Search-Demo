@@ -1,7 +1,9 @@
 package com.atasoyh.lastfmartistfinder.interactor;
 
+import com.atasoyh.lastfmartistfinder.model.AlbumMatches;
 import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
 import com.atasoyh.lastfmartistfinder.model.Results;
+import com.atasoyh.lastfmartistfinder.model.TrackMatches;
 import com.atasoyh.lastfmartistfinder.model.response.GetArtistInfoResponse;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 
@@ -20,10 +22,10 @@ public interface LastFmApi {
      * @param keyword The artist name
      * @param limit   Optional. The number of results to fetch per page. Defaults to 30.
      * @param page    The page number to fetch. Defaults to first page.
-     * @return {@link Results}
+     * @return {@link Results<ArtistMatches>}
      */
     @GET("?method=artist.search")
-    public Observable<SearchResponse<ArtistMatches>> search(@Query("artist") String keyword, @Query("limit") String limit, @Query("page") String page);
+    public Observable<SearchResponse<ArtistMatches>> searchArtist(@Query("artist") String keyword, @Query("limit") String limit, @Query("page") String page);
 
     /**
      * @param artist The artist name
@@ -32,6 +34,28 @@ public interface LastFmApi {
      */
     @GET("?method=artist.getinfo")
     public Observable<GetArtistInfoResponse> getArtistInfo(@Query("artist") String artist, @Query("mbid") String mbid);
+
+    /**
+     *
+     * @param keyword the album name
+     * @param limit   Optional. The number of results to fetch per page. Defaults to 30.
+     * @param page    The page number to fetch. Defaults to first page.
+     * @return {@link Results<AlbumMatches>}
+     */
+    @GET("?method=album.search")
+    public Observable<SearchResponse<AlbumMatches>> searchAlbum(@Query("album") String keyword, @Query("limit") String limit, @Query("page") String page);
+
+    /**
+     *
+     * @param keyword the track name
+     * @param limit   Optional. The number of results to fetch per page. Defaults to 30.
+     * @param page    The page number to fetch. Defaults to first page.
+     * @return {@link Results<TrackMatches>}
+     */
+    @GET("?method=track.search")
+    public Observable<SearchResponse<TrackMatches>> searchTrack(@Query("track") String keyword, @Query("limit") String limit, @Query("page") String page);
+
+
 
 
 }

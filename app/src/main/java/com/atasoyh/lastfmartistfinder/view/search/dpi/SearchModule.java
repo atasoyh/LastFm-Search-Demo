@@ -1,8 +1,8 @@
 package com.atasoyh.lastfmartistfinder.view.search.dpi;
 
 import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
-import com.atasoyh.lastfmartistfinder.interactor.SearchArtistInteractor;
-import com.atasoyh.lastfmartistfinder.interactor.SearchArtistInteractorImpl;
+import com.atasoyh.lastfmartistfinder.interactor.SearchInteractor;
+import com.atasoyh.lastfmartistfinder.interactor.artist.ArtistSearchInteractorImpl;
 import com.atasoyh.lastfmartistfinder.presenter.search.ArtistSearchContract;
 import com.atasoyh.lastfmartistfinder.presenter.search.ArtistSearchPresenter;
 
@@ -30,12 +30,12 @@ public class SearchModule {
     }
 
     @Provides
-    SearchArtistInteractor provideSearchArtistInteractor(LastFmApi api) {
-        return new SearchArtistInteractorImpl(api);
+    SearchInteractor provideSearchArtistInteractor(LastFmApi api) {
+        return new ArtistSearchInteractorImpl(api);
     }
 
     @Provides
-    ArtistSearchContract.Presenter provideSearchArtistPresenter(ArtistSearchContract.View view, SearchArtistInteractor interactor) {
+    ArtistSearchContract.Presenter provideSearchArtistPresenter(ArtistSearchContract.View view, SearchInteractor interactor) {
         return new ArtistSearchPresenter(view, interactor);
     }
 

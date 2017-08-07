@@ -1,6 +1,6 @@
 package com.atasoyh.lastfmartistfinder.presenter.artistinfo;
 
-import com.atasoyh.lastfmartistfinder.interactor.ArtistInfoInteractor;
+import com.atasoyh.lastfmartistfinder.interactor.artist.ArtistInfoInteractor;
 import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.model.response.GetArtistInfoResponse;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;

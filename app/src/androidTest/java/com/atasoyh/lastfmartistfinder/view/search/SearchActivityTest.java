@@ -70,17 +70,17 @@ public class SearchActivityTest {
     @Test
     public void isTextviewAndSearchButtonVisibleAtivityTest() {
         ViewInteraction textView = onView(
-                allOf(withId(R.id.tvEmpty), withText("Let's search someone...:)"),
+                allOf(withId(R.id.tvEmpty), withText("Let's searchArtist someone...:)"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.contentFrame),
                                         0),
                                 1),
                         isDisplayed()));
-        textView.check(matches(withText("Let's search someone...:)")));
+        textView.check(matches(withText("Let's searchArtist someone...:)")));
 
         ViewInteraction textView2 = onView(
-                allOf(withId(R.id.tvEmpty), withText("Let's search someone...:)"),
+                allOf(withId(R.id.tvEmpty), withText("Let's searchArtist someone...:)"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.contentFrame),

@@ -1,5 +1,7 @@
-package com.atasoyh.lastfmartistfinder.interactor;
+package com.atasoyh.lastfmartistfinder.interactor.artist;
 
+import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
+import com.atasoyh.lastfmartistfinder.interactor.SearchInteractor;
 import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 
@@ -13,12 +15,12 @@ import io.reactivex.schedulers.Schedulers;
  * Created by atasoyh on 10/07/2017.
  */
 
-public class SearchArtistInteractorImpl implements SearchArtistInteractor {
+public class ArtistSearchInteractorImpl implements SearchInteractor<ArtistMatches> {
 
     LastFmApi api;
 
     @Inject
-    public SearchArtistInteractorImpl(LastFmApi api) {
+    public ArtistSearchInteractorImpl(LastFmApi api) {
         this.api = api;
     }
 
@@ -30,9 +32,7 @@ public class SearchArtistInteractorImpl implements SearchArtistInteractor {
             _limit = null;
             _page = null;
         }
-        Observable.just(new SearchResponse<ArtistMatches>()).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-        return this.api.search(keyword, _limit, _page)
+        return this.api.searchArtist(keyword, _limit, _page)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .unsubscribeOn(Schedulers.io());

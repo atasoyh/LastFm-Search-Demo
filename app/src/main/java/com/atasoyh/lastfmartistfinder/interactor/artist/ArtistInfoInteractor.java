@@ -1,4 +1,4 @@
-package com.atasoyh.lastfmartistfinder.interactor;
+package com.atasoyh.lastfmartistfinder.interactor.artist;
 
 import com.atasoyh.lastfmartistfinder.model.Artist;
 

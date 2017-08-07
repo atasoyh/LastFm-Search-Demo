@@ -1,6 +1,6 @@
 package com.atasoyh.lastfmartistfinder.presenter.search;
 
-import com.atasoyh.lastfmartistfinder.interactor.SearchArtistInteractor;
+import com.atasoyh.lastfmartistfinder.interactor.artist.SearchArtistInteractor;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
 import com.google.gson.Gson;

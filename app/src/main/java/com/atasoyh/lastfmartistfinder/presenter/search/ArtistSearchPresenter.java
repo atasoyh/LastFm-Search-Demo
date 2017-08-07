@@ -1,6 +1,6 @@
 package com.atasoyh.lastfmartistfinder.presenter.search;
 
-import com.atasoyh.lastfmartistfinder.interactor.SearchArtistInteractor;
+import com.atasoyh.lastfmartistfinder.interactor.SearchInteractor;
 import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
 import com.atasoyh.lastfmartistfinder.model.Error;
 import com.atasoyh.lastfmartistfinder.model.Results;
@@ -24,7 +24,7 @@ import io.reactivex.disposables.Disposable;
 public class ArtistSearchPresenter implements ArtistSearchContract.Presenter {
 
     private final ArtistSearchContract.View<BasePresenter> view;
-    private final SearchArtistInteractor interactor;
+    private final SearchInteractor interactor;
 
     boolean onloading = false;
 
@@ -34,7 +34,7 @@ public class ArtistSearchPresenter implements ArtistSearchContract.Presenter {
 
 
     @Inject
-    public ArtistSearchPresenter(ArtistSearchContract.View view, SearchArtistInteractor interactor) {
+    public ArtistSearchPresenter(ArtistSearchContract.View view, SearchInteractor interactor) {
         this.view = view;
         this.interactor = interactor;
 

@@ -1,5 +1,6 @@
-package com.atasoyh.lastfmartistfinder.interactor;
+package com.atasoyh.lastfmartistfinder.interactor.artist;
 
+import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
 import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.model.response.GetArtistInfoResponse;
 

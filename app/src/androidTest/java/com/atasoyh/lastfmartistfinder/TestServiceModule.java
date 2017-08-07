@@ -1,21 +1,23 @@
 package com.atasoyh.lastfmartistfinder;
 
 
-import com.atasoyh.lastfmartistfinder.di.ServiceModule;
 import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
+import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
 import com.atasoyh.lastfmartistfinder.model.response.GetArtistInfoResponse;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
+
+import java.lang.reflect.Type;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.Observable;
-import io.reactivex.internal.operators.observable.ObservableJust;
 
 
 /**
@@ -31,9 +33,10 @@ public class TestServiceModule {
     public LastFmApi provideAPI() {
         LastFmApi lastFmApi = Mockito.mock(LastFmApi.class);
         Gson gson = new Gson();
-        SearchResponse searchResponse = gson.fromJson(mockSearch, SearchResponse.class);
+        Type type = new TypeToken<SearchResponse<ArtistMatches>>(){}.getType();
+        SearchResponse<ArtistMatches> searchResponse = gson.fromJson(mockSearch, type);
         GetArtistInfoResponse artistInfoResponse = gson.fromJson(mockArtist, GetArtistInfoResponse.class);
-        Mockito.when(lastFmApi.search(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(Observable.defer(() -> Observable.just(searchResponse)));
+        Mockito.when(lastFmApi.searchArtist(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(Observable.defer(() -> Observable.just(searchResponse)));
         Mockito.when(lastFmApi.getArtistInfo(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(Observable.defer(() -> Observable.just(artistInfoResponse)));
         return lastFmApi;
     }

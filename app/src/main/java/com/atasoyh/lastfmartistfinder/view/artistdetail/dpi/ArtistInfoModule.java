@@ -1,7 +1,7 @@
 package com.atasoyh.lastfmartistfinder.view.artistdetail.dpi;
 
-import com.atasoyh.lastfmartistfinder.interactor.ArtistInfoInteractor;
-import com.atasoyh.lastfmartistfinder.interactor.ArtistInfoInteractorImpl;
+import com.atasoyh.lastfmartistfinder.interactor.artist.ArtistInfoInteractor;
+import com.atasoyh.lastfmartistfinder.interactor.artist.ArtistInfoInteractorImpl;
 import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
 import com.atasoyh.lastfmartistfinder.presenter.artistinfo.ArtistInfoContract;
 import com.atasoyh.lastfmartistfinder.presenter.artistinfo.ArtistInfoPresenter;
