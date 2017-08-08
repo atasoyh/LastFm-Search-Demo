@@ -4,7 +4,9 @@ import com.atasoyh.lastfmartistfinder.model.AlbumMatches;
 import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
 import com.atasoyh.lastfmartistfinder.model.Results;
 import com.atasoyh.lastfmartistfinder.model.TrackMatches;
+import com.atasoyh.lastfmartistfinder.model.response.GetAlbumInfoResponse;
 import com.atasoyh.lastfmartistfinder.model.response.GetArtistInfoResponse;
+import com.atasoyh.lastfmartistfinder.model.response.GetTrackInfoResponse;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 
 import io.reactivex.Observable;
@@ -46,6 +48,14 @@ public interface LastFmApi {
     public Observable<SearchResponse> searchAlbum(@Query("album") String keyword, @Query("limit") String limit, @Query("page") String page);
 
     /**
+     * @param album The album name
+     * @param artist The artist name
+     * @return
+     */
+    @GET("?method=album.getinfo")
+    public Observable<GetAlbumInfoResponse> getAlbumInfo(@Query("artist") String artist, @Query("album") String album);
+
+    /**
      *
      * @param keyword the track name
      * @param limit   Optional. The number of results to fetch per page. Defaults to 30.
@@ -56,12 +66,12 @@ public interface LastFmApi {
     public Observable<SearchResponse> searchTrack(@Query("track") String keyword, @Query("limit") String limit, @Query("page") String page);
 
     /**
-     * @param album The album name
+     * @param track The track name
      * @param artist The artist name
      * @return
      */
-    @GET("?method=album.getinfo")
-    public Observable<GetArtistInfoResponse> getAlbumInfo(@Query("artist") String artist,@Query("album") String album);
+    @GET("?method=track.getinfo")
+    public Observable<GetTrackInfoResponse> getTrackInfo(@Query("track") String artist, @Query("artist") String track);
 
 
 
