@@ -47,6 +47,11 @@ public class Artist implements LastFMDisplayableInterface{
     }
 
     @Override
+    public String getArtistName() {
+        return name;
+    }
+
+    @Override
     public String getImageUrl() {
         return getLargeImageUrl();
     }

@@ -1,5 +1,6 @@
 package com.atasoyh.lastfmartistfinder.view.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,8 @@ import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.util.RxSearch;
 import com.atasoyh.lastfmartistfinder.view.BaseActivity;
 import com.atasoyh.lastfmartistfinder.view.RxBus;
+import com.atasoyh.lastfmartistfinder.view.artistdetail.ArtistInfoActivity;
+import com.atasoyh.lastfmartistfinder.view.events.OpenItemDetail;
 import com.atasoyh.lastfmartistfinder.view.events.ShowMoreResult;
 import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
@@ -62,6 +65,14 @@ public class SearchActivity extends BaseActivity implements FragmentManager.OnBa
             if (message instanceof ShowMoreResult) {
                 ShowMoreResult showMoreResult = (ShowMoreResult) message;
                 activityUtils.addFragmentToBackstack(getSupportFragmentManager(), SearchMoreFragment.newInstance(showMoreResult.type, showMoreResult.keyword), R.id.contentFrame);
+            }else if(message instanceof OpenItemDetail){
+                OpenItemDetail openItemDetail=(OpenItemDetail)message;
+                Intent intent = new Intent(this, ArtistInfoActivity.class);
+                intent.putExtra(ArtistInfoActivity.TAG_ARTIST, openItemDetail.item.getArtistName());
+                intent.putExtra(ArtistInfoActivity.TAG_NAME,openItemDetail.item.getName());
+                intent.putExtra(ArtistInfoActivity.TAG_MBID, openItemDetail.item.getMbid());
+                intent.putExtra(ArtistInfoActivity.TAG_TYPE,openItemDetail.type);
+                startActivity(intent);
             }
         });
 

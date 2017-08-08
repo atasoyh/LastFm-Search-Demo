@@ -19,16 +19,20 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TrackInfoInteractorImpl implements TrackInfoInteractor {
 
+    private final String artistName;
+    private final String trackName;
     LastFmApi api;
 
     @Inject
-    public TrackInfoInteractorImpl(LastFmApi api) {
+    public TrackInfoInteractorImpl(LastFmApi api,String artistName,String trackName) {
         this.api = api;
+        this.artistName = artistName;
+        this.trackName = trackName;
     }
 
     @Override
-    public Observable<Track> getInfo(String track, String artistName) {
-        return api.getTrackInfo(track,artistName).subscribeOn(Schedulers.io())
+    public Observable<Track> getInfo() {
+        return api.getTrackInfo(trackName,artistName).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .map((Function<GetTrackInfoResponse, Track>) getTrackInfoResponse -> getTrackInfoResponse.getTrack());

@@ -1,10 +1,18 @@
 package com.atasoyh.lastfmartistfinder.presenter.artistinfo;
 
+import com.atasoyh.lastfmartistfinder.interactor.album.AlbumInfoInteractor;
 import com.atasoyh.lastfmartistfinder.interactor.artist.ArtistInfoInteractor;
+import com.atasoyh.lastfmartistfinder.interactor.track.TrackInfoInteractor;
 import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.model.Bio;
+import com.atasoyh.lastfmartistfinder.model.Error;
+import com.atasoyh.lastfmartistfinder.model.LastFMDisplayableInterface;
 import com.atasoyh.lastfmartistfinder.model.Similar;
 import com.atasoyh.lastfmartistfinder.model.Tags;
+import com.atasoyh.lastfmartistfinder.util.RetrofitException;
+import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
+
+import java.io.IOException;
 
 import javax.inject.Inject;
 
@@ -17,17 +25,19 @@ import io.reactivex.disposables.Disposable;
 
 public class ArtistInfoPresenter implements ArtistInfoContract.Presenter {
 
-    private final String artistName;
-    private final String mbid;
-    private final ArtistInfoContract.View view;
+   private final ArtistInfoContract.View view;
     private final ArtistInfoInteractor artistInfoInteractor;
+    private final AlbumInfoInteractor albumInfoInteractor;
+    private final TrackInfoInteractor trackInfoInteractor;
+    private final SearchMoreFragment.Type type;
 
     @Inject
-    public ArtistInfoPresenter(ArtistInfoContract.View view, ArtistInfoInteractor artistInfoInteractor, String artistName, String mbid) {
+    public ArtistInfoPresenter(ArtistInfoContract.View view, ArtistInfoInteractor artistInfoInteractor, AlbumInfoInteractor albumInfoInteractor, TrackInfoInteractor trackInfoInteractor, SearchMoreFragment.Type type) {
         this.artistInfoInteractor = artistInfoInteractor;
+        this.albumInfoInteractor = albumInfoInteractor;
+        this.trackInfoInteractor = trackInfoInteractor;
         this.view = view;
-        this.artistName = artistName;
-        this.mbid = mbid;
+        this.type = type;
     }
 
     @Inject
@@ -39,39 +49,67 @@ public class ArtistInfoPresenter implements ArtistInfoContract.Presenter {
     @Override
     public void loadArtistInfo() {
         view.showLoading(true);
-        artistInfoInteractor.getInfo(artistName, mbid).subscribe(getObserver());
+        switch (type) {
+            case TRACK:
+                trackInfoInteractor.getInfo().subscribe(getObserver());
+                break;
+            case ALBUM:
+                albumInfoInteractor.getInfo().subscribe(getObserver());
+                break;
+            case ARTIST:
+                artistInfoInteractor.getInfo().subscribe(getObserver());
+                break;
+        }
+
     }
 
-    private Observer<Artist> getObserver() {
-        return new Observer<Artist>() {
+    private Observer<LastFMDisplayableInterface> getObserver() {
+        return new Observer<LastFMDisplayableInterface>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(Artist response) {
+            public void onNext(LastFMDisplayableInterface item) {
                 view.showLoading(false);
 
-                Bio bio = response.getBio();
-                if (bio != null)
-                    view.showBio(bio);
+                view.showImage(item.getMegaImageUrl());
+                view.showName(item.getName());
 
-                Tags tags = response.getTags();
-                if (tags != null)
-                    view.showTags(tags);
+                switch (type) {
+                    case ARTIST:
+                        Artist artist=(Artist)item;
+                        Bio bio = artist.getBio();
+                        if (bio != null)
+                            view.showBio(bio);
 
-                Similar similar = response.getSimilar();
-                if (similar != null)
-                    view.showSimilars(response.getSimilar());
+                        Tags tags = artist.getTags();
+                        if (tags != null)
+                            view.showTags(tags);
 
-                view.showImage(response.getMegaImageUrl());
-                view.showName(response.getName());
-
+                        Similar similar = artist.getSimilar();
+                        if (similar != null)
+                            view.showSimilars(artist.getSimilar());
+                        break;
+                    case TRACK:
+                        break;
+                    case ALBUM:
+                        break;
+                }
             }
 
             @Override
             public void onError(Throwable e) {
+                e.printStackTrace();
+                RetrofitException error = (RetrofitException) e;
+                try {
+                    Error response = error.getErrorBodyAs(Error.class);
+                    view.showError(response.getMessage());
+                } catch (Throwable e1) {
+                    e1.printStackTrace();
+                }
+                view.showLoading(false);
 
             }
 

@@ -9,6 +9,6 @@ import io.reactivex.Observable;
  */
 
 public interface ArtistInfoInteractor {
-    Observable<Artist> getInfo(String keyword, String mbid);
+    Observable<Artist> getInfo();
 
 }

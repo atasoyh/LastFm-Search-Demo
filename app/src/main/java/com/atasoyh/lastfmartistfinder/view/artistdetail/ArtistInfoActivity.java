@@ -15,6 +15,7 @@ import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 
 public class ArtistInfoActivity extends BaseActivity {
 
+    public static final String TAG_NAME = "name";
     public static final String TAG_ARTIST = "artist";
     public static final String TAG_MBID = "mbid";
     public static final String TAG_TYPE = "type";
@@ -29,13 +30,14 @@ public class ArtistInfoActivity extends BaseActivity {
         setSupportActionBar(toolbar);
 
         String artist = getIntent().getStringExtra(TAG_ARTIST);
+        String name = getIntent().getStringExtra(TAG_NAME);
         String mbid = getIntent().getStringExtra(TAG_MBID);
-        SearchMoreFragment.Type type= (SearchMoreFragment.Type) getIntent().getSerializableExtra(TAG_TYPE);
+        SearchMoreFragment.Type type = (SearchMoreFragment.Type) getIntent().getSerializableExtra(TAG_TYPE);
 
         artistInfoFragment = (ArtistInfoFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
         if (artistInfoFragment == null) {
             // Create the fragment
-            artistInfoFragment = ArtistInfoFragment.newInstance(artist, mbid,type);
+            artistInfoFragment = ArtistInfoFragment.newInstance(artist, name, mbid, type);
             activityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), artistInfoFragment, R.id.contentFrame);
         }

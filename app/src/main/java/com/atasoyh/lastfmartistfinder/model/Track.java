@@ -16,9 +16,7 @@ public class Track implements LastFMDisplayableInterface{
     @SerializedName("url")
     @Expose
     private String url;
-    @SerializedName("streamable")
-    @Expose
-    private String streamable;
+
     @SerializedName("listeners")
     @Expose
     private String listeners;
@@ -31,6 +29,11 @@ public class Track implements LastFMDisplayableInterface{
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getArtistName() {
+        return artist;
     }
 
     @Override
@@ -58,13 +61,6 @@ public class Track implements LastFMDisplayableInterface{
         this.url = url;
     }
 
-    public String getStreamable() {
-        return streamable;
-    }
-
-    public void setStreamable(String streamable) {
-        this.streamable = streamable;
-    }
 
     public String getListeners() {
         return listeners;

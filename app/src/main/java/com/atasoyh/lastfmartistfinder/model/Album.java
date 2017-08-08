@@ -43,6 +43,11 @@ public class Album implements LastFMDisplayableInterface {
     }
 
     @Override
+    public String getArtistName() {
+        return artist;
+    }
+
+    @Override
     public String getImageUrl() {
         return getLargeImageUrl();
     }

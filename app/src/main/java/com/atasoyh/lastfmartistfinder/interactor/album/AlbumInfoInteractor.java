@@ -10,6 +10,6 @@ import io.reactivex.Observable;
  */
 
 public interface AlbumInfoInteractor {
-    Observable<Album> getInfo(String keyword, String artistName);
+    Observable<Album> getInfo();
 
 }

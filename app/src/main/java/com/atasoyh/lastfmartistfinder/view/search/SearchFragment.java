@@ -21,6 +21,7 @@ import com.atasoyh.lastfmartistfinder.presenter.search.SearchContract;
 import com.atasoyh.lastfmartistfinder.view.BaseFragment;
 import com.atasoyh.lastfmartistfinder.view.RxBus;
 import com.atasoyh.lastfmartistfinder.view.artistdetail.ArtistInfoActivity;
+import com.atasoyh.lastfmartistfinder.view.events.OpenItemDetail;
 import com.atasoyh.lastfmartistfinder.view.events.ShowMoreResult;
 import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 import com.atasoyh.lastfmartistfinder.view.search.dpi.SearchComponent;
@@ -137,28 +138,18 @@ public class SearchFragment extends BaseFragment implements SearchActivity.OnTex
 
     @Override
     public void onItemClick(Artist item) {
-        //todo refactor to RXBus
-        Intent intent = new Intent(getContext(), ArtistInfoActivity.class);
-        intent.putExtra(ArtistInfoActivity.TAG_ARTIST, item.getName());
-        intent.putExtra(ArtistInfoActivity.TAG_MBID, item.getMbid());
-        startActivity(intent);
+        RxBus.publish(new OpenItemDetail(item, SearchMoreFragment.Type.ARTIST));
 
     }
 
     @Override
     public void onItemClick(Track track) {
-        Intent intent = new Intent(getContext(), ArtistInfoActivity.class);
-        intent.putExtra(ArtistInfoActivity.TAG_ARTIST, track.getName());
-        intent.putExtra(ArtistInfoActivity.TAG_MBID, track.getMbid());
-        startActivity(intent);
+        RxBus.publish(new OpenItemDetail(track, SearchMoreFragment.Type.TRACK));
     }
 
     @Override
     public void onItemClick(Album album) {
-        Intent intent = new Intent(getContext(), ArtistInfoActivity.class);
-        intent.putExtra(ArtistInfoActivity.TAG_ARTIST, album.getName());
-        intent.putExtra(ArtistInfoActivity.TAG_MBID, album.getMbid());
-        startActivity(intent);
+        RxBus.publish(new OpenItemDetail(album, SearchMoreFragment.Type.ALBUM));
     }
 
     @Override

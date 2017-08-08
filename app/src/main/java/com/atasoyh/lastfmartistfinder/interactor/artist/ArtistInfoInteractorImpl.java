@@ -3,8 +3,10 @@ package com.atasoyh.lastfmartistfinder.interactor.artist;
 import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
 import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.model.response.GetArtistInfoResponse;
+import com.atasoyh.lastfmartistfinder.view.artistdetail.dpi.ArtistInfoScope;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -17,22 +19,21 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ArtistInfoInteractorImpl implements ArtistInfoInteractor {
 
+    private final String artistName;
+    private final String mbid;
     LastFmApi api;
 
     @Inject
-    public ArtistInfoInteractorImpl(LastFmApi api) {
+    public ArtistInfoInteractorImpl(LastFmApi api,String artistName,  String mbid) {
+        this.artistName = artistName;
+        this.mbid = mbid;
         this.api = api;
     }
 
     @Override
-    public Observable<Artist> getInfo(String keyword, String mbid) {
-        return api.getArtistInfo(keyword,mbid).subscribeOn(Schedulers.io())
+    public Observable<Artist> getInfo() {
+        return api.getArtistInfo(artistName, mbid).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io()).map(new Function<GetArtistInfoResponse, Artist>() {
-                    @Override
-                    public Artist apply(GetArtistInfoResponse getArtistInfoResponse) throws Exception {
-                        return getArtistInfoResponse.getArtist();
-                    }
-                });
+                .unsubscribeOn(Schedulers.io()).map(getArtistInfoResponse -> getArtistInfoResponse.getArtist());
     }
 }

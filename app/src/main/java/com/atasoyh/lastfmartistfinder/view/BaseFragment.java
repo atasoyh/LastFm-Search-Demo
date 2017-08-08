@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
+import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
 import com.atasoyh.lastfmartistfinder.presenter.BaseView;
 
@@ -17,7 +18,6 @@ import com.atasoyh.lastfmartistfinder.presenter.BaseView;
  */
 
 public abstract class BaseFragment extends Fragment {
-
 
 
     @Override
@@ -37,11 +37,25 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void releaseSubComponents(DefaultApplication application);
 
 
-    public void showError(String message) {
-        Snackbar snackbar=Snackbar.make(getView(), message, Snackbar.LENGTH_LONG);
+    public void showError(String message, View.OnClickListener onClickListener) {
+
+        Snackbar snackbar = Snackbar.make(getView(), message, Snackbar.LENGTH_LONG);
         View view = snackbar.getView();
         TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
         tv.setTextColor(Color.WHITE);
+        if (onClickListener != null) {
+            snackbar.setAction(getString(R.string.ok), onClickListener);
+            snackbar.setDuration(Snackbar.LENGTH_INDEFINITE);
+        }
         snackbar.show();
     }
+
+    public void showError(String message) {
+        showError(message, null);
+    }
+
+    public void showErrorThanFinish(String message) {
+        showError(message, view -> getActivity().finish());
+    }
+
 }

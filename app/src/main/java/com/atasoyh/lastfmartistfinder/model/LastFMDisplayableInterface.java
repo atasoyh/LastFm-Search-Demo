@@ -6,6 +6,12 @@ package com.atasoyh.lastfmartistfinder.model;
 
 public interface LastFMDisplayableInterface {
     String getName();
+
+    String getArtistName();
+
     String getImageUrl();
+
     String getMbid();
+
+    String getMegaImageUrl();
 }

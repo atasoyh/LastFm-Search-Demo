@@ -10,6 +10,6 @@ import io.reactivex.Observable;
  */
 
 public interface TrackInfoInteractor {
-    Observable<Track> getInfo(String track, String artistName);
+    Observable<Track> getInfo();
 
 }

@@ -18,7 +18,9 @@ import com.atasoyh.lastfmartistfinder.model.LastFMDisplayableInterface;
 import com.atasoyh.lastfmartistfinder.presenter.search.SearchMoreContract;
 import com.atasoyh.lastfmartistfinder.util.TextUtils;
 import com.atasoyh.lastfmartistfinder.view.BaseFragment;
+import com.atasoyh.lastfmartistfinder.view.RxBus;
 import com.atasoyh.lastfmartistfinder.view.artistdetail.ArtistInfoActivity;
+import com.atasoyh.lastfmartistfinder.view.events.OpenItemDetail;
 import com.atasoyh.lastfmartistfinder.view.search.SearchActivity;
 import com.atasoyh.lastfmartistfinder.view.search.more.dpi.SearchMoreComponent;
 import com.atasoyh.lastfmartistfinder.view.search.more.dpi.SearchMoreModule;
@@ -154,11 +156,7 @@ public class SearchMoreFragment extends BaseFragment implements SearchActivity.O
 
     @Override
     public void onItemClick(LastFMDisplayableInterface item) {
-        Intent intent = new Intent(getContext(), ArtistInfoActivity.class);
-        intent.putExtra(ArtistInfoActivity.TAG_ARTIST, item.getName());
-        intent.putExtra(ArtistInfoActivity.TAG_MBID, item.getMbid());
-        intent.putExtra(ArtistInfoActivity.TAG_MBID, type);
-        startActivity(intent);
+        RxBus.publish(new OpenItemDetail(item,type));
 
     }
 

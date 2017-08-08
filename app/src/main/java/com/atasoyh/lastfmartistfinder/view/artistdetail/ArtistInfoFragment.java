@@ -61,12 +61,13 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
 
     private ArtistInfoComponent artistInfoComponent;
 
-    public static ArtistInfoFragment newInstance(String artistName, String mbid, SearchMoreFragment.Type type) {
+    public static ArtistInfoFragment newInstance(String artistName, String name, String mbid, SearchMoreFragment.Type type) {
         ArtistInfoFragment fragment = new ArtistInfoFragment();
         Bundle bundle = new Bundle();
         bundle.putString("artist", artistName);
+        bundle.putString("name", name);
         bundle.putString("mbid", mbid);
-        bundle.putSerializable("type",type);
+        bundle.putSerializable("type", type);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -87,9 +88,10 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
     @Override
     protected void injectDependencies(DefaultApplication application) {
         String artistName = getArguments().getString("artist", null);
+        String name = getArguments().getString("name", null);
         String mbid = getArguments().getString("mbid", null);
-        SearchMoreFragment.Type type= (SearchMoreFragment.Type) getArguments().getSerializable("type");
-        artistInfoComponent = DefaultApplication.get(getContext()).getAppComponent().plus(new ArtistInfoModule(this, artistName, mbid,type));
+        SearchMoreFragment.Type type = (SearchMoreFragment.Type) getArguments().getSerializable("type");
+        artistInfoComponent = DefaultApplication.get(getContext()).getAppComponent().plus(new ArtistInfoModule(this, artistName, name, mbid, type));
         artistInfoComponent.inject(this);
     }
 
@@ -156,5 +158,10 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
             }
         });
 
+    }
+
+    @Override
+    public void showError(String message) {
+        super.showErrorThanFinish(message);
     }
 }
