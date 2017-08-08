@@ -4,6 +4,7 @@ import com.atasoyh.lastfmartistfinder.interactor.SearchInteractor;
 import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
+import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -47,7 +48,7 @@ public class SearchMorePresenterTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        artistSearchPresenter = new SearchMorePresenter(view, api);
+        artistSearchPresenter = new SearchMorePresenter(view, SearchMoreFragment.Type.ARTIST, api);
 
         when(api.search(eq("lessData"), anyInt(), anyInt())).thenReturn(new io.reactivex.Observable<SearchResponse>() {
             @Override

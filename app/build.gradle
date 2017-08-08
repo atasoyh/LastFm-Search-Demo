@@ -9,6 +9,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true;
         testInstrumentationRunner "com.atasoyh.lastfmartistfinder.TestAndroidJUnitRunner"
 
     }
@@ -21,6 +22,7 @@ android {
             testCoverageEnabled = true
             minifyEnabled false
 
+
         }
         release {
             minifyEnabled false
@@ -30,6 +32,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
     }
 }
 ext{
@@ -46,10 +51,15 @@ ext{
     butterknifeVersion='8.6.0'
     searchviewVersion='1.4.0'
     frescoVersion='1.3.0'
+    jacksonVersion='2.3.0'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //64k limit
+    implementation 'com.android.support:multidex:1.0.2'
+
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -89,8 +99,9 @@ dependencies {
     androidTestAnnotationProcessor  "com.google.dagger:dagger-compiler:$daggerVersion"
     provided 'javax.annotation:jsr250-api:1.0'
 
-    //Gson
-    implementation "com.google.code.gson:gson:$gsonVersion"
+    //Jackson
+    implementation "com.squareup.retrofit2:converter-jackson:$jacksonVersion"
+
 
 
     //Rx

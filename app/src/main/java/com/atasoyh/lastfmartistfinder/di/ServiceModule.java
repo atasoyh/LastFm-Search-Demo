@@ -27,6 +27,7 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
  * Created by atasoyh on 09/07/2017.
@@ -77,10 +78,9 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    public Retrofit provideRetrofit(OkHttpClient okHttpClient, @Named("url") String url, Gson gson) {
+    public Retrofit provideRetrofit(OkHttpClient okHttpClient, @Named("url") String url) {
         return new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .baseUrl(url).addConverterFactory(JacksonConverterFactory.create())
                 .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();

@@ -10,6 +10,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Module
 public class AppModule {

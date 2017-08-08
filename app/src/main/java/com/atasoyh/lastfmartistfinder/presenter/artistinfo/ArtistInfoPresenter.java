@@ -101,13 +101,13 @@ public class ArtistInfoPresenter implements ArtistInfoContract.Presenter {
 
             @Override
             public void onError(Throwable e) {
-                e.printStackTrace();
                 RetrofitException error = (RetrofitException) e;
                 try {
                     Error response = error.getErrorBodyAs(Error.class);
                     view.showError(response.getMessage());
                 } catch (Throwable e1) {
                     e1.printStackTrace();
+                    view.showError(e1.getMessage());
                 }
                 view.showLoading(false);
 

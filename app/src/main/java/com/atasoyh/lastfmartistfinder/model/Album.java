@@ -1,43 +1,40 @@
 package com.atasoyh.lastfmartistfinder.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 public class Album implements LastFMDisplayableInterface {
 
-    @SerializedName("name")
-    @Expose
+    @JsonProperty("name")
     private String name;
-    @SerializedName("artist")
-    @Expose
+    @JsonProperty("artist")
     private String artist;
-    @SerializedName("mbid")
-    @Expose
-    private String mbid;
-    @SerializedName("url")
-    @Expose
+    @JsonProperty("url")
     private String url;
-    @SerializedName("image")
-    @Expose
-    private List<Image> images = null;
-    @SerializedName("listeners")
-    @Expose
+    @JsonProperty("image")
+    private List<Image> image = null;
+    @JsonProperty("streamable")
+    private String streamable;
+    @JsonProperty("mbid")
+    private String mbid;
+    @JsonProperty("listeners")
     private String listeners;
-    @SerializedName("playcount")
-    @Expose
+    @JsonProperty("playcount")
     private String playcount;
-    @SerializedName("tracks")
-    @Expose
-    private Tracks tracks;
-    @SerializedName("tags")
-    @Expose
+    @JsonProperty("tags")
     private Tags tags;
-    @SerializedName("wiki")
-    @Expose
-    private Wiki wiki;
+    @JsonIgnore
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
+    @JsonProperty("name")
     public String getName() {
         return name;
     }
@@ -52,41 +49,99 @@ public class Album implements LastFMDisplayableInterface {
         return getLargeImageUrl();
     }
 
+    @JsonProperty("name")
     public void setName(String name) {
         this.name = name;
     }
 
+    @JsonProperty("artist")
     public String getArtist() {
         return artist;
     }
 
+    @JsonProperty("artist")
     public void setArtist(String artist) {
         this.artist = artist;
     }
 
+    @JsonProperty("url")
     public String getUrl() {
         return url;
     }
 
+    @JsonProperty("url")
     public void setUrl(String url) {
         this.url = url;
     }
 
+    @JsonProperty("image")
     public List<Image> getImage() {
-        return images;
+        return image;
     }
 
+    @JsonProperty("image")
     public void setImage(List<Image> image) {
-        this.images = image;
+        this.image = image;
     }
 
+    @JsonProperty("streamable")
+    public String getStreamable() {
+        return streamable;
+    }
 
+    @JsonProperty("streamable")
+    public void setStreamable(String streamable) {
+        this.streamable = streamable;
+    }
+
+    @JsonProperty("mbid")
     public String getMbid() {
         return mbid;
     }
 
+    @JsonProperty("mbid")
     public void setMbid(String mbid) {
         this.mbid = mbid;
+    }
+
+    @JsonProperty("listeners")
+    public String getListeners() {
+        return listeners;
+    }
+
+    @JsonProperty("listeners")
+    public void setListeners(String listeners) {
+        this.listeners = listeners;
+    }
+
+    @JsonProperty("playcount")
+    public String getPlaycount() {
+        return playcount;
+    }
+
+    @JsonProperty("playcount")
+    public void setPlaycount(String playcount) {
+        this.playcount = playcount;
+    }
+
+    @JsonProperty("tags")
+    public Tags getTags() {
+        return tags;
+    }
+
+    @JsonProperty("tags")
+    public void setTags(Tags tags) {
+        this.tags = tags;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
     }
 
     public String getLargeImageUrl() {
@@ -98,8 +153,8 @@ public class Album implements LastFMDisplayableInterface {
     }
 
     private String getImageURLForSize(String sizeType) {
-        if (images == null) return null;
-        for (Image image : images) {
+        if (image == null) return null;
+        for (Image image : image) {
             if (sizeType.equals(image.getSize()))
                 return image.getText();
         }

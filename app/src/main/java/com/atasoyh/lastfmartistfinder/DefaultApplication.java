@@ -2,6 +2,7 @@ package com.atasoyh.lastfmartistfinder;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDexApplication;
 
 import com.atasoyh.lastfmartistfinder.di.AppModule;
 import com.atasoyh.lastfmartistfinder.di.BaseAppComponent;
@@ -14,7 +15,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
  * Created by atasoyh on 09/07/2017.
  */
 
-public class DefaultApplication extends Application {
+public class DefaultApplication extends MultiDexApplication {
 
     public BaseAppComponent appComponent;
 

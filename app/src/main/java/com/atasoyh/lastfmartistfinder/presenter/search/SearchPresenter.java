@@ -108,7 +108,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
             @Override
             public void onError(Throwable e) {
-
+                e.printStackTrace();
                 RetrofitException error = (RetrofitException) e;
 
                 try {

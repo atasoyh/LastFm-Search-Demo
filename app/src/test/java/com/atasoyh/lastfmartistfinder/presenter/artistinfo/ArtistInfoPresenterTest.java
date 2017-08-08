@@ -1,9 +1,12 @@
 package com.atasoyh.lastfmartistfinder.presenter.artistinfo;
 
+import com.atasoyh.lastfmartistfinder.interactor.album.AlbumInfoInteractor;
 import com.atasoyh.lastfmartistfinder.interactor.artist.ArtistInfoInteractor;
+import com.atasoyh.lastfmartistfinder.interactor.track.TrackInfoInteractor;
 import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.model.response.GetArtistInfoResponse;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
+import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 import com.google.gson.Gson;
 
 import org.junit.Before;
@@ -32,14 +35,17 @@ public class ArtistInfoPresenterTest {
 
     @Mock
     ArtistInfoInteractor api;
-
+    @Mock
+    AlbumInfoInteractor albumApi;
+    @Mock
+    TrackInfoInteractor trackApi;
     ArtistInfoContract.Presenter presenter;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        presenter = new ArtistInfoPresenter(view, api, "tarkan", "");
-        when(api.getInfo(eq("tarkan"), eq(""))).thenReturn(new io.reactivex.Observable<Artist>() {
+        presenter = new ArtistInfoPresenter(view, api, albumApi,trackApi, SearchMoreFragment.Type.ARTIST);
+        when(api.getInfo()).thenReturn(new io.reactivex.Observable<Artist>() {
             @Override
             protected void subscribeActual(Observer<? super Artist> observer) {
                 Gson gson = new Gson();

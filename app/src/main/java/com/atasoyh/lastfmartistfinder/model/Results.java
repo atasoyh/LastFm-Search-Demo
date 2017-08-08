@@ -1,98 +1,136 @@
 
 package com.atasoyh.lastfmartistfinder.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "opensearch:Query",
+        "opensearch:totalResults",
+        "opensearch:startIndex",
+        "opensearch:itemsPerPage",
+        "artistmatches",
+        "trackmatches",
+        "albummatches",
+        "@attr"
+})
 public class Results {
 
-    @SerializedName("opensearch:Query")
-    @Expose
+    @JsonProperty("opensearch:Query")
     private OpensearchQuery opensearchQuery;
-    @SerializedName("opensearch:totalResults")
-    @Expose
+    @JsonProperty("opensearch:totalResults")
     private String opensearchTotalResults;
-    @SerializedName("opensearch:startIndex")
-    @Expose
+    @JsonProperty("opensearch:startIndex")
     private String opensearchStartIndex;
-    @SerializedName("opensearch:itemsPerPage")
-    @Expose
+    @JsonProperty("opensearch:itemsPerPage")
     private String opensearchItemsPerPage;
-    @SerializedName("artistmatches")
-    @Expose
-    private ArtistMatches artistMatches;
-    @SerializedName("trackmatches")
-    @Expose
-    private TrackMatches trackMatches;
-    @SerializedName("albummatches")
-    @Expose
-    private AlbumMatches albumMatches;
-    @SerializedName("@attr")
-    @Expose
+    @JsonProperty("artistmatches")
+    private ArtistMatches artistmatches;
+    @JsonProperty("trackmatches")
+    private TrackMatches trackmatches;
+    @JsonProperty("albummatches")
+    private AlbumMatches albummatches;
+    @JsonProperty("@attr")
     private Attr attr;
+    @JsonIgnore
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
+    @JsonProperty("opensearch:Query")
     public OpensearchQuery getOpensearchQuery() {
         return opensearchQuery;
     }
 
+    @JsonProperty("opensearch:Query")
     public void setOpensearchQuery(OpensearchQuery opensearchQuery) {
         this.opensearchQuery = opensearchQuery;
     }
 
+    @JsonProperty("opensearch:totalResults")
     public String getOpensearchTotalResults() {
         return opensearchTotalResults;
     }
 
+    @JsonProperty("opensearch:totalResults")
     public void setOpensearchTotalResults(String opensearchTotalResults) {
         this.opensearchTotalResults = opensearchTotalResults;
     }
 
+    @JsonProperty("opensearch:startIndex")
     public String getOpensearchStartIndex() {
         return opensearchStartIndex;
     }
 
+    @JsonProperty("opensearch:startIndex")
     public void setOpensearchStartIndex(String opensearchStartIndex) {
         this.opensearchStartIndex = opensearchStartIndex;
     }
 
+    @JsonProperty("opensearch:itemsPerPage")
     public String getOpensearchItemsPerPage() {
         return opensearchItemsPerPage;
     }
 
+    @JsonProperty("opensearch:itemsPerPage")
     public void setOpensearchItemsPerPage(String opensearchItemsPerPage) {
         this.opensearchItemsPerPage = opensearchItemsPerPage;
     }
 
+    @JsonProperty("artistmatches")
     public ArtistMatches getArtistMatches() {
-        return artistMatches;
+        return artistmatches;
     }
 
-    public void setArtistMatches(ArtistMatches artistMatches) {
-        this.artistMatches = artistMatches;
+    @JsonProperty("artistmatches")
+    public void setArtistmatches(ArtistMatches artistmatches) {
+        this.artistmatches = artistmatches;
     }
 
+    @JsonProperty("trackmatches")
     public TrackMatches getTrackMatches() {
-        return trackMatches;
+        return trackmatches;
     }
 
-    public void setTrackMatches(TrackMatches trackMatches) {
-        this.trackMatches = trackMatches;
+    @JsonProperty("trackmatches")
+    public void setTrackmatches(TrackMatches trackmatches) {
+        this.trackmatches = trackmatches;
     }
 
+    @JsonProperty("albummatches")
     public AlbumMatches getAlbumMatches() {
-        return albumMatches;
+        return albummatches;
     }
 
-    public void setAlbumMatches(AlbumMatches albumMatches) {
-        this.albumMatches = albumMatches;
+    @JsonProperty("albummatches")
+    public void setAlbummatches(AlbumMatches albummatches) {
+        this.albummatches = albummatches;
     }
 
+    @JsonProperty("@attr")
     public Attr getAttr() {
         return attr;
     }
 
+    @JsonProperty("@attr")
     public void setAttr(Attr attr) {
         this.attr = attr;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
     }
 
 }
