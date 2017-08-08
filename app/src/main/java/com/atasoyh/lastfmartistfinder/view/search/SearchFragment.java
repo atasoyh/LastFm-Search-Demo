@@ -22,8 +22,7 @@ import com.atasoyh.lastfmartistfinder.view.BaseFragment;
 import com.atasoyh.lastfmartistfinder.view.RxBus;
 import com.atasoyh.lastfmartistfinder.view.artistdetail.ArtistInfoActivity;
 import com.atasoyh.lastfmartistfinder.view.events.ShowMoreResult;
-import com.atasoyh.lastfmartistfinder.view.search.artist.ArtistSearchFragment;
-import com.atasoyh.lastfmartistfinder.view.search.artist.SearchMoreListAdapter;
+import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 import com.atasoyh.lastfmartistfinder.view.search.dpi.SearchComponent;
 import com.atasoyh.lastfmartistfinder.view.search.dpi.SearchModule;
 
@@ -36,7 +35,7 @@ import butterknife.ButterKnife;
  * Created by atasoyh on 09/07/2017.
  */
 
-public class SearchFragment extends BaseFragment implements SearchContract.View<SearchContract.Presenter>, SearchListAdapter.OnItemClickListener, SearchListAdapter.OnMoreClickLister {
+public class SearchFragment extends BaseFragment implements SearchActivity.OnTextListener,SearchContract.View<SearchContract.Presenter>, SearchListAdapter.OnItemClickListener, SearchListAdapter.OnMoreClickLister {
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
@@ -135,11 +134,6 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
         tvEmpty.setVisibility(View.GONE);
     }
 
-    public void onQueryTextChange(String newText) {
-        presenter.search(newText);
-        lastQuery = newText;
-
-    }
 
     @Override
     public void onItemClick(Artist item) {
@@ -169,18 +163,25 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
 
     @Override
     public void onArtistMoreClicked() {
-        RxBus.publish(new ShowMoreResult(ArtistSearchFragment.Type.ARTIST, lastQuery));
+        RxBus.publish(new ShowMoreResult(SearchMoreFragment.Type.ARTIST, lastQuery));
     }
 
     @Override
     public void onAlbumMoreClicked() {
-        RxBus.publish(new ShowMoreResult(ArtistSearchFragment.Type.ALBUM, lastQuery));
+        RxBus.publish(new ShowMoreResult(SearchMoreFragment.Type.ALBUM, lastQuery));
 
     }
 
     @Override
     public void onTrackMoreClicked() {
-        RxBus.publish(new ShowMoreResult(ArtistSearchFragment.Type.TRACK, lastQuery));
+        RxBus.publish(new ShowMoreResult(SearchMoreFragment.Type.TRACK, lastQuery));
+
+    }
+
+    @Override
+    public void onTextChanged(String text) {
+        presenter.search(text);
+        lastQuery = text;
 
     }
 }

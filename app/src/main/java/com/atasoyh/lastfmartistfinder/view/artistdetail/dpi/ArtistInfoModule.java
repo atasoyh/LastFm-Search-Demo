@@ -5,6 +5,7 @@ import com.atasoyh.lastfmartistfinder.interactor.artist.ArtistInfoInteractorImpl
 import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
 import com.atasoyh.lastfmartistfinder.presenter.artistinfo.ArtistInfoContract;
 import com.atasoyh.lastfmartistfinder.presenter.artistinfo.ArtistInfoPresenter;
+import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,14 +21,16 @@ public class ArtistInfoModule {
 
     private final String artistName;
     private final String mbid;
+    private final SearchMoreFragment.Type type;
 
     private final ArtistInfoContract.View view;
 
     @Inject
-    public ArtistInfoModule(ArtistInfoContract.View view, String artistName, String mbid) {
+    public ArtistInfoModule(ArtistInfoContract.View view, String artistName, String mbid, SearchMoreFragment.Type type) {
         this.view = view;
         this.artistName = artistName;
         this.mbid = mbid;
+        this.type = type;
     }
 
     @Provides

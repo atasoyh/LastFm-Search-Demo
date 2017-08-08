@@ -1,11 +1,11 @@
-package com.atasoyh.lastfmartistfinder.view.search.artist;
+package com.atasoyh.lastfmartistfinder.view.search.more;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.atasoyh.lastfmartistfinder.model.Artist;
-import com.atasoyh.lastfmartistfinder.view.customview.ArtistView;
+import com.atasoyh.lastfmartistfinder.model.LastFMDisplayableInterface;
+import com.atasoyh.lastfmartistfinder.view.customview.LastFmItemView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +14,13 @@ import java.util.List;
  * Created by atasoyh on 30/06/2017.
  */
 
-public class SearchMoreListAdapter extends RecyclerView.Adapter<SearchMoreListAdapter.ArtistViewHolder> {
+public class SearchMoreListAdapter extends RecyclerView.Adapter<SearchMoreListAdapter.ItemViewHolder> {
 
-    List<Artist> itemList;
+    List<LastFMDisplayableInterface> itemList;
     OnItemClickListener onItemClickListener;
     OnNeededLoadMoreListener onNeededLoadMoreListener;
 
-    public SearchMoreListAdapter(List<Artist> itemList) {
+    public SearchMoreListAdapter(List<LastFMDisplayableInterface> itemList) {
         this.itemList = itemList;
     }
 
@@ -33,17 +33,16 @@ public class SearchMoreListAdapter extends RecyclerView.Adapter<SearchMoreListAd
     }
 
     @Override
-    public ArtistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = new ArtistView(parent.getContext());// LayoutInflater.from(parent.getContext())
-        //.inflate(R.layout.item_artist, parent, false);
-        return new ArtistViewHolder(view);
+    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = new LastFmItemView(parent.getContext());
+        return new ItemViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ArtistViewHolder holder, int position) {
-        if (getItem(position) instanceof Artist) {
-            final Artist item = (Artist)getItem(position);
-            holder.artistView.setArtist(item);
+    public void onBindViewHolder(ItemViewHolder holder, int position) {
+        if (getItem(position) instanceof LastFMDisplayableInterface) {
+            final LastFMDisplayableInterface item = (LastFMDisplayableInterface) getItem(position);
+            holder.itemView.setItem(item);
             if (onItemClickListener != null)
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -58,7 +57,7 @@ public class SearchMoreListAdapter extends RecyclerView.Adapter<SearchMoreListAd
     }
 
 
-    public Artist getItem(int position) {
+    public LastFMDisplayableInterface getItem(int position) {
         return itemList.get(position);
     }
 
@@ -68,28 +67,28 @@ public class SearchMoreListAdapter extends RecyclerView.Adapter<SearchMoreListAd
         return itemList.size();
     }
 
-    public void addItems(List<Artist> items) {
+    public void addItems(List<LastFMDisplayableInterface> items) {
         if (items == null) return;
         itemList.addAll(items);
         notifyDataSetChanged();
     }
 
-    public void setItems(ArrayList<Artist> items) {
+    public void setItems(ArrayList<LastFMDisplayableInterface> items) {
         this.itemList = items;
         notifyDataSetChanged();
     }
 
-    class ArtistViewHolder extends RecyclerView.ViewHolder {
-        ArtistView artistView;
+    class ItemViewHolder extends RecyclerView.ViewHolder {
+        LastFmItemView itemView;
 
-        public ArtistViewHolder(View itemView) {
+        public ItemViewHolder(View itemView) {
             super(itemView);
-            artistView = (ArtistView) itemView;
+            this.itemView = (LastFmItemView) itemView;
         }
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Artist item);
+        void onItemClick(LastFMDisplayableInterface item);
     }
 
     public interface OnNeededLoadMoreListener {

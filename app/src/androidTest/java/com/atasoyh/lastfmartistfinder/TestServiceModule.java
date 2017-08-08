@@ -33,8 +33,8 @@ public class TestServiceModule {
     public LastFmApi provideAPI() {
         LastFmApi lastFmApi = Mockito.mock(LastFmApi.class);
         Gson gson = new Gson();
-        Type type = new TypeToken<SearchResponse<ArtistMatches>>(){}.getType();
-        SearchResponse<ArtistMatches> searchResponse = gson.fromJson(mockSearch, type);
+        Type type = new TypeToken<SearchResponse>(){}.getType();
+        SearchResponse searchResponse = gson.fromJson(mockSearch, type);
         GetArtistInfoResponse artistInfoResponse = gson.fromJson(mockArtist, GetArtistInfoResponse.class);
         Mockito.when(lastFmApi.searchArtist(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(Observable.defer(() -> Observable.just(searchResponse)));
         Mockito.when(lastFmApi.getArtistInfo(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(Observable.defer(() -> Observable.just(artistInfoResponse)));

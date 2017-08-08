@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Track {
+public class Track implements LastFMDisplayableInterface{
 
     @SerializedName("name")
     @Expose
@@ -31,6 +31,11 @@ public class Track {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getImageUrl() {
+        return getLargeImageUrl();
     }
 
     public void setName(String name) {

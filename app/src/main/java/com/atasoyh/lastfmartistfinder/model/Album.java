@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Album {
+public class Album implements LastFMDisplayableInterface {
 
     @SerializedName("name")
     @Expose
@@ -13,21 +13,38 @@ public class Album {
     @SerializedName("artist")
     @Expose
     private String artist;
+    @SerializedName("mbid")
+    @Expose
+    private String mbid;
     @SerializedName("url")
     @Expose
     private String url;
     @SerializedName("image")
     @Expose
     private List<Image> images = null;
-    @SerializedName("streamable")
+    @SerializedName("listeners")
     @Expose
-    private String streamable;
-    @SerializedName("mbid")
+    private String listeners;
+    @SerializedName("playcount")
     @Expose
-    private String mbid;
+    private String playcount;
+    @SerializedName("tracks")
+    @Expose
+    private Tracks tracks;
+    @SerializedName("tags")
+    @Expose
+    private Tags tags;
+    @SerializedName("wiki")
+    @Expose
+    private Wiki wiki;
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getImageUrl() {
+        return getLargeImageUrl();
     }
 
     public void setName(String name) {
@@ -58,13 +75,6 @@ public class Album {
         this.images = image;
     }
 
-    public String getStreamable() {
-        return streamable;
-    }
-
-    public void setStreamable(String streamable) {
-        this.streamable = streamable;
-    }
 
     public String getMbid() {
         return mbid;

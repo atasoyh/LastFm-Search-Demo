@@ -22,6 +22,7 @@ import com.atasoyh.lastfmartistfinder.view.artistdetail.dpi.ArtistInfoComponent;
 import com.atasoyh.lastfmartistfinder.view.artistdetail.dpi.ArtistInfoModule;
 import com.atasoyh.lastfmartistfinder.view.customview.ArtistView;
 import com.atasoyh.lastfmartistfinder.view.customview.BioView;
+import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
@@ -60,11 +61,12 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
 
     private ArtistInfoComponent artistInfoComponent;
 
-    public static ArtistInfoFragment newInstance(String artistName, String mbid) {
+    public static ArtistInfoFragment newInstance(String artistName, String mbid, SearchMoreFragment.Type type) {
         ArtistInfoFragment fragment = new ArtistInfoFragment();
         Bundle bundle = new Bundle();
         bundle.putString("artist", artistName);
         bundle.putString("mbid", mbid);
+        bundle.putSerializable("type",type);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -86,7 +88,8 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
     protected void injectDependencies(DefaultApplication application) {
         String artistName = getArguments().getString("artist", null);
         String mbid = getArguments().getString("mbid", null);
-        artistInfoComponent = DefaultApplication.get(getContext()).getAppComponent().plus(new ArtistInfoModule(this, artistName, mbid));
+        SearchMoreFragment.Type type= (SearchMoreFragment.Type) getArguments().getSerializable("type");
+        artistInfoComponent = DefaultApplication.get(getContext()).getAppComponent().plus(new ArtistInfoModule(this, artistName, mbid,type));
         artistInfoComponent.inject(this);
     }
 

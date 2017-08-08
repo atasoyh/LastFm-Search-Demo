@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.view.BaseActivity;
+import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 
 /**
  * Created by atasoyh on 10/07/2017.
@@ -16,6 +17,7 @@ public class ArtistInfoActivity extends BaseActivity {
 
     public static final String TAG_ARTIST = "artist";
     public static final String TAG_MBID = "mbid";
+    public static final String TAG_TYPE = "type";
     private ArtistInfoFragment artistInfoFragment;
 
     @Override
@@ -26,13 +28,14 @@ public class ArtistInfoActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        String artist=getIntent().getStringExtra(TAG_ARTIST);
-        String mbid=getIntent().getStringExtra(TAG_MBID);
+        String artist = getIntent().getStringExtra(TAG_ARTIST);
+        String mbid = getIntent().getStringExtra(TAG_MBID);
+        SearchMoreFragment.Type type= (SearchMoreFragment.Type) getIntent().getSerializableExtra(TAG_TYPE);
 
         artistInfoFragment = (ArtistInfoFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
         if (artistInfoFragment == null) {
             // Create the fragment
-            artistInfoFragment = ArtistInfoFragment.newInstance(artist,mbid);
+            artistInfoFragment = ArtistInfoFragment.newInstance(artist, mbid,type);
             activityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), artistInfoFragment, R.id.contentFrame);
         }

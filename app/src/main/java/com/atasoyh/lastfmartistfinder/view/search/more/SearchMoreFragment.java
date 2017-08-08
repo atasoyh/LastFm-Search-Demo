@@ -1,4 +1,4 @@
-package com.atasoyh.lastfmartistfinder.view.search.artist;
+package com.atasoyh.lastfmartistfinder.view.search.more;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,13 +14,14 @@ import android.widget.TextView;
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.model.Artist;
-import com.atasoyh.lastfmartistfinder.presenter.search.ArtistSearchContract;
+import com.atasoyh.lastfmartistfinder.model.LastFMDisplayableInterface;
+import com.atasoyh.lastfmartistfinder.presenter.search.SearchMoreContract;
 import com.atasoyh.lastfmartistfinder.util.TextUtils;
 import com.atasoyh.lastfmartistfinder.view.BaseFragment;
 import com.atasoyh.lastfmartistfinder.view.artistdetail.ArtistInfoActivity;
-import com.atasoyh.lastfmartistfinder.view.events.ShowMoreResult;
-import com.atasoyh.lastfmartistfinder.view.search.artist.dpi.ArtistSearchComponent;
-import com.atasoyh.lastfmartistfinder.view.search.artist.dpi.ArtistSearchModule;
+import com.atasoyh.lastfmartistfinder.view.search.SearchActivity;
+import com.atasoyh.lastfmartistfinder.view.search.more.dpi.SearchMoreComponent;
+import com.atasoyh.lastfmartistfinder.view.search.more.dpi.SearchMoreModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +35,11 @@ import butterknife.ButterKnife;
  * Created by atasoyh on 09/07/2017.
  */
 
-public class ArtistSearchFragment extends BaseFragment implements ArtistSearchContract.View<ArtistSearchContract.Presenter>, SearchMoreListAdapter.OnItemClickListener, SearchMoreListAdapter.OnNeededLoadMoreListener {
+public class SearchMoreFragment extends BaseFragment implements SearchActivity.OnTextListener, SearchMoreContract.View<SearchMoreContract.Presenter>, SearchMoreListAdapter.OnItemClickListener, SearchMoreListAdapter.OnNeededLoadMoreListener {
 
     private String keyword;
+    private Type type;
+
 
     public enum Type {ARTIST, ALBUM, TRACK}
 
@@ -51,13 +54,13 @@ public class ArtistSearchFragment extends BaseFragment implements ArtistSearchCo
     TextView tvEmpty;
 
     @Inject
-    ArtistSearchContract.Presenter presenter;
+    SearchMoreContract.Presenter presenter;
 
-    private ArtistSearchComponent artistSearchComponent;
+    private SearchMoreComponent searchMoreComponent;
     private SearchMoreListAdapter adapter;
 
-    public static ArtistSearchFragment newInstance(Type type, String keyword) {
-        ArtistSearchFragment fragment = new ArtistSearchFragment();
+    public static SearchMoreFragment newInstance(Type type, String keyword) {
+        SearchMoreFragment fragment = new SearchMoreFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("type", type);
         bundle.putString("keyword", keyword);
@@ -68,18 +71,18 @@ public class ArtistSearchFragment extends BaseFragment implements ArtistSearchCo
     @Override
     protected void injectDependencies(DefaultApplication application) {
         keyword = getArguments().getString("keyword", null);
-        Type type = (Type) getArguments().getSerializable("type");
-        artistSearchComponent = DefaultApplication.get(getContext()).getAppComponent().plus(new ArtistSearchModule(this, type));
-        artistSearchComponent.inject(this);
+        type = (Type) getArguments().getSerializable("type");
+        searchMoreComponent = DefaultApplication.get(getContext()).getAppComponent().plus(new SearchMoreModule(this, type));
+        searchMoreComponent.inject(this);
     }
 
     @Override
     protected void releaseSubComponents(DefaultApplication application) {
-        artistSearchComponent = null;
+        searchMoreComponent = null;
     }
 
     @Override
-    public void setPresenter(ArtistSearchContract.Presenter presenter) {
+    public void setPresenter(SearchMoreContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
@@ -98,7 +101,7 @@ public class ArtistSearchFragment extends BaseFragment implements ArtistSearchCo
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(adapter);
         if (!TextUtils.isEmpty(keyword))
-            onQueryTextChange(keyword);
+            onTextChanged(keyword);
 
     }
 
@@ -113,7 +116,7 @@ public class ArtistSearchFragment extends BaseFragment implements ArtistSearchCo
     }
 
     @Override
-    public void addItems(List<Artist> items) {
+    public void addItems(List<LastFMDisplayableInterface> items) {
         adapter.addItems(items);
     }
 
@@ -144,16 +147,17 @@ public class ArtistSearchFragment extends BaseFragment implements ArtistSearchCo
         tvEmpty.setVisibility(View.GONE);
     }
 
-    public void onQueryTextChange(String newText) {
-        presenter.search(newText);
-
+    @Override
+    public void onTextChanged(String text) {
+        presenter.search(text);
     }
 
     @Override
-    public void onItemClick(Artist item) {
+    public void onItemClick(LastFMDisplayableInterface item) {
         Intent intent = new Intent(getContext(), ArtistInfoActivity.class);
         intent.putExtra(ArtistInfoActivity.TAG_ARTIST, item.getName());
         intent.putExtra(ArtistInfoActivity.TAG_MBID, item.getMbid());
+        intent.putExtra(ArtistInfoActivity.TAG_MBID, type);
         startActivity(intent);
 
     }

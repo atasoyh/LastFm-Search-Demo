@@ -55,6 +55,14 @@ public interface LastFmApi {
     @GET("?method=track.search")
     public Observable<SearchResponse> searchTrack(@Query("track") String keyword, @Query("limit") String limit, @Query("page") String page);
 
+    /**
+     * @param album The album name
+     * @param artist The artist name
+     * @return
+     */
+    @GET("?method=album.getinfo")
+    public Observable<GetArtistInfoResponse> getAlbumInfo(@Query("artist") String artist,@Query("album") String album);
+
 
 
 

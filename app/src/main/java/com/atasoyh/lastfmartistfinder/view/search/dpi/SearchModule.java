@@ -5,10 +5,6 @@ import com.atasoyh.lastfmartistfinder.interactor.SearchInteractor;
 import com.atasoyh.lastfmartistfinder.interactor.album.AlbumSearchInteractorImpl;
 import com.atasoyh.lastfmartistfinder.interactor.artist.ArtistSearchInteractorImpl;
 import com.atasoyh.lastfmartistfinder.interactor.track.TrackSearchInteractorImpl;
-import com.atasoyh.lastfmartistfinder.model.AlbumMatches;
-import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
-import com.atasoyh.lastfmartistfinder.model.TrackMatches;
-import com.atasoyh.lastfmartistfinder.presenter.search.ArtistSearchContract;
 import com.atasoyh.lastfmartistfinder.presenter.search.SearchContract;
 import com.atasoyh.lastfmartistfinder.presenter.search.SearchPresenter;
 

@@ -1,15 +1,21 @@
 package com.atasoyh.lastfmartistfinder.presenter.search;
 
 import com.atasoyh.lastfmartistfinder.interactor.SearchInteractor;
-import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
+import com.atasoyh.lastfmartistfinder.model.Album;
+import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.model.Error;
+import com.atasoyh.lastfmartistfinder.model.LastFMDisplayableInterface;
 import com.atasoyh.lastfmartistfinder.model.Results;
+import com.atasoyh.lastfmartistfinder.model.Track;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
 import com.atasoyh.lastfmartistfinder.util.RetrofitException;
 import com.atasoyh.lastfmartistfinder.util.TextUtils;
+import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -17,28 +23,33 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * ArtistSearchPresenter implementation
+ * SearchMorePresenter implementation
  * Created by atasoyh on 09/07/2017.
  */
 
-public class ArtistSearchPresenter implements ArtistSearchContract.Presenter {
+public class SearchMorePresenter implements SearchMoreContract.Presenter {
 
-    private final ArtistSearchContract.View<BasePresenter> view;
-    private final SearchInteractor interactor;
+    private final SearchMoreContract.View<BasePresenter> view;
+    private final SearchInteractor artistInteractor;
 
     boolean onloading = false;
 
     int page = 1;
     int itemCountPerSearch = 30;
     String keyword;
+    private SearchMoreFragment.Type type;
+    private SearchInteractor albumInteractor;
+    private SearchInteractor trackInteractor;
 
 
     @Inject
-    public ArtistSearchPresenter(ArtistSearchContract.View view, SearchInteractor interactor) {
+    public SearchMorePresenter(SearchMoreContract.View view, SearchMoreFragment.Type type, SearchInteractor artistInteractor) {
         this.view = view;
-        this.interactor = interactor;
+        this.artistInteractor = artistInteractor;
+        this.type = type;
 
     }
+
 
     @Inject
     @Override
@@ -62,7 +73,7 @@ public class ArtistSearchPresenter implements ArtistSearchContract.Presenter {
         onloading = true;
         view.showLoading(true);
         view.hideEmptyView();
-        interactor.search(keyword, itemCountPerSearch, page).subscribe(getObserver());
+        artistInteractor.search(keyword, itemCountPerSearch, page).subscribe(getObserver());
     }
 
     private Observer<SearchResponse> getObserver() {
@@ -76,7 +87,20 @@ public class ArtistSearchPresenter implements ArtistSearchContract.Presenter {
             public void onNext(SearchResponse response) {
                 onloading = false;
                 view.showLoading(false);
-                view.addItems((response.getResults().getArtistMatches()).getArtist());
+                List<LastFMDisplayableInterface> lastFMDisplayableInterfaceList = new ArrayList<>();
+                switch (type) {
+                    case ARTIST:
+                        lastFMDisplayableInterfaceList.addAll(response.getResults().getArtistMatches().getArtist());
+                        break;
+                    case ALBUM:
+                        lastFMDisplayableInterfaceList.addAll(response.getResults().getAlbumMatches().getAlbum());
+                        break;
+                    case TRACK:
+                        lastFMDisplayableInterfaceList.addAll(response.getResults().getTrackMatches().getTrack());
+                        break;
+                }
+                view.addItems(lastFMDisplayableInterfaceList);
+
                 calculatePage(response.getResults());
             }
 

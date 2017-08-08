@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Artist {
+public class Artist implements LastFMDisplayableInterface{
 
     @SerializedName("name")
     @Expose
@@ -44,6 +44,11 @@ public class Artist {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getImageUrl() {
+        return getLargeImageUrl();
     }
 
     public void setName(String name) {
@@ -146,4 +151,6 @@ public class Artist {
     public void setBio(Bio bio) {
         this.bio = bio;
     }
+
+
 }
