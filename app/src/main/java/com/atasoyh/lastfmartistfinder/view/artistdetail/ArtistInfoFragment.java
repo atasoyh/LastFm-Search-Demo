@@ -143,9 +143,9 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
 
     @Override
     public void showSimilars(@NonNull Similar similar) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+//        getActivity().runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
                 List<Artist> artists = similar.getArtist();
                 if (artists.size() == 0) return;
 
@@ -155,8 +155,8 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
                     artistView.setArtist(artist);
                     llSimilars.addView(artistView);
                 }
-            }
-        });
+//            }
+//        });
 
     }
 

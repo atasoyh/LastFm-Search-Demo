@@ -18,6 +18,7 @@ import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.TestAppComponent;
 import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.view.search.SearchActivity;
+import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -62,6 +63,8 @@ public class ArtistInfoActivityTest {
         Intent i = new Intent();
         i.putExtra(ArtistInfoActivity.TAG_ARTIST, "tarkan");
         i.putExtra(ArtistInfoActivity.TAG_MBID,"mbid");
+        i.putExtra(ArtistInfoActivity.TAG_NAME,"tarkan");
+        i.putExtra(ArtistInfoActivity.TAG_TYPE, SearchMoreFragment.Type.ARTIST);
         mActivityTestRule.launchActivity(i);
     }
 
@@ -80,14 +83,6 @@ public class ArtistInfoActivityTest {
         textView.check(matches(withText("Bio")));
 
     }
-
-    @Test
-    public void similarIsExistTest(){
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.tvSimilar), withText("Similar"),isDisplayed()));
-        textView.check(matches(withText("Similar")));
-    }
-
 
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {

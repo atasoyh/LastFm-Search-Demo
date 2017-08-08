@@ -5,6 +5,7 @@ import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
 import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -15,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 
 import io.reactivex.Observer;
@@ -53,10 +55,12 @@ public class SearchMorePresenterTest {
         when(api.search(eq("lessData"), anyInt(), anyInt())).thenReturn(new io.reactivex.Observable<SearchResponse>() {
             @Override
             protected void subscribeActual(Observer<? super SearchResponse> observer) {
-                Gson gson = new Gson();
-                Type type = new TypeToken<SearchResponse>() {
-                }.getType();
-                SearchResponse response = gson.fromJson(mockDataLess, type);
+                SearchResponse response = null;
+                try {
+                    response = new ObjectMapper().readValue(mockDataLess, SearchResponse.class);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 observer.onNext(response);
                 observer.onComplete();
             }
@@ -65,10 +69,12 @@ public class SearchMorePresenterTest {
         when(api.search(eq("moreData"), anyInt(), anyInt())).thenReturn(new io.reactivex.Observable<SearchResponse>() {
             @Override
             protected void subscribeActual(Observer<? super SearchResponse> observer) {
-                Gson gson = new Gson();
-                Type type = new TypeToken<SearchResponse>() {
-                }.getType();
-                SearchResponse response = gson.fromJson(mockDataMore, type);
+                SearchResponse response = null;
+                try {
+                    response = new ObjectMapper().readValue(mockDataMore, SearchResponse.class);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 observer.onNext(response);
                 observer.onComplete();
             }
