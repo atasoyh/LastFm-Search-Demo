@@ -1,4 +1,4 @@
-package com.atasoyh.lastfmartistfinder.presenter.search;
+package com.atasoyh.lastfmartistfinder.presenter.search.more;
 
 import com.atasoyh.lastfmartistfinder.interactor.SearchInteractor;
 import com.atasoyh.lastfmartistfinder.model.Album;

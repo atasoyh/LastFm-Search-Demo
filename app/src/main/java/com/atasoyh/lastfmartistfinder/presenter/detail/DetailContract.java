@@ -1,4 +1,4 @@
-package com.atasoyh.lastfmartistfinder.presenter.artistinfo;
+package com.atasoyh.lastfmartistfinder.presenter.detail;
 
 import com.atasoyh.lastfmartistfinder.model.Bio;
 import com.atasoyh.lastfmartistfinder.model.Similar;
@@ -10,7 +10,7 @@ import com.atasoyh.lastfmartistfinder.presenter.BaseView;
  * Created by atasoyh on 10/07/2017.
  */
 
-public class ArtistInfoContract {
+public class DetailContract {
 
     public interface View<T extends BasePresenter> extends BaseView<T> {
         void showName(String name);

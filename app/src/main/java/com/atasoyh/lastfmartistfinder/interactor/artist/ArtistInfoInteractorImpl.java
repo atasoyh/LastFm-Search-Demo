@@ -2,15 +2,11 @@ package com.atasoyh.lastfmartistfinder.interactor.artist;
 
 import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
 import com.atasoyh.lastfmartistfinder.model.Artist;
-import com.atasoyh.lastfmartistfinder.model.response.GetArtistInfoResponse;
-import com.atasoyh.lastfmartistfinder.view.artistdetail.dpi.ArtistInfoScope;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**

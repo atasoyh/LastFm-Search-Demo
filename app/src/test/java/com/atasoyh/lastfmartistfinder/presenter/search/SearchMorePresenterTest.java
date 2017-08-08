@@ -1,13 +1,12 @@
 package com.atasoyh.lastfmartistfinder.presenter.search;
 
 import com.atasoyh.lastfmartistfinder.interactor.SearchInteractor;
-import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
 import com.atasoyh.lastfmartistfinder.model.response.SearchResponse;
 import com.atasoyh.lastfmartistfinder.presenter.BasePresenter;
+import com.atasoyh.lastfmartistfinder.presenter.search.more.SearchMoreContract;
+import com.atasoyh.lastfmartistfinder.presenter.search.more.SearchMorePresenter;
 import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +16,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 
 import io.reactivex.Observer;
 

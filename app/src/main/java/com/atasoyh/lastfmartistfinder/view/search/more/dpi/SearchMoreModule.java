@@ -5,8 +5,8 @@ import com.atasoyh.lastfmartistfinder.interactor.SearchInteractor;
 import com.atasoyh.lastfmartistfinder.interactor.album.AlbumSearchInteractorImpl;
 import com.atasoyh.lastfmartistfinder.interactor.artist.ArtistSearchInteractorImpl;
 import com.atasoyh.lastfmartistfinder.interactor.track.TrackSearchInteractorImpl;
-import com.atasoyh.lastfmartistfinder.presenter.search.SearchMoreContract;
-import com.atasoyh.lastfmartistfinder.presenter.search.SearchMorePresenter;
+import com.atasoyh.lastfmartistfinder.presenter.search.more.SearchMoreContract;
+import com.atasoyh.lastfmartistfinder.presenter.search.more.SearchMorePresenter;
 import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 
 import javax.inject.Inject;

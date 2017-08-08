@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">LastFm Artist Finder</string>
+    <string name="app_name">LastFm Search App</string>
     <string name="lastfm_apikey">ce0468d4bd7486d5f49904d927506963</string>
 
     <string name="bio">Bio</string>
     <string name="similar">Similar</string>
     <string name="artist_detail">Artist Detail</string>
-    <string name="let_s_search_someone">Let\'s search someone...:)</string>
+    <string name="let_s_search_someone">Let\'s start to search ..:)</string>
     <string name="more">more</string>
     <string name="artist">Artist</string>
     <string name="album">Album</string>

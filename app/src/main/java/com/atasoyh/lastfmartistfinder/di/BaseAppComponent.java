@@ -2,8 +2,8 @@ package com.atasoyh.lastfmartistfinder.di;
 
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.view.BaseActivity;
-import com.atasoyh.lastfmartistfinder.view.artistdetail.dpi.ArtistInfoComponent;
-import com.atasoyh.lastfmartistfinder.view.artistdetail.dpi.ArtistInfoModule;
+import com.atasoyh.lastfmartistfinder.view.detail.dpi.DetailComponent;
+import com.atasoyh.lastfmartistfinder.view.detail.dpi.DetailModule;
 import com.atasoyh.lastfmartistfinder.view.search.more.dpi.SearchMoreComponent;
 import com.atasoyh.lastfmartistfinder.view.search.more.dpi.SearchMoreModule;
 import com.atasoyh.lastfmartistfinder.view.search.dpi.SearchComponent;
@@ -20,7 +20,7 @@ public interface BaseAppComponent {
 
     SearchMoreComponent plus(SearchMoreModule searchMoreModule);
 
-    ArtistInfoComponent plus(ArtistInfoModule artistInfoModule);
+    DetailComponent plus(DetailModule detailModule);
 
     SearchComponent plus(SearchModule searchModule);
 }

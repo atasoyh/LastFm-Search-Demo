@@ -1,10 +1,7 @@
-package com.atasoyh.lastfmartistfinder.view.artistdetail;
+package com.atasoyh.lastfmartistfinder.view.detail;
 
 
-import android.app.Instrumentation;
 import android.content.Intent;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.IdlingPolicies;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -13,36 +10,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
-import com.atasoyh.lastfmartistfinder.TestAppComponent;
-import com.atasoyh.lastfmartistfinder.model.Artist;
-import com.atasoyh.lastfmartistfinder.view.search.SearchActivity;
 import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.concurrent.TimeUnit;
-
 import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.schedulers.Schedulers;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -51,20 +37,20 @@ import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class ArtistInfoActivityTest {
+public class DetailActivityTest {
 
 
     @Rule
-    public ActivityTestRule<ArtistInfoActivity> mActivityTestRule = new ActivityTestRule<>(ArtistInfoActivity.class,false,false);
+    public ActivityTestRule<DetailActivity> mActivityTestRule = new ActivityTestRule<>(DetailActivity.class,false,false);
 
     @Before
     public void setUp() {
         RxAndroidPlugins.setInitMainThreadSchedulerHandler(__ -> Schedulers.trampoline());
         Intent i = new Intent();
-        i.putExtra(ArtistInfoActivity.TAG_ARTIST, "tarkan");
-        i.putExtra(ArtistInfoActivity.TAG_MBID,"mbid");
-        i.putExtra(ArtistInfoActivity.TAG_NAME,"tarkan");
-        i.putExtra(ArtistInfoActivity.TAG_TYPE, SearchMoreFragment.Type.ARTIST);
+        i.putExtra(DetailActivity.TAG_ARTIST, "tarkan");
+        i.putExtra(DetailActivity.TAG_MBID,"mbid");
+        i.putExtra(DetailActivity.TAG_NAME,"tarkan");
+        i.putExtra(DetailActivity.TAG_TYPE, SearchMoreFragment.Type.ARTIST);
         mActivityTestRule.launchActivity(i);
     }
 

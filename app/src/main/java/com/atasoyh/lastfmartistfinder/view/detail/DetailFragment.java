@@ -1,4 +1,4 @@
-package com.atasoyh.lastfmartistfinder.view.artistdetail;
+package com.atasoyh.lastfmartistfinder.view.detail;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,12 +16,12 @@ import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.model.Bio;
 import com.atasoyh.lastfmartistfinder.model.Similar;
 import com.atasoyh.lastfmartistfinder.model.Tags;
-import com.atasoyh.lastfmartistfinder.presenter.artistinfo.ArtistInfoContract;
+import com.atasoyh.lastfmartistfinder.presenter.detail.DetailContract;
 import com.atasoyh.lastfmartistfinder.view.BaseFragment;
-import com.atasoyh.lastfmartistfinder.view.artistdetail.dpi.ArtistInfoComponent;
-import com.atasoyh.lastfmartistfinder.view.artistdetail.dpi.ArtistInfoModule;
 import com.atasoyh.lastfmartistfinder.view.customview.ArtistView;
 import com.atasoyh.lastfmartistfinder.view.customview.BioView;
+import com.atasoyh.lastfmartistfinder.view.detail.dpi.DetailComponent;
+import com.atasoyh.lastfmartistfinder.view.detail.dpi.DetailModule;
 import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
  * Created by atasoyh on 10/07/2017.
  */
 
-public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContract.View<ArtistInfoContract.Presenter> {
+public class DetailFragment extends BaseFragment implements DetailContract.View<DetailContract.Presenter> {
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
@@ -54,15 +54,18 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
     LinearLayout llBio;
 
     @BindView(R.id.llSimilars)
-    LinearLayout llSimilars;
+    LinearLayout llSimilarsContent;
+
+    @BindView(R.id.llSimilar)
+    LinearLayout llSimilar;
 
     @Inject
-    ArtistInfoContract.Presenter presenter;
+    DetailContract.Presenter presenter;
 
-    private ArtistInfoComponent artistInfoComponent;
+    private DetailComponent detailComponent;
 
-    public static ArtistInfoFragment newInstance(String artistName, String name, String mbid, SearchMoreFragment.Type type) {
-        ArtistInfoFragment fragment = new ArtistInfoFragment();
+    public static DetailFragment newInstance(String artistName, String name, String mbid, SearchMoreFragment.Type type) {
+        DetailFragment fragment = new DetailFragment();
         Bundle bundle = new Bundle();
         bundle.putString("artist", artistName);
         bundle.putString("name", name);
@@ -91,17 +94,17 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
         String name = getArguments().getString("name", null);
         String mbid = getArguments().getString("mbid", null);
         SearchMoreFragment.Type type = (SearchMoreFragment.Type) getArguments().getSerializable("type");
-        artistInfoComponent = DefaultApplication.get(getContext()).getAppComponent().plus(new ArtistInfoModule(this, artistName, name, mbid, type));
-        artistInfoComponent.inject(this);
+        detailComponent = DefaultApplication.get(getContext()).getAppComponent().plus(new DetailModule(this, artistName, name, mbid, type));
+        detailComponent.inject(this);
     }
 
     @Override
     protected void releaseSubComponents(DefaultApplication application) {
-        artistInfoComponent = null;
+        detailComponent = null;
     }
 
     @Override
-    public void setPresenter(ArtistInfoContract.Presenter presenter) {
+    public void setPresenter(DetailContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
@@ -143,20 +146,19 @@ public class ArtistInfoFragment extends BaseFragment implements ArtistInfoContra
 
     @Override
     public void showSimilars(@NonNull Similar similar) {
-//        getActivity().runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
                 List<Artist> artists = similar.getArtist();
                 if (artists.size() == 0) return;
-
-                llSimilars.setVisibility(View.VISIBLE);
+                llSimilar.setVisibility(View.VISIBLE);
                 for (Artist artist : artists) {
                     ArtistView artistView = new ArtistView(getContext());
                     artistView.setArtist(artist);
-                    llSimilars.addView(artistView);
+                    llSimilarsContent.addView(artistView);
                 }
-//            }
-//        });
+            }
+        });
 
     }
 

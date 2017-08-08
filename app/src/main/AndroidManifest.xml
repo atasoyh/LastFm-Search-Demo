@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.artistdetail.ArtistInfoActivity" android:label="@string/artist_detail" android:parentActivityName=".view.search.SearchActivity" />
+        <activity android:name=".view.detail.DetailActivity" android:label="@string/artist_detail" android:parentActivityName=".view.search.SearchActivity" />
 
     </application>
 

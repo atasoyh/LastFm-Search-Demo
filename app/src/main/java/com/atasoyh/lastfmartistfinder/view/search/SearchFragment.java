@@ -1,6 +1,5 @@
 package com.atasoyh.lastfmartistfinder.view.search;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,7 +19,6 @@ import com.atasoyh.lastfmartistfinder.model.Track;
 import com.atasoyh.lastfmartistfinder.presenter.search.SearchContract;
 import com.atasoyh.lastfmartistfinder.view.BaseFragment;
 import com.atasoyh.lastfmartistfinder.view.RxBus;
-import com.atasoyh.lastfmartistfinder.view.artistdetail.ArtistInfoActivity;
 import com.atasoyh.lastfmartistfinder.view.events.OpenItemDetail;
 import com.atasoyh.lastfmartistfinder.view.events.ShowMoreResult;
 import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;

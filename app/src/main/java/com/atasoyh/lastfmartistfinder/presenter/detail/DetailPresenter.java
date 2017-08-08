@@ -1,4 +1,4 @@
-package com.atasoyh.lastfmartistfinder.presenter.artistinfo;
+package com.atasoyh.lastfmartistfinder.presenter.detail;
 
 import com.atasoyh.lastfmartistfinder.interactor.album.AlbumInfoInteractor;
 import com.atasoyh.lastfmartistfinder.interactor.artist.ArtistInfoInteractor;
@@ -12,8 +12,6 @@ import com.atasoyh.lastfmartistfinder.model.Tags;
 import com.atasoyh.lastfmartistfinder.util.RetrofitException;
 import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
 
 import io.reactivex.Observer;
@@ -23,16 +21,16 @@ import io.reactivex.disposables.Disposable;
  * Created by atasoyh on 10/07/2017.
  */
 
-public class ArtistInfoPresenter implements ArtistInfoContract.Presenter {
+public class DetailPresenter implements DetailContract.Presenter {
 
-   private final ArtistInfoContract.View view;
+   private final DetailContract.View view;
     private final ArtistInfoInteractor artistInfoInteractor;
     private final AlbumInfoInteractor albumInfoInteractor;
     private final TrackInfoInteractor trackInfoInteractor;
     private final SearchMoreFragment.Type type;
 
     @Inject
-    public ArtistInfoPresenter(ArtistInfoContract.View view, ArtistInfoInteractor artistInfoInteractor, AlbumInfoInteractor albumInfoInteractor, TrackInfoInteractor trackInfoInteractor, SearchMoreFragment.Type type) {
+    public DetailPresenter(DetailContract.View view, ArtistInfoInteractor artistInfoInteractor, AlbumInfoInteractor albumInfoInteractor, TrackInfoInteractor trackInfoInteractor, SearchMoreFragment.Type type) {
         this.artistInfoInteractor = artistInfoInteractor;
         this.albumInfoInteractor = albumInfoInteractor;
         this.trackInfoInteractor = trackInfoInteractor;

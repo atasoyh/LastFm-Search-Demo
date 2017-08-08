@@ -1,4 +1,4 @@
-package com.atasoyh.lastfmartistfinder.view.artistdetail.dpi;
+package com.atasoyh.lastfmartistfinder.view.detail.dpi;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -10,5 +10,5 @@ import javax.inject.Scope;
  */
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ArtistInfoScope {
+public @interface DetailScope {
 }

@@ -1,18 +1,14 @@
-package com.atasoyh.lastfmartistfinder.view.artistdetail.dpi;
+package com.atasoyh.lastfmartistfinder.view.detail.dpi;
 
-import com.atasoyh.lastfmartistfinder.interactor.SearchInteractor;
 import com.atasoyh.lastfmartistfinder.interactor.album.AlbumInfoInteractor;
 import com.atasoyh.lastfmartistfinder.interactor.album.AlbumInfoInteractorImpl;
-import com.atasoyh.lastfmartistfinder.interactor.album.AlbumSearchInteractorImpl;
 import com.atasoyh.lastfmartistfinder.interactor.artist.ArtistInfoInteractor;
 import com.atasoyh.lastfmartistfinder.interactor.artist.ArtistInfoInteractorImpl;
 import com.atasoyh.lastfmartistfinder.interactor.LastFmApi;
-import com.atasoyh.lastfmartistfinder.interactor.artist.ArtistSearchInteractorImpl;
 import com.atasoyh.lastfmartistfinder.interactor.track.TrackInfoInteractor;
 import com.atasoyh.lastfmartistfinder.interactor.track.TrackInfoInteractorImpl;
-import com.atasoyh.lastfmartistfinder.interactor.track.TrackSearchInteractorImpl;
-import com.atasoyh.lastfmartistfinder.presenter.artistinfo.ArtistInfoContract;
-import com.atasoyh.lastfmartistfinder.presenter.artistinfo.ArtistInfoPresenter;
+import com.atasoyh.lastfmartistfinder.presenter.detail.DetailContract;
+import com.atasoyh.lastfmartistfinder.presenter.detail.DetailPresenter;
 import com.atasoyh.lastfmartistfinder.view.search.more.SearchMoreFragment;
 
 import javax.inject.Inject;
@@ -25,7 +21,7 @@ import dagger.Provides;
  * Created by atasoyh on 09/07/2017.
  */
 @Module
-public class ArtistInfoModule {
+public class DetailModule {
 
     private final String artistName;
     private final String albumName;
@@ -33,10 +29,10 @@ public class ArtistInfoModule {
     private final String mbid;
     private final SearchMoreFragment.Type type;
 
-    private final ArtistInfoContract.View view;
+    private final DetailContract.View view;
 
     @Inject
-    public ArtistInfoModule(ArtistInfoContract.View view, String artistName, String name, String mbid, SearchMoreFragment.Type type) {
+    public DetailModule(DetailContract.View view, String artistName, String name, String mbid, SearchMoreFragment.Type type) {
         this.view = view;
         this.artistName = artistName;
         this.mbid = mbid;
@@ -46,66 +42,66 @@ public class ArtistInfoModule {
     }
 
     @Provides
-    ArtistInfoContract.View provideTasksContractView() {
+    DetailContract.View provideTasksContractView() {
         return view;
     }
 
-    @ArtistInfoScope
+    @DetailScope
     @Named("artistName")
     @Provides
     String getArtistName() {
         return artistName;
     }
 
-    @ArtistInfoScope
+    @DetailScope
     @Named("mbid")
     @Provides
     String getMbid() {
         return mbid;
     }
 
-    @ArtistInfoScope
+    @DetailScope
     @Named("albumName")
     @Provides
     public String getAlbumName() {
         return albumName;
     }
 
-    @ArtistInfoScope
+    @DetailScope
     @Named("trackName")
     @Provides
     public String getTrackName() {
         return trackName;
     }
 
-    @ArtistInfoScope
+    @DetailScope
     @Provides
     public SearchMoreFragment.Type getType() {
         return type;
     }
 
-    @ArtistInfoScope
+    @DetailScope
     @Provides
     ArtistInfoInteractor provideArtistInfoInteractor(LastFmApi api, @Named("artistName") String artistName, @Named("mbid") String mbid) {
         return new ArtistInfoInteractorImpl(api, artistName, mbid);
     }
 
-    @ArtistInfoScope
+    @DetailScope
     @Provides
     AlbumInfoInteractor provideAlbumInfoInteractor(LastFmApi api, @Named("artistName") String artistName, @Named("albumName") String albumName) {
         return new AlbumInfoInteractorImpl(api, albumName, artistName);
     }
 
-    @ArtistInfoScope
+    @DetailScope
     @Provides
     TrackInfoInteractor provideTrackInfoInteractor(LastFmApi api, @Named("artistName") String artistName, @Named("trackName") String trackName) {
         return new TrackInfoInteractorImpl(api, artistName, trackName);
     }
 
-    @ArtistInfoScope
+    @DetailScope
     @Provides
-    ArtistInfoContract.Presenter provideArtistInfoPresenter(ArtistInfoContract.View view, ArtistInfoInteractor interactor, AlbumInfoInteractor albumInfoInteractor, TrackInfoInteractor trackInfoInteractor, SearchMoreFragment.Type type) {
-        return new ArtistInfoPresenter(view, interactor, albumInfoInteractor, trackInfoInteractor, type);
+    DetailContract.Presenter provideArtistInfoPresenter(DetailContract.View view, ArtistInfoInteractor interactor, AlbumInfoInteractor albumInfoInteractor, TrackInfoInteractor trackInfoInteractor, SearchMoreFragment.Type type) {
+        return new DetailPresenter(view, interactor, albumInfoInteractor, trackInfoInteractor, type);
     }
 
 
