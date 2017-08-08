@@ -10,6 +10,7 @@ import com.atasoyh.lastfmartistfinder.model.ArtistMatches;
 import com.atasoyh.lastfmartistfinder.model.TrackMatches;
 import com.atasoyh.lastfmartistfinder.presenter.search.ArtistSearchContract;
 import com.atasoyh.lastfmartistfinder.presenter.search.ArtistSearchPresenter;
+import com.atasoyh.lastfmartistfinder.view.search.artist.ArtistSearchFragment;
 
 import javax.inject.Inject;
 
@@ -23,15 +24,22 @@ import dagger.Provides;
 public class ArtistSearchModule {
 
     private final ArtistSearchContract.View view;
+    private final ArtistSearchFragment.Type type;
 
     @Inject
-    public ArtistSearchModule(ArtistSearchContract.View view) {
+    public ArtistSearchModule(ArtistSearchContract.View view, ArtistSearchFragment.Type type) {
         this.view = view;
+        this.type = type;
     }
 
     @Provides
     ArtistSearchContract.View provideTasksContractView() {
         return view;
+    }
+
+    @Provides
+    ArtistSearchFragment.Type provideType() {
+        return type;
     }
 
     @Provides
@@ -42,7 +50,7 @@ public class ArtistSearchModule {
 
     @Provides
     ArtistSearchContract.Presenter provideSearchArtistPresenter(ArtistSearchContract.View view, SearchInteractor artistSearchInteractor) {
-        return  new ArtistSearchPresenter(view, artistSearchInteractor);
+        return new ArtistSearchPresenter(view, artistSearchInteractor);
     }
 
 }

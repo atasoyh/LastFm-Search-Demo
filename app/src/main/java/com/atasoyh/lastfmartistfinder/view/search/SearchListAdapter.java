@@ -34,13 +34,13 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static final int ALBUM_VIEW_TYPE = 3;
     public static final int TRACK_VIEW_TYPE = 4;
 
-    List<Artist> artisList;
-    List<Album> albumList;
-    List<Track> trackList;
-    List<Integer> titleList;
-    List<Integer> titleIndexList;
-    OnItemClickListener onItemClickListener;
-    OnNeededLoadMoreListener onNeededLoadMoreListener;
+    private List<Artist> artisList;
+    private List<Album> albumList;
+    private List<Track> trackList;
+    private List<Integer> titleList;
+    private List<Integer> titleIndexList;
+    private OnItemClickListener onItemClickListener;
+    private OnMoreClickLister onMoreClickLister;
 
     int itemCount;
 
@@ -73,9 +73,10 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.onItemClickListener = onItemClickListener;
     }
 
-    public void setOnNeededLoadMoreListener(OnNeededLoadMoreListener onNeededLoadMoreListener) {
-        this.onNeededLoadMoreListener = onNeededLoadMoreListener;
+    public void setOnMoreClickLister(OnMoreClickLister onMoreClickLister) {
+        this.onMoreClickLister = onMoreClickLister;
     }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -114,7 +115,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItem(position) instanceof Integer) {
-            onBindHeaderViewHolder((HeaderViewHolder)holder,(Integer)getItem(position));
+            onBindHeaderViewHolder((HeaderViewHolder) holder, (Integer) getItem(position));
         } else if (getItem(position) instanceof Artist) {
             onBindArtistViewHolder((ArtistViewHolder) holder, (Artist) getItem(position));
         } else if (getItem(position) instanceof Album) {
@@ -126,10 +127,16 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void onBindHeaderViewHolder(HeaderViewHolder holder, Integer res) {
         holder.title.setText(res);
-        switch (res){
+        switch (res) {
             case R.string.artist:
+                holder.btnMore.setOnClickListener(view -> onMoreClickLister.onArtistMoreClicked());
+                break;
             case R.string.album:
+                holder.btnMore.setOnClickListener(view -> onMoreClickLister.onAlbumMoreClicked());
+                break;
             case R.string.track:
+                holder.btnMore.setOnClickListener(view -> onMoreClickLister.onTrackMoreClicked());
+                break;
 
         }
 
@@ -159,26 +166,26 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public Object getItem(int position) {
         if (isItemHeader(position)) return titleList.get(titleIndexList.indexOf(position));
-        int headerCount=0;
+        int headerCount = 0;
         if (artisList != null) {
             headerCount++;
-            if (artisList.size() > position-headerCount)
-                return artisList.get(position-headerCount);
+            if (artisList.size() > position - headerCount)
+                return artisList.get(position - headerCount);
 
             position = position - artisList.size();
         }
 
         if (albumList != null) {
             headerCount++;
-            if (albumList.size() > position-headerCount)
-                return albumList.get(position-headerCount);
+            if (albumList.size() > position - headerCount)
+                return albumList.get(position - headerCount);
 
             position -= albumList.size();
         }
         if (trackList != null) {
             headerCount++;
-            if (trackList.size() > position-headerCount)
-                return trackList.get(position-headerCount);
+            if (trackList.size() > position - headerCount)
+                return trackList.get(position - headerCount);
 
             position -= trackList.size();
         }
@@ -245,7 +252,12 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         void onItemClick(Album album);
     }
 
-    public interface OnNeededLoadMoreListener {
-        void onNeededLoadMore();
+    public interface OnMoreClickLister {
+        void onArtistMoreClicked();
+
+        void onAlbumMoreClicked();
+
+        void onTrackMoreClicked();
+
     }
 }

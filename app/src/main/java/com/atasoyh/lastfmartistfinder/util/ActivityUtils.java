@@ -21,6 +21,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.atasoyh.lastfmartistfinder.R;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -31,15 +33,82 @@ public class ActivityUtils {
     /**
      * The {@code fragment} is added to the container view with id {@code frameId}. The operation is
      * performed by the {@code fragmentManager}.
-     *
      */
-    public void addFragmentToActivity (@NonNull FragmentManager fragmentManager,
-                                              @NonNull Fragment fragment, int frameId) {
+    public void addFragmentToActivity(@NonNull FragmentManager fragmentManager,
+                                      @NonNull Fragment fragment, int frameId) {
         checkNotNull(fragmentManager);
         checkNotNull(fragment);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(frameId, fragment);
         transaction.commit();
+    }
+
+    /**
+     * Adds a new Fragment on top of the current Fragment back stack
+     *
+     * @param fragment {@link android.support.v4.app.Fragment} Fragment to add
+     */
+    public void addFragmentToBackstack(@NonNull FragmentManager fragmentManager,
+                                       @NonNull Fragment fragment, int frameId) {
+        checkNotNull(fragmentManager);
+        checkNotNull(fragment);
+        Fragment topFragment=getTopFragment(fragmentManager);
+        if (topFragment != null) {
+            fragmentManager
+                    .beginTransaction()
+                    .hide(topFragment)
+                    .commit();
+        }
+        fragmentManager
+                .beginTransaction()
+                .add(frameId, fragment, fragment.getClass().getSimpleName())
+                .addToBackStack(fragment.getClass().getSimpleName())
+                .commit();
+    }
+
+    /**
+     * Get the current top Fragment displayed
+     *
+     * @return top Fragment
+     */
+    public Fragment getTopFragment(@NonNull FragmentManager fragmentManager) {
+        checkNotNull(fragmentManager);
+        return fragmentManager.findFragmentById(R.id.contentFrame);
+    }
+
+    /**
+     * Sets a new root Fragment in the Fragment back stack. Clears all current Fragments that
+     * may exist in the back stack
+     *
+     * @param fragment {@link android.support.v4.app.Fragment} Fragment to add
+     */
+    private void setRootFragment(@NonNull FragmentManager fragmentManager,@NonNull final Fragment fragment) {
+        checkNotNull(fragmentManager);
+        checkNotNull(fragment);
+        clearFragmentBackstack(fragmentManager);
+        final FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.contentFrame, fragment, fragment.getClass().getSimpleName());
+        ft.addToBackStack(fragment.getClass().getSimpleName());
+        ft.commit();
+    }
+
+    /**
+     * Clears the current top Fragment from the backstack and sends the user to the previous Fragment
+     */
+    private void popFragment(FragmentManager fragmentManager) {
+        checkNotNull(fragmentManager);
+        fragmentManager.popBackStack();
+    }
+
+    /**
+     * Clears all Fragments from the Fragment back stack
+     */
+    private void clearFragmentBackstack(@NonNull FragmentManager fragmentManager) {
+        checkNotNull(fragmentManager);
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            FragmentManager.BackStackEntry first = fragmentManager.getBackStackEntryAt(0);
+            fragmentManager.popBackStackImmediate(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
 
 }

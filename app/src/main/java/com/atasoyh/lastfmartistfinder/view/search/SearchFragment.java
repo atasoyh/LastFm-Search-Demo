@@ -8,22 +8,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
+import com.atasoyh.lastfmartistfinder.model.Album;
 import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.model.SearchItems;
+import com.atasoyh.lastfmartistfinder.model.Track;
 import com.atasoyh.lastfmartistfinder.presenter.search.SearchContract;
 import com.atasoyh.lastfmartistfinder.view.BaseFragment;
+import com.atasoyh.lastfmartistfinder.view.RxBus;
 import com.atasoyh.lastfmartistfinder.view.artistdetail.ArtistInfoActivity;
+import com.atasoyh.lastfmartistfinder.view.events.ShowMoreResult;
+import com.atasoyh.lastfmartistfinder.view.search.artist.ArtistSearchFragment;
 import com.atasoyh.lastfmartistfinder.view.search.artist.SearchMoreListAdapter;
 import com.atasoyh.lastfmartistfinder.view.search.dpi.SearchComponent;
 import com.atasoyh.lastfmartistfinder.view.search.dpi.SearchModule;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -34,7 +36,7 @@ import butterknife.ButterKnife;
  * Created by atasoyh on 09/07/2017.
  */
 
-public class SearchFragment extends BaseFragment implements SearchContract.View<SearchContract.Presenter>, SearchMoreListAdapter.OnItemClickListener, SearchMoreListAdapter.OnNeededLoadMoreListener {
+public class SearchFragment extends BaseFragment implements SearchContract.View<SearchContract.Presenter>, SearchListAdapter.OnItemClickListener, SearchListAdapter.OnMoreClickLister {
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
@@ -47,6 +49,8 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
 
     @Inject
     SearchContract.Presenter presenter;
+
+    private String lastQuery;
 
     private SearchComponent searchComponent;
 
@@ -109,6 +113,8 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
 
             }
         });
+        adapter.setOnItemClickListener(this);
+        adapter.setOnMoreClickLister(this);
         recyclerView.setLayoutManager(glm);
         recyclerView.setAdapter(adapter);
     }
@@ -131,11 +137,13 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
 
     public void onQueryTextChange(String newText) {
         presenter.search(newText);
+        lastQuery = newText;
 
     }
 
     @Override
     public void onItemClick(Artist item) {
+        //todo refactor to RXBus
         Intent intent = new Intent(getContext(), ArtistInfoActivity.class);
         intent.putExtra(ArtistInfoActivity.TAG_ARTIST, item.getName());
         intent.putExtra(ArtistInfoActivity.TAG_MBID, item.getMbid());
@@ -144,7 +152,35 @@ public class SearchFragment extends BaseFragment implements SearchContract.View<
     }
 
     @Override
-    public void onNeededLoadMore() {
+    public void onItemClick(Track track) {
+        Intent intent = new Intent(getContext(), ArtistInfoActivity.class);
+        intent.putExtra(ArtistInfoActivity.TAG_ARTIST, track.getName());
+        intent.putExtra(ArtistInfoActivity.TAG_MBID, track.getMbid());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemClick(Album album) {
+        Intent intent = new Intent(getContext(), ArtistInfoActivity.class);
+        intent.putExtra(ArtistInfoActivity.TAG_ARTIST, album.getName());
+        intent.putExtra(ArtistInfoActivity.TAG_MBID, album.getMbid());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onArtistMoreClicked() {
+        RxBus.publish(new ShowMoreResult(ArtistSearchFragment.Type.ARTIST, lastQuery));
+    }
+
+    @Override
+    public void onAlbumMoreClicked() {
+        RxBus.publish(new ShowMoreResult(ArtistSearchFragment.Type.ALBUM, lastQuery));
+
+    }
+
+    @Override
+    public void onTrackMoreClicked() {
+        RxBus.publish(new ShowMoreResult(ArtistSearchFragment.Type.TRACK, lastQuery));
 
     }
 }

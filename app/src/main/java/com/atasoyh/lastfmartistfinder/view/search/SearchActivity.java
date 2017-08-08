@@ -1,6 +1,9 @@
 package com.atasoyh.lastfmartistfinder.view.search;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,6 +12,8 @@ import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.util.RxSearch;
 import com.atasoyh.lastfmartistfinder.view.BaseActivity;
+import com.atasoyh.lastfmartistfinder.view.RxBus;
+import com.atasoyh.lastfmartistfinder.view.events.ShowMoreResult;
 import com.atasoyh.lastfmartistfinder.view.search.artist.ArtistSearchFragment;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -54,6 +59,13 @@ public class SearchActivity extends BaseActivity {
                     getSupportFragmentManager(), searchFragment, R.id.contentFrame);
         }
 
+        RxBus.subscribe(message -> {
+            if (message instanceof ShowMoreResult) {
+                ShowMoreResult showMoreResult = (ShowMoreResult) message;
+                activityUtils.addFragmentToBackstack(getSupportFragmentManager(), ArtistSearchFragment.newInstance(showMoreResult.type,showMoreResult.keyword), R.id.contentFrame);
+            }
+        });
+
     }
 
     @Override
@@ -65,6 +77,13 @@ public class SearchActivity extends BaseActivity {
 
         return true;
     }
+
+
+
+
+
+
+
 
     @Override
     protected void injectDependencies(DefaultApplication application) {

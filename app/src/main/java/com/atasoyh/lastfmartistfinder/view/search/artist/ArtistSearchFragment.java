@@ -15,8 +15,10 @@ import com.atasoyh.lastfmartistfinder.DefaultApplication;
 import com.atasoyh.lastfmartistfinder.R;
 import com.atasoyh.lastfmartistfinder.model.Artist;
 import com.atasoyh.lastfmartistfinder.presenter.search.ArtistSearchContract;
+import com.atasoyh.lastfmartistfinder.util.TextUtils;
 import com.atasoyh.lastfmartistfinder.view.BaseFragment;
 import com.atasoyh.lastfmartistfinder.view.artistdetail.ArtistInfoActivity;
+import com.atasoyh.lastfmartistfinder.view.events.ShowMoreResult;
 import com.atasoyh.lastfmartistfinder.view.search.artist.dpi.ArtistSearchComponent;
 import com.atasoyh.lastfmartistfinder.view.search.artist.dpi.ArtistSearchModule;
 
@@ -34,6 +36,11 @@ import butterknife.ButterKnife;
 
 public class ArtistSearchFragment extends BaseFragment implements ArtistSearchContract.View<ArtistSearchContract.Presenter>, SearchMoreListAdapter.OnItemClickListener, SearchMoreListAdapter.OnNeededLoadMoreListener {
 
+    private String keyword;
+
+    public enum Type {ARTIST, ALBUM, TRACK}
+
+
     @BindView(R.id.rv)
     RecyclerView recyclerView;
 
@@ -49,14 +56,20 @@ public class ArtistSearchFragment extends BaseFragment implements ArtistSearchCo
     private ArtistSearchComponent artistSearchComponent;
     private SearchMoreListAdapter adapter;
 
-    public static ArtistSearchFragment newInstance() {
+    public static ArtistSearchFragment newInstance(Type type, String keyword) {
         ArtistSearchFragment fragment = new ArtistSearchFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("type", type);
+        bundle.putString("keyword", keyword);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     protected void injectDependencies(DefaultApplication application) {
-        artistSearchComponent = DefaultApplication.get(getContext()).getAppComponent().plus(new ArtistSearchModule(this));
+        keyword = getArguments().getString("keyword", null);
+        Type type = (Type) getArguments().getSerializable("type");
+        artistSearchComponent = DefaultApplication.get(getContext()).getAppComponent().plus(new ArtistSearchModule(this, type));
         artistSearchComponent.inject(this);
     }
 
@@ -84,6 +97,9 @@ public class ArtistSearchFragment extends BaseFragment implements ArtistSearchCo
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(adapter);
+        if (!TextUtils.isEmpty(keyword))
+            onQueryTextChange(keyword);
+
     }
 
     @Override
